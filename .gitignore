@@ -4,6 +4,8 @@ ido.last
 recentf
 .smex-items
 smex-items
+projectile-bookmarks.eld
+transient/
 elpa/
 elpa/archives
 el-get/
