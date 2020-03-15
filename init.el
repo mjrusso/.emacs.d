@@ -35,3 +35,7 @@
       (directory-files (concat user-emacs-directory "themes") t "^[^\.]"))
 
 (load-theme 'darkokai t)
+;(load-theme 'monokai t)
+;(load-theme 'zenburn t)
+;(load-theme 'twilight t)
+;(load-theme 'solarized t)
