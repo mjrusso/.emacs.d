@@ -1,3 +1,6 @@
+;; https://github.com/magit/magit/issues/3415#issuecomment-378941991
+(require 'git-commit)
+
 (require 'highlight-indentation)
 (require 'idle-highlight-mode)
 
