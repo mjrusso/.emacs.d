@@ -39,3 +39,5 @@
 ;(load-theme 'zenburn t)
 ;(load-theme 'twilight t)
 ;(load-theme 'solarized t)
+;(load-theme 'espresso t)
+;(load-theme 'tango-plus t)
