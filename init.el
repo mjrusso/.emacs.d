@@ -41,3 +41,7 @@
 ;(load-theme 'solarized t)
 ;(load-theme 'espresso t)
 ;(load-theme 'tango-plus t)
+
+(message "Shell: %s\nPath: %s"
+         (getenv "SHELL")
+         (getenv "PATH"))
