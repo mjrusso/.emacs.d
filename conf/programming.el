@@ -29,6 +29,11 @@
 
 (add-hook 'python-mode-hook (lambda () (highlight-indentation-mode)))
 
+(require 'rust-mode)
+(setq rust-format-on-save t)
+(add-hook 'rust-mode-hook
+          (lambda () (setq indent-tabs-mode nil)))
+
 (require 'web-mode)
 (add-to-list 'auto-mode-alist '("\\.js\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.jsx\\'" . web-mode))
