@@ -31,9 +31,6 @@
 
 (load (concat user-emacs-directory "my-autoload.el"))
 
-;; Additional context:
-;; - https://www.reddit.com/r/emacs/comments/53zpv9/how_do_i_get_emacs_to_stop_adding_custom_fields/d8llk8u/
-;; - https://irreal.org/blog/?p=5630
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
    (when (file-exists-p custom-file)
      (load custom-file))
