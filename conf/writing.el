@@ -32,5 +32,5 @@
    "‑" ; NON-BREAKING HYPHEN
   ))
 
-;; Use Typo by default for markdown files.
-(add-hook 'markdown-mode-hook 'typo-mode)
+;; To use Typo by default for markdown files, uncomment the following line:
+;; (add-hook 'markdown-mode-hook 'typo-mode)
