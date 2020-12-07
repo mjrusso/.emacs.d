@@ -34,6 +34,9 @@
 (add-hook 'rust-mode-hook
           (lambda () (setq indent-tabs-mode nil)))
 
+(define-key rust-mode-map (kbd "C-c C-c") 'rust-run)
+(define-key rust-mode-map (kbd "C-c C-t") 'rust-test)
+
 (require 'web-mode)
 (add-to-list 'auto-mode-alist '("\\.js\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.jsx\\'" . web-mode))
