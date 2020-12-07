@@ -15,7 +15,9 @@ git subtree add --prefix lib/<package-name> <git-repository-url>  master --squas
 
 To byte-compile and autoload the vendored packages, use `M-x pnh-reinit-libs`.
 
-(Note that some packages, like [magit](https://magit.vc), are installed via
+(Note that some packages, like [magit](https://magit.vc),
+[company-mode](https://company-mode.github.io), and
+[lsp-mode](https://emacs-lsp.github.io/lsp-mode/), are installed via
 [MELPA](https://melpa.org/).)
 
 ## themes

@@ -1,3 +1,5 @@
+(require 'lsp-mode)
+
 ;; https://github.com/magit/magit/issues/3415#issuecomment-378941991
 (require 'git-commit)
 
@@ -36,6 +38,10 @@
 
 (define-key rust-mode-map (kbd "C-c C-c") 'rust-run)
 (define-key rust-mode-map (kbd "C-c C-t") 'rust-test)
+
+;; To use LSP with Rust, ensure RLS is installed: https://github.com/rust-lang/rls
+;; Run: `rustup component add rls rust-analysis rust-src`
+(add-hook 'rust-mode-hook #'lsp)
 
 (require 'web-mode)
 (add-to-list 'auto-mode-alist '("\\.js\\'" . web-mode))

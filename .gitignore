@@ -1,4 +1,5 @@
 *.elc
+.lsp-session*
 my-autoload.el
 ido.last
 recentf
