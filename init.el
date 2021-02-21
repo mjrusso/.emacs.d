@@ -12,7 +12,7 @@
 (when (not package-archive-contents)
   (package-refresh-contents))
 
-(defvar my-packages '(magit company lsp-mode lsp-ui lsp-treemacs))
+(defvar my-packages '(magit company lsp-mode lsp-ui lsp-treemacs org-roam org-download))
 
 (dolist (p my-packages)
   (when (not (package-installed-p p))
