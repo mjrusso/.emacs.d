@@ -31,7 +31,7 @@
       "%?"
       :file-name "${slug}"
       :head "#+title: ${title}\n"
-      :immediate-finish nil
+      :immediate-finish t
       :unnarrowed t)))
   (org-roam-dailies-directory "daily/")
   (org-roam-dailies-capture-templates
