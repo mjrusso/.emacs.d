@@ -22,7 +22,6 @@
   :custom
   (org-download-method 'directory)
   (org-download-image-dir "images")
-  (org-download-timestamp "%Y%m%d-%H%M%S_")
   (org-download-heading-lvl nil)
   (org-download-screenshot-method "pngpaste %s")
   :bind
