@@ -68,4 +68,5 @@
   (deft-recursive t)
   (deft-use-filter-string-for-filename t)
   (deft-default-extension "org")
-  (deft-directory org-roam-directory))
+  (deft-directory org-roam-directory)
+  (deft-auto-save-interval 0))
