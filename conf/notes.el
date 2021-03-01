@@ -15,11 +15,19 @@
 
 ;; https://github.com/abo-abo/org-download
 ;; https://www.orgroam.com/manual.html#Org_002ddownload
+;; https://zzamboni.org/post/how-to-insert-screenshots-in-org-documents-on-macos/
 (use-package org-download
   :after org
+  :defer nil
+  :custom
+  (org-download-method 'directory)
+  (org-download-image-dir "images")
+  (org-download-timestamp "%Y%m%d-%H%M%S_")
+  (org-download-heading-lvl nil)
+  (org-download-screenshot-method "pngpaste %s")
   :bind
   (:map org-mode-map
-        (("s-Y" . org-download-screenshot)
+        (("s-Y" . org-download-clipboard)
          ("s-y" . org-download-yank))))
 
 ;; Org-roam uses ripgrep (when it's installed) for better performance.
