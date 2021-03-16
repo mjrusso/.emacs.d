@@ -19,8 +19,9 @@ To byte-compile and autoload the vendored packages, use `M-x pnh-reinit-libs`.
 [company-mode](https://company-mode.github.io),
 [lsp-mode](https://emacs-lsp.github.io/lsp-mode/),
 [org-roam](https://github.com/org-roam/org-roam), and
-[org-download](https://github.com/abo-abo/org-download) are installed via
-[MELPA](https://melpa.org/).)
+[org-download](https://github.com/abo-abo/org-download), and
+[ox-reveal](https://github.com/yjwen/org-reveal/blob/master/ox-reveal.el) are
+installed via [MELPA](https://melpa.org/).)
 
 ## themes
 
