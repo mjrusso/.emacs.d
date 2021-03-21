@@ -14,6 +14,16 @@
 ;; Show trailing whitespace.
 (setq-default show-trailing-whitespace t)
 
+;; But don't highlight trailing whitespace everywhere.
+;; https://www.reddit.com/r/emacs/comments/e1vos6/any_way_to_disable_showtrailingwhitespace_in_the/f8rzn21
+(dolist (hook '(special-mode-hook
+                term-mode-hook
+                comint-mode-hook
+                compilation-mode-hook
+                minibuffer-setup-hook))
+  (add-hook hook
+    (lambda () (setq show-trailing-whitespace nil))))
+
 ;; Set default font to Source Code Pro.
 ;; - https://github.com/adobe/Source-Code-Pro
 ;; - http://blogs.adobe.com/typblography/2012/09/source-code-pro.html
