@@ -22,6 +22,8 @@
 ;; - https://emacs.stackexchange.com/a/15290
 (global-set-key (kbd "C-c C-c") 'compile)
 
+(setq compilation-scroll-output t)
+
 ;; Highlight matching parentheses when the point is on them.
 (show-paren-mode 1)
 
