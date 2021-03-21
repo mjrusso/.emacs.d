@@ -20,7 +20,7 @@
 ;; Particularly handy in conjunction with .dir-locals.el; see:
 ;; - https://emacs.stackexchange.com/a/706
 ;; - https://emacs.stackexchange.com/a/15290
-(global-set-key (kbd "C-c C-c") 'compile)
+(global-set-key (kbd "C-c C-c") 'recompile)
 
 (setq compilation-scroll-output t)
 
