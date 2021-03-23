@@ -10,6 +10,30 @@
 (add-hook 'markdown-mode-hook 'turn-off-auto-fill)
 (add-hook 'markdown-mode-hook 'turn-on-visual-line-mode)
 
+;; Text expansion with abbrev-mode.
+;; For more details, see: https://emacs.stackexchange.com/a/20483
+
+(define-abbrev-table 'unicode-table
+  '(("ualpha" "α")
+    ("ubeta"  "β")
+    ("ugamma" "γ")
+    ("rarr" "→")
+    ("larr" "←")
+    ("uarr" "↑")
+    ("darr" "↓")
+    ("drarr" "⇒")
+    ("dlarr" "⇐")
+    ("duarr" "⇑")
+    ("ddarr" "⇓")
+   )
+)
+
+(define-abbrev-table 'text-mode-abbrev-table
+  nil
+  "Text mode abbrev table."
+  :parents (list unicode-table))
+
+(add-hook 'text-mode-hook #'abbrev-mode)
 (require 'typo)
 
 (setq-default typo-language "English")
