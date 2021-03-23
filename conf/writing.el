@@ -34,6 +34,9 @@
   :parents (list unicode-table))
 
 (add-hook 'text-mode-hook #'abbrev-mode)
+
+;; Typo!
+
 (require 'typo)
 
 (setq-default typo-language "English")
@@ -56,5 +59,28 @@
    "‑" ; NON-BREAKING HYPHEN
   ))
 
-;; To use Typo by default for markdown files, uncomment the following line:
-;; (add-hook 'markdown-mode-hook 'typo-mode)
+;; typo-global-mode provides a globally-accessible key map (using 'C-c 8', to
+;; complement Emacs's default 'C-x 8' prefix map), for inserting various
+;; Unicode characters. For example, use 'C-c 8 - >' to insert a '→' character.
+(typo-global-mode 1)
+
+;; Use Typo with text-mode...
+(add-hook 'text-mode-hook 'typo-mode)
+
+;; ...but disable it when we're in an org-mode src block.
+;; https://emacs.stackexchange.com/a/56167
+(defun disable-typo-in-org-src-block ()
+  (add-hook 'typo-disable-electricity-functions 'org-in-src-block-p nil :local))
+
+(add-hook 'org-mode-hook 'disable-typo-in-org-src-block)
+
+;; ...and also when we're editing inline code in a Markdown document.
+(defun disable-typo-in-markdown-code-block ()
+  (add-hook 'typo-disable-electricity-functions 'markdown-code-block-at-point-p nil :local))
+
+(defun disable-typo-in-markdown-inline-code ()
+  (add-hook 'typo-disable-electricity-functions 'markdown-inline-code-at-point-p nil :local))
+
+(add-hook 'markdown-mode-hook 'disable-typo-in-markdown-code-block)
+
+(add-hook 'markdown-mode-hook 'disable-typo-in-markdown-inline-code)
