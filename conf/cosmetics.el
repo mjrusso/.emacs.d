@@ -8,6 +8,9 @@
 (defun display-startup-echo-area-message ()
   (message ""))
 
+;; Don't use native fullscreen on MacOS. (This make `toggle-frame-fullscreen` usable.)
+(setq ns-use-native-fullscreen nil)
+
 ;; Show column numbers.
 (column-number-mode t)
 
