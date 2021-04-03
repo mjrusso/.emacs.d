@@ -14,4 +14,4 @@
 (use-package ace-window
   :ensure t
   :defer nil
-  :bind ("C-x p" . ace-window))
+  :bind ("C-x o" . ace-window))
