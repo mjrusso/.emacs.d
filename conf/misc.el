@@ -43,21 +43,6 @@
 (require 'find-file-in-project)
 (require 'find-things-fast)
 
-(require 'projectile)
-(projectile-global-mode)
-(setq projectile-use-git-grep t)
-(setq projectile-enable-caching t)
-(setq projectile-require-project-root nil)
-(setq projectile-globally-ignored-directories
-      (append '("build"
-                "eggs"
-                "git-eggs"
-                "develop-eggs"
-                "node_modules"
-                "log"
-                "tmp")
-              projectile-globally-ignored-directories))
-
 ;; Enable the menu bar.
 (menu-bar-mode t)
 
