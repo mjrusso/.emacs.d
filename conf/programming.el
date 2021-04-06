@@ -26,6 +26,15 @@
 
 (require 'magit)
 
+;; Display most magit buffers in the currently-selected window (unless the
+;; buffer's mode derives from ~magit-diff-mode~ or ~magit-process-mode~, in
+;; which case it will get a new window).
+;;
+;; - https://github.com/magit/magit/issues/2541
+;; - https://github.com/magit/magit/pull/2656
+(setq magit-display-buffer-function
+      'magit-display-buffer-same-window-except-diff-v1)
+
 ;; Display 20 commits, for example, in the recent commits section.
 (setq magit-log-section-commit-count 20)
 
