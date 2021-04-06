@@ -1,5 +1,6 @@
 (when window-system
-  (setq frame-title-format '(buffer-file-name "%f" ("%b")))
+  (setq frame-title-format
+        (list '(:eval (mjr/current-tab-name-with-index))))
   (tooltip-mode -1)
   (mouse-wheel-mode t)
   (blink-cursor-mode -1))
