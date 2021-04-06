@@ -27,7 +27,7 @@
                              t "^[^#].*el$"))
 
 (when (not (file-exists-p (concat user-emacs-directory "my-autoload.el")))
-  (pnh-reinit-libs))
+  (mjr/reinit-libs))
 
 (load (concat user-emacs-directory "my-autoload.el"))
 

@@ -13,7 +13,7 @@ To add a new vendored package, use
 git subtree add --prefix lib/<package-name> <git-repository-url>  master --squash
 ```
 
-To byte-compile and autoload the vendored packages, use `M-x pnh-reinit-libs`.
+To byte-compile and autoload the vendored packages, use `M-x mjr/reinit-libs`.
 
 (Note that some packages, like [magit](https://magit.vc),
 [company-mode](https://company-mode.github.io),
