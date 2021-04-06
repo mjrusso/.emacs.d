@@ -64,3 +64,33 @@
 ;; Move point from window to window using shift and the arrow keys.
 (when (fboundp 'windmove-default-keybindings)
   (windmove-default-keybindings))
+
+;; The command to use to open a file using its default external program.
+(setq mjr/open-command
+      (pcase system-type
+        (`darwin "open")
+        ((or `gnu `gnu/linux `gnu/kfreebsd) "xdg-open")))
+
+(defun mjr/open-file-with (arg)
+  "Open visited file in default external program.
+When in dired mode, open file under the cursor.
+With a prefix ARG always prompt for command to use."
+  (interactive "P")
+  (let* ((current-file-name
+          (if (eq major-mode 'dired-mode)
+              (dired-get-file-for-visit)
+            buffer-file-name))
+         (open mjr/open-command)
+         (program (if (or arg (not open))
+                      (read-shell-command "Open current file with: ")
+                    open)))
+    (call-process program nil 0 nil current-file-name)))
+
+(defun mjr/open-directory ()
+  "Open directory of visited file in default external program."
+  (interactive)
+  (let* ((current-directory (file-name-directory buffer-file-name)))
+    (call-process mjr/open-command nil 0 nil current-directory)))
+
+(global-set-key (kbd "C-c f") 'mjr/open-file-with)
+(global-set-key (kbd "C-c d") 'mjr/open-directory)
