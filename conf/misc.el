@@ -58,9 +58,6 @@
 
 (require 'imenu-list)
 
-(require 'find-file-in-project)
-(require 'find-things-fast)
-
 ;; Enable the menu bar.
 (menu-bar-mode t)
 
