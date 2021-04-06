@@ -19,3 +19,13 @@
                 "log"
                 "tmp")
               projectile-globally-ignored-directories))
+
+(require 'counsel-projectile)
+
+(counsel-projectile-mode t)
+
+(setq counsel-projectile-remove-current-project nil)
+
+;; When using projectile commands directly, rather than the counsel variants,
+;; use ivy completion.
+(setq projectile-completion-system 'ivy)
