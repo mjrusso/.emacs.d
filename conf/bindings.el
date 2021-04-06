@@ -8,7 +8,6 @@
 ;; https://www.emacswiki.org/emacs/HippieExpand
 (global-set-key (kbd "M-/") 'hippie-expand)
 
-
 (global-set-key (kbd "C-c g") 'magit-status)
 
 ;; S-r: search entire project
@@ -30,6 +29,10 @@
 (global-set-key (kbd "C-S-s") 'swiper-isearch-thing-at-point)
 (global-set-key (kbd "M-%") 'query-replace-regexp)
 (global-set-key (kbd "C-M-%") 'query-replace)
+
+;; Move point from window to window using shift and the arrow keys.
+(when (fboundp 'windmove-default-keybindings)
+  (windmove-default-keybindings))
 
 ;; Tab navigation
 (global-set-key (kbd "s-}") 'tab-next)

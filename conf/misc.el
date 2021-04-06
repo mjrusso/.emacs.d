@@ -58,13 +58,6 @@
 
 (require 'imenu-list)
 
-;; Enable the menu bar.
-(menu-bar-mode t)
-
-;; Move point from window to window using shift and the arrow keys.
-(when (fboundp 'windmove-default-keybindings)
-  (windmove-default-keybindings))
-
 ;; The command to use to open a file using its default external program.
 (setq mjr/open-command
       (pcase system-type

@@ -5,6 +5,9 @@
   (mouse-wheel-mode t)
   (blink-cursor-mode -1))
 
+;; Enable the menu bar.
+(menu-bar-mode t)
+
 ;; Disable the default minibuffer message.
 (defun display-startup-echo-area-message ()
   (message ""))
