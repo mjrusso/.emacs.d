@@ -24,6 +24,10 @@
 ;; - https://www.emacswiki.org/emacs/SavePlace
 (save-place-mode 1)
 
+;; Persist M-x command history across shutdowns.
+;; - https://www.emacswiki.org/emacs/SaveHist
+(savehist-mode 1)
+
 (defalias 'yes-or-no-p 'y-or-n-p)
 
 (unless (or (fboundp 'helm-mode) (fboundp 'ivy-mode))

@@ -16,6 +16,7 @@ abbrev_defs
 auto-save-list
 backups
 bookmarks
+history
 custom.el
 eshell/history
 eshell/lastdir
