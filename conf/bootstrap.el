@@ -5,7 +5,7 @@
 ;; - https://github.com/technomancy/dotfiles/blob/master/.emacs.d/phil/bootstrap.el
 ;; - https://github.com/technomancy/emacs-starter-kit/tree/v3
 
-(defun pnh-reinit-libs ()
+(defun mjr/reinit-libs ()
   (interactive)
   (let ((generated-autoload-file (concat user-emacs-directory "my-autoload.el")))
     (dolist (d (directory-files (concat user-emacs-directory "lib") t "^[^\.]"))
