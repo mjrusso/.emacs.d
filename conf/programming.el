@@ -24,6 +24,11 @@
 
 (setq compilation-scroll-output t)
 
+(require 'magit)
+
+;; Display 20 commits, for example, in the recent commits section.
+(setq magit-log-section-commit-count 20)
+
 ;; Highlight matching parentheses when the point is on them.
 ;; - https://www.emacswiki.org/emacs/ShowParenMode
 (show-paren-mode 1)
