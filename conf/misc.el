@@ -12,9 +12,23 @@
 
 (winner-mode)
 
+(autoload 'zap-up-to-char "misc"
+  "Kill up to, but not including ARGth occurrence of CHAR." t)
+(global-set-key (kbd "M-z") 'zap-up-to-char)
+
+(require 'uniquify)
+(setq uniquify-buffer-name-style 'forward)
+
+;; When you visit a file, point goes to the last place where it was when you
+;; previously visited the same file.
+;; - https://www.emacswiki.org/emacs/SavePlace
+(save-place-mode 1)
+
 (defalias 'yes-or-no-p 'y-or-n-p)
 
-(require 'better-defaults)
+(unless (or (fboundp 'helm-mode) (fboundp 'ivy-mode))
+  (ido-mode t)
+  (setq ido-enable-flex-matching t))
 
 (require 'flx-ido)
 (ido-mode 1)

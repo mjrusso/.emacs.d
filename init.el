@@ -1,6 +1,6 @@
 ;; Turn off the mouse interface early in startup to avoid momentary display.
 (progn
-  (dolist (mode '(menu-bar-mode tool-bar-mode scroll-bar-mode))
+  (dolist (mode '(menu-bar-mode tool-bar-mode scroll-bar-mode horizontal-scroll-bar-mode))
     (when (fboundp mode) (funcall mode -1))))
 
 (require 'package)

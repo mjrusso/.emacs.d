@@ -1,3 +1,14 @@
+(global-set-key (kbd "C-x C-b") 'ibuffer)
+
+;; HippieExpand looks at the word before point and tries to expand it in
+;; various ways including expanding from a fixed list (like `‘expand-abbrev’’),
+;; expanding from matching text found in a buffer (like `‘dabbrev-expand’’) or
+;; expanding in ways defined by your own functions.
+;;
+;; https://www.emacswiki.org/emacs/HippieExpand
+(global-set-key (kbd "M-/") 'hippie-expand)
+
+
 (global-set-key (kbd "C-c g") 'magit-status)
 
 ;; S-r: search entire project
@@ -10,8 +21,12 @@
 (global-set-key [(super p)] 'mjr/open-project)
 
 ;; Search
-(global-set-key (kbd "C-s") 'swiper-isearch)
-(global-set-key (kbd "C-r") 'swiper-isearch)
+(global-set-key (kbd "C-M-s") 'isearch-forward)
+(global-set-key (kbd "C-M-r") 'isearch-backward)
+(global-set-key (kbd "C-s") 'isearch-forward-regexp)
+(global-set-key (kbd "C-r") 'isearch-backward-regexp)
+;; (global-set-key (kbd "C-s") 'swiper-isearch)
+;; (global-set-key (kbd "C-r") 'swiper-isearch)
 (global-set-key (kbd "C-S-s") 'swiper-isearch-thing-at-point)
 (global-set-key (kbd "M-%") 'query-replace-regexp)
 (global-set-key (kbd "C-M-%") 'query-replace)

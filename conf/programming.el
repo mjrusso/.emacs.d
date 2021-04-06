@@ -25,6 +25,7 @@
 (setq compilation-scroll-output t)
 
 ;; Highlight matching parentheses when the point is on them.
+;; - https://www.emacswiki.org/emacs/ShowParenMode
 (show-paren-mode 1)
 
 (require 'paredit)

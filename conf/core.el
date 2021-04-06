@@ -1,12 +1,17 @@
 (setq visible-bell t
       inhibit-startup-message t
       color-theme-is-global t
+      apropos-do-all t
       sentence-end-double-space nil
+      require-final-newline t
+      indent-tabs-mode nil
       shift-select-mode nil
       mouse-yank-at-point t
       uniquify-buffer-name-style 'forward
       ediff-window-setup-function 'ediff-setup-windows-plain
       save-place-file (concat user-emacs-directory "places")
+      save-interprogram-paste-before-kill t
+      load-prefer-newer t
       backup-directory-alist `(("." . ,(concat user-emacs-directory "backups")))
       diff-switches "-u"
       epa-armor t
