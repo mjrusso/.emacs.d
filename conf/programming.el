@@ -17,11 +17,6 @@
 (setq whitespace-style '(face trailing lines-tail tabs))
 (add-hook 'prog-mode-hook 'whitespace-mode)
 
-;; Particularly handy in conjunction with .dir-locals.el; see:
-;; - https://emacs.stackexchange.com/a/706
-;; - https://emacs.stackexchange.com/a/15290
-(global-set-key (kbd "C-c C-c") 'recompile)
-
 (setq compilation-scroll-output t)
 
 (require 'magit)
@@ -57,9 +52,6 @@
 (setq rust-format-on-save t)
 (add-hook 'rust-mode-hook
           (lambda () (setq indent-tabs-mode nil)))
-
-(define-key rust-mode-map (kbd "C-c C-r") 'rust-run)
-(define-key rust-mode-map (kbd "C-c C-t") 'rust-test)
 
 ;; To use LSP with Rust, ensure RLS is installed: https://github.com/rust-lang/rls
 ;; Run: `rustup component add rls rust-analysis rust-src`
