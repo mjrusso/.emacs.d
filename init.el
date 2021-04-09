@@ -23,8 +23,11 @@
   (add-to-list 'load-path (concat user-emacs-directory "lib/" l))
   (autoload (intern l) (concat l ".el")))
 
-(mapc 'load (directory-files (concat user-emacs-directory "conf")
-                             t "^[^#].*el$"))
+(defun mjr/load-all-conf-files ()
+  (interactive)
+  (mapc 'load (directory-files (concat user-emacs-directory "conf") t "^[^#].*el$")))
+
+(mjr/load-all-conf-files)
 
 (when (not (file-exists-p (concat user-emacs-directory "my-autoload.el")))
   (mjr/reinit-libs))
