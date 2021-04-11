@@ -6,7 +6,7 @@
   (blink-cursor-mode -1))
 
 ;; Tweak window split thresholds.
-(setq split-width-threshold 80)
+(setq split-width-threshold 120)
 (setq split-height-threshold 160)
 
 ;; Enable the menu bar.
