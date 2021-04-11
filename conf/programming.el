@@ -21,6 +21,9 @@
 ;; compilation buffer.
 (setq compilation-scroll-output 'first-error)
 
+;; Don't stop scrolling when encountering warnings.
+(setq compilation-skip-threshold 2)
+
 (require 'magit)
 
 ;; Display most magit buffers in the currently-selected window (unless the
