@@ -17,7 +17,9 @@
 (setq whitespace-style '(face trailing lines-tail tabs))
 (add-hook 'prog-mode-hook 'whitespace-mode)
 
-(setq compilation-scroll-output t)
+;; If there's an error, ensure that it's visible; otherwise, keep scrolling the
+;; compilation buffer.
+(setq compilation-scroll-output 'first-error)
 
 (require 'magit)
 
