@@ -24,7 +24,7 @@
 ;; Don't stop scrolling when encountering warnings.
 (setq compilation-skip-threshold 2)
 
-;; Properly interpret control sequencess in compilation buffers.
+;; Properly interpret control sequences (colours!) in compilation buffers.
 ;;
 ;; - https://github.com/atomontage/xterm-color#compilation-buffers
 (setq compilation-environment '("TERM=xterm-256color"))
