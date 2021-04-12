@@ -35,6 +35,9 @@
   (add-hook hook
     (lambda () (setq show-trailing-whitespace nil))))
 
+;; - https://github.com/atomontage/xterm-color
+(require 'xterm-color)
+
 ;; Set default font to Source Code Pro.
 ;; - https://github.com/adobe/Source-Code-Pro
 ;; - http://blogs.adobe.com/typblography/2012/09/source-code-pro.html

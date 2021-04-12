@@ -24,6 +24,14 @@
 ;; Don't stop scrolling when encountering warnings.
 (setq compilation-skip-threshold 2)
 
+;; Properly interpret control sequencess in compilation buffers.
+;;
+;; - https://github.com/atomontage/xterm-color#compilation-buffers
+(setq compilation-environment '("TERM=xterm-256color"))
+(defun mjr/advice-compilation-filter (f proc string)
+  (funcall f proc (xterm-color-filter string)))
+(advice-add 'compilation-filter :around #'mjr/advice-compilation-filter)
+
 (require 'magit)
 
 ;; Display most magit buffers in the currently-selected window (unless the
