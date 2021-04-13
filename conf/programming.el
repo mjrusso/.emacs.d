@@ -89,7 +89,14 @@
   (setq web-mode-markup-indent-offset 2)
   (setq web-mode-css-indent-offset 2))
 
+;; Prefer node_modules/.bin/prettier, when available.
+;;
+;; - https://github.com/prettier/prettier-emacs#using-node_modulesbinprettier
+;; - https://github.com/codesuki/add-node-modules-path
 (require 'prettier-js)
-(add-hook 'web-mode-hook 'prettier-js-mode)
+(eval-after-load 'web-mode
+    '(progn
+       (add-hook 'web-mode-hook #'add-node-modules-path)
+       (add-hook 'web-mode-hook #'prettier-js-mode)))
 
 (add-to-list 'auto-mode-alist '("\.cljs$" . clojure-mode))
