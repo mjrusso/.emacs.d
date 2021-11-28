@@ -70,6 +70,17 @@
 ;; Run: `rustup component add rls rust-analysis rust-src`
 (add-hook 'rust-mode-hook #'lsp)
 
+(require 'swift-mode)
+
+;; For more on using LSP with Swift, see https://github.com/emacs-lsp/lsp-sourcekit
+(eval-after-load 'lsp-mode
+  (progn
+    (require 'lsp-sourcekit)
+    (setq lsp-sourcekit-executable
+          "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/sourcekit-lsp")))
+
+(add-hook 'swift-mode-hook #'lsp)
+
 (require 'web-mode)
 (add-to-list 'auto-mode-alist '("\\.js\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.jsx\\'" . web-mode))
