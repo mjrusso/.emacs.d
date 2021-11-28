@@ -1,3 +1,20 @@
+
+;; ;;
+;; (setq org-todo-keywords
+;;       '((sequence "TODO(t)" "HOLD(h)" "NOTE(n)" "|" "DONE(d)" "DEAD(x)")))
+
+
+;; ;; https://github.com/tarsius/hl-todo
+;; (setq hl-todo-keyword-faces
+;;       '(("TODO" . org-todo)
+;;         ("NOTE" . (:foreground "LightSalmon" :weight "bold"))
+;;         ("HOLD" . org-done)
+;;         ("DEAD" . org-done)))
+
+;; TODO see https://www.reddit.com/r/emacs/comments/mt51h4/strike_through_orgdone_tasks_in_agenda_to/
+;;(set-face-attribute 'org-headline-done nil :strike-through t)
+
+
 ;; Use visual line mode by default for org files.
 (add-hook 'org-mode-hook 'turn-off-auto-fill)
 (add-hook 'org-mode-hook 'turn-on-visual-line-mode)
@@ -6,6 +23,8 @@
 (add-hook 'org-mode-hook (lambda () (org-indent-mode t)) t)
 
 (setq org-completion-use-ido t)
+
+(setq org-startup-folded t)
 
 (setq org-startup-with-inline-images t)
 
@@ -28,6 +47,9 @@
   (:map org-mode-map
         (("s-Y" . org-download-clipboard)
          ("s-y" . org-download-yank))))
+
+;; Configure org-agenda.
+(setq org-agenda-files (list "~/Dropbox/org-roam/"))
 
 ;; Org-roam uses ripgrep (when it's installed) for better performance.
 ;;
