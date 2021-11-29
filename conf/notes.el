@@ -37,7 +37,6 @@
 ;; https://zzamboni.org/post/how-to-insert-screenshots-in-org-documents-on-macos/
 (use-package org-download
   :after org
-  :defer nil
   :custom
   (org-download-method 'directory)
   (org-download-image-dir "images")
@@ -56,7 +55,6 @@
 ;; ripgrep: https://github.com/BurntSushi/ripgrep
 
 (use-package org-roam
-  :ensure t
   :init
   (setq org-roam-v2-ack t)
   :config

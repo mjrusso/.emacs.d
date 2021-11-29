@@ -3,8 +3,6 @@
 ;; https://github.com/abo-abo/avy
 
 (use-package avy
-  :ensure t
-  :defer nil
   :bind (("C-;" . avy-goto-char-timer)
          ("C-'" . avy-goto-line)))
 
@@ -12,6 +10,4 @@
 ;;
 ;; https://github.com/abo-abo/ace-window
 (use-package ace-window
-  :ensure t
-  :defer nil
   :bind ("C-x o" . ace-window))
