@@ -57,8 +57,10 @@
 
 (use-package org-roam
   :ensure t
-  :hook
-  (after-init . org-roam-mode)
+  :init
+  (setq org-roam-v2-ack t)
+  :config
+  (org-roam-db-autosync-mode)
   :custom
   (org-roam-directory (file-truename "~/Dropbox/org-roam/"))
   (org-roam-capture-templates
@@ -75,14 +77,27 @@
       "* %?"
       :file-name "daily/%<%Y-%m-%d>"
       :head "#+title: %<%Y-%m-%d>\n\n")))
-  :bind (:map org-roam-mode-map
-              (("C-c n l" . org-roam)
-               ("C-c n f" . org-roam-find-file)
-               ("C-c n g" . org-roam-graph)
-               ("C-c n t" . org-roam-dailies-capture-today))
-         :map org-mode-map
-              (("C-c n i" . org-roam-insert)
-               ("C-c n I" . org-roam-insert-immediate))))
+  :bind (:map org-mode-map
+              (("C-c n l" . org-roam-buffer-toggle)
+               ("C-c n i" . org-roam-node-insert)
+               ("C-c n f" . org-roam-node-find)
+               ("C-c n r" . org-roam-ref-find)
+               ("C-c n g" . org-roam-show-graph)
+               ("C-c n t" . org-roam-dailies-capture-today))))
+
+;; Update org-id-locations, which are now used by org-roam (as of v2).
+;;
+;; - https://org-roam.discourse.group/t/org-roam-v2-org-id-id-link-resolution-problem/1491/4
+;; - https://lists.gnu.org/archive/html/emacs-orgmode/2009-11/msg01195.html
+(defun mjr/org-id-update-org-roam-files ()
+  "Update Org-ID locations for all Org-roam files."
+  (interactive)
+  (org-id-update-id-locations (org-roam--list-all-files)))
+
+(defun mjr/org-id-update-id-current-file ()
+  "Scan the current buffer for Org-ID locations and update them."
+  (interactive)
+  (org-id-update-id-locations (list (buffer-file-name (current-buffer)))))
 
 ;; Configure Deft. (http://jblevins.org/projects/deft/)
 ;; Additional resources:
