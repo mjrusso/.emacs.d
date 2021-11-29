@@ -1,4 +1,7 @@
 *.elc
+straight/build-cache.el
+straight/build
+straight/repos
 .lsp-session*
 ido.last
 recentf
