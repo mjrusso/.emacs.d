@@ -57,20 +57,6 @@
 (dolist (p my-packages)
   (straight-use-package p))
 
-(defvar my-themes '(darkokai-theme
-                    monokai-theme
-                    zenburn-theme
-                    twilight-theme
-                    solarized-theme
-                    espresso-theme
-                    tango-plus-theme))
-
-(dolist (theme my-themes)
-  (straight-use-package theme))
-
-(use-package darkokai-theme
-  :config (load-theme 'darkokai t))
-
 (defun mjr/load-all-conf-files ()
   (interactive)
   (mapc 'load (directory-files (concat user-emacs-directory "conf") t "^[^#].*el$")))

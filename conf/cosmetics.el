@@ -1,3 +1,15 @@
+(dolist (theme '(darkokai-theme
+                 monokai-theme
+                 zenburn-theme
+                 twilight-theme
+                 solarized-theme
+                 espresso-theme
+                 tango-plus-theme))
+  (straight-use-package theme))
+
+(use-package darkokai-theme
+  :config (load-theme 'darkokai t))
+
 (when window-system
   (setq frame-title-format
         (list '(:eval (mjr/current-tab-name-with-index))))
