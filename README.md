@@ -2,43 +2,18 @@
 
 My personalized Emacs configuration. _([other dotfiles](https://github.com/mjrusso/dotfiles/))_
 
-## packages
-
-The majority of Emacs packages are vendored into `lib/`.
-
-To add a new vendored package, use
-[git subtree](https://www.atlassian.com/git/tutorials/git-subtree):
-
-```bash
-git subtree add --prefix lib/<package-name> <git-repository-url>  master --squash
-```
-
-To byte-compile and autoload the vendored packages, use `M-x mjr/reinit-libs`.
-
-(Note that some packages, like [magit](https://magit.vc),
-[company-mode](https://company-mode.github.io),
-[lsp-mode](https://emacs-lsp.github.io/lsp-mode/),
-[lsp-sourcekit](https://github.com/emacs-lsp/lsp-sourcekit),
-[swift-mode](https://github.com/swift-emacs/swift-mode),
-[org-roam](https://github.com/org-roam/org-roam), and
-[org-download](https://github.com/abo-abo/org-download), and
-[ox-reveal](https://github.com/yjwen/org-reveal/blob/master/ox-reveal.el) are
-installed via [MELPA](https://melpa.org/).)
-
-## themes
-
-Themes are vendored into `themes/`.
-
-To add a new theme:
-
-```bash
-git subtree add --prefix themes/<package-name> <git-repository-url>  master --squash
-```
+Packages are installed via
+[straight.el](https://github.com/raxod502/straight.el), in conjunction with
+[use-package](https://github.com/jwiegley/use-package). (See
+[@jeffkreeftmeijer](https://github.com/jeffkreeftmeijer)'s
+[tutorial](https://jeffkreeftmeijer.com/emacs-straight-use-package/) for more
+details.)
 
 ## thanks
 
 This configuration is heavily adapted from
 [@technomancy](https://github.com/technomancy/)'s
 [.emacs.d](https://github.com/technomancy/dotfiles/tree/master/.emacs.d), as
-well as [emacs-starter-kit v3](https://github.com/technomancy/emacs-starter-kit/tree/v3)
-and [v2](https://github.com/technomancy/emacs-starter-kit/tree/v2).
+well as [emacs-starter-kit
+v3](https://github.com/technomancy/emacs-starter-kit/tree/v3) and
+[v2](https://github.com/technomancy/emacs-starter-kit/tree/v2).

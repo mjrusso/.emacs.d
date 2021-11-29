@@ -1,27 +1,75 @@
-;; Turn off the mouse interface early in startup to avoid momentary display.
-(progn
-  (dolist (mode '(menu-bar-mode tool-bar-mode scroll-bar-mode horizontal-scroll-bar-mode))
-    (when (fboundp mode) (funcall mode -1))))
+;; Bootstrap straight.el, and configure use-package accordingly.
 
-(require 'package)
-(add-to-list 'package-archives
-             '("melpa" . "http://melpa.org/packages/") t)
+(defvar bootstrap-version)
+(let ((bootstrap-file
+       (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+      (bootstrap-version 5))
+  (unless (file-exists-p bootstrap-file)
+    (with-current-buffer
+        (url-retrieve-synchronously
+         "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
+         'silent 'inhibit-cookies)
+      (goto-char (point-max))
+      (eval-print-last-sexp)))
+  (load bootstrap-file nil 'nomessage))
 
-(package-initialize)
+(straight-use-package 'use-package)
 
-(when (not package-archive-contents)
-  (package-refresh-contents))
+(use-package straight
+             :custom (straight-use-package-by-default t))
 
-(defvar my-packages '(magit company lsp-mode lsp-ui lsp-treemacs lsp-sourcekit swift-mode org-roam org-download ox-reveal))
+(defvar my-packages '(magit
+                      company
+                      lsp-mode
+                      lsp-ui
+                      lsp-treemacs
+                      lsp-sourcekit
+                      swift-mode
+                      org-roam
+                      org-download
+                      ox-reveal
+                      add-node-modules-path
+                      clojure-mode
+                      counsel-projectile
+                      deft
+                      exec-path-from-shell
+                      flx
+                      flx-ido
+                      fountain-mode
+                      highlight-indentation
+                      htmlize
+                      idle-highlight-mode
+                      ido-completing-read-plus
+                      imenu-list
+                      markdown-mode
+                      olivetti
+                      paredit
+                      prettier-js
+                      projectile
+                      ripgrep
+                      rust-mode
+                      smex
+                      swiper
+                      typo
+                      web-mode
+                      xterm-color))
 
 (dolist (p my-packages)
-  (when (not (package-installed-p p))
-    (package-install p)))
+  (straight-use-package p))
 
-(dolist (l (directory-files (concat user-emacs-directory "lib") nil "^[^\.]"))
-  (message "Adding load-path %s" l)
-  (add-to-list 'load-path (concat user-emacs-directory "lib/" l))
-  (autoload (intern l) (concat l ".el")))
+(defvar my-themes '(darkokai-theme
+                    monokai-theme
+                    zenburn-theme
+                    twilight-theme
+                    solarized-theme
+                    espresso-theme
+                    tango-plus-theme))
+
+(dolist (theme my-themes)
+  (straight-use-package theme))
+
+(use-package darkokai-theme
+  :config (load-theme 'darkokai t))
 
 (defun mjr/load-all-conf-files ()
   (interactive)
@@ -29,25 +77,9 @@
 
 (mjr/load-all-conf-files)
 
-(when (not (file-exists-p (concat user-emacs-directory "my-autoload.el")))
-  (mjr/reinit-libs))
-
-(load (concat user-emacs-directory "my-autoload.el"))
-
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
    (when (file-exists-p custom-file)
      (load custom-file))
-
-(setq custom-theme-load-path
-      (directory-files (concat user-emacs-directory "themes") t "^[^\.]"))
-
-(load-theme 'darkokai t)
-;(load-theme 'monokai t)
-;(load-theme 'zenburn t)
-;(load-theme 'twilight t)
-;(load-theme 'solarized t)
-;(load-theme 'espresso t)
-;(load-theme 'tango-plus t)
 
 ;; (message "Shell: %s\nPath: %s"
 ;;          (getenv "SHELL")
