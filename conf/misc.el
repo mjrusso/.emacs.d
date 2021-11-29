@@ -87,3 +87,9 @@ With a prefix ARG always prompt for command to use."
 
 (global-set-key (kbd "C-c f") 'mjr/open-file-with)
 (global-set-key (kbd "C-c d") 'mjr/open-directory)
+
+(defun mjr/print-env ()
+  (interactive)
+  (message "Shell: %s\nPath: %s"
+           (getenv "SHELL")
+           (getenv "PATH")))
