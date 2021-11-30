@@ -93,13 +93,15 @@
 (use-package swift-mode
   :hook (swift-mode . lsp))
 
+(use-package js2-mode
+  :init
+  (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
+  (add-to-list 'auto-mode-alist '("\\.jsx$" . js2-jsx-mode))
+  (add-to-list 'auto-mode-alist '("\\.json$" . javascript-mode)))
+
 (use-package web-mode
-  :mode ("\\.js\\'"
-         "\\.jsx\\'"
-         "\\.css\\'"
-         "\\.erb\\'"
-         "\\.mustache\\'"
-         "\\.html?\\'")
+  :mode ("\\.html?\\'"
+         "\\.css\\'")
   :config
   (setq
    web-mode-markup-indent-offset 2
@@ -119,8 +121,8 @@
 (use-package add-node-modules-path)
 (use-package prettier-js
   :init
-  (add-hook 'web-mode-hook 'add-node-modules-path)
-  (add-hook 'web-mode-hook 'prettier-js-mode))
+  (add-hook 'js2-mode-hook 'add-node-modules-path)
+  (add-hook 'js2-mode-hook 'prettier-js-mode))
 
 (use-package clojure-mode
   :mode ("\\.clj\\'"
