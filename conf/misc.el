@@ -12,7 +12,12 @@
 
 (use-package winner
   :straight nil
-  :config (winner-mode))
+  :init
+  (setq winner-dont-bind-my-keys t)
+  :bind (("C-c u" . winner-undo)
+         ("C-c r" . winner-redo))
+  :config
+  (winner-mode))
 
 (autoload 'zap-up-to-char "misc"
   "Kill up to, but not including ARGth occurrence of CHAR." t)
