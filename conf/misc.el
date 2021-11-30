@@ -77,7 +77,15 @@
 
 (use-package imenu-list)
 
-(use-package company)
+(use-package company
+  :defer 5
+  :bind (:map company-active-map
+         ;; Navigate in completion minibuffer with `C-n` and `C-p`.
+         ("C-n" . company-select-next)
+         ("C-p" . company-select-previous))
+  :config
+  (setq company-idle-delay 0.3)
+  (global-company-mode 1))
 
 ;; The command to use to open a file using its default external program.
 (setq mjr/open-command
