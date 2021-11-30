@@ -48,7 +48,7 @@
     (lambda () (setq show-trailing-whitespace nil))))
 
 ;; - https://github.com/atomontage/xterm-color
-(require 'xterm-color)
+(use-package xterm-color)
 
 ;; Set default font to Source Code Pro.
 ;; - https://github.com/adobe/Source-Code-Pro

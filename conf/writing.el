@@ -1,14 +1,12 @@
-(require 'markdown-mode)
-
-(add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
-(add-to-list 'auto-mode-alist '("\\.mdown\\'" . markdown-mode))
-(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
-
-(add-to-list 'auto-mode-alist '("README\\.md\\'" . gfm-mode))
-
-;; Use visual line mode by default for markdown files.
-(add-hook 'markdown-mode-hook 'turn-off-auto-fill)
-(add-hook 'markdown-mode-hook 'turn-on-visual-line-mode)
+(use-package markdown-mode
+  :mode (("\\.markdown\\'" . markdown-mode)
+         ("\\.mdown\\'" . markdown-mode)
+         ("\\.md\\'" . markdown-mode)
+         ("README\\.md\\'" . gfm-mode))
+  :init
+  ;; Use visual line mode by default for markdown files.
+  (add-hook 'markdown-mode-hook 'turn-off-auto-fill)
+  (add-hook 'markdown-mode-hook 'turn-on-visual-line-mode))
 
 ;; Text expansion with abbrev-mode.
 ;; For more details, see: https://emacs.stackexchange.com/a/20483
@@ -37,9 +35,9 @@
 
 ;; Typo!
 
-(require 'typo)
-
-(setq-default typo-language "English")
+(use-package typo
+  :init
+  (setq-default typo-language "English"))
 
 (define-typo-cycle typo-cycle-right-single-quotation-mark
   "Cycle through the typewriter apostrophe and the right quotation mark."

@@ -2,6 +2,6 @@
 ;;
 ;; To export an org file as a presentation: `C-c C-e R R`.
 
-(require 'ox-reveal)
-
-(setq org-reveal-root "file:///Users/mjrusso/Dropbox/Code/-Others/reveal.js")
+(use-package ox-reveal
+  :after org
+  :init (setq org-reveal-root "file:///Users/mjrusso/Dropbox/Code/-Others/reveal.js"))

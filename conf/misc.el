@@ -10,14 +10,21 @@
 (setq cua-enable-cua-keys nil)
 (cua-mode t)
 
-(winner-mode)
+(use-package winner
+  :straight nil
+  :config (winner-mode))
 
 (autoload 'zap-up-to-char "misc"
   "Kill up to, but not including ARGth occurrence of CHAR." t)
 (global-set-key (kbd "M-z") 'zap-up-to-char)
 
-(require 'uniquify)
-(setq uniquify-buffer-name-style 'forward)
+(use-package uniquify
+  :straight nil
+  :init (setq uniquify-buffer-name-style 'forward))
+
+(use-package ripgrep)
+
+(use-package htmlize)
 
 ;; When you visit a file, point goes to the last place where it was when you
 ;; previously visited the same file.
@@ -34,13 +41,12 @@
   (ido-mode t)
   (setq ido-enable-flex-matching t))
 
-(require 'flx-ido)
-(ido-mode 1)
-(ido-everywhere 1)
-(flx-ido-mode 1)
-(require 'ido-completing-read+)
-(ido-ubiquitous-mode 1)
-(setq ido-enable-prefix nil
+(use-package flx)
+
+(use-package flx-ido
+  :after flx
+  :init
+  (setq ido-enable-prefix nil
       ido-enable-flex-matching t
       ido-auto-merge-work-directories-length nil
       ido-create-new-buffer 'always
@@ -50,13 +56,28 @@
       ido-handle-duplicate-virtual-buffers 2
       ido-max-prospects 10
       ido-ubiquitous-allow-on-functional-collection t)
+  :config
+  (ido-mode 1)
+  (ido-everywhere 1)
+  (flx-ido-mode 1))
 
-(require 'smex)
-(setq smex-save-file (concat user-emacs-directory ".smex-items"))
-(smex-initialize)
-(global-set-key (kbd "M-x") 'counsel-M-x) ;; `counsel-M-x' is enhanced by smex.
+(use-package ido-completing-read+
+  :after flx-ido
+  :config
+  (ido-ubiquitous-mode 1))
 
-(require 'imenu-list)
+(use-package smex
+  :init
+  (setq smex-save-file (concat user-emacs-directory ".smex-items"))
+  :config
+  (smex-initialize)
+  :bind
+  (("M-x" . counsel-M-x)) ;; `counsel-M-x' is enhanced by smex.
+  )
+
+(use-package imenu-list)
+
+(use-package company)
 
 ;; The command to use to open a file using its default external program.
 (setq mjr/open-command

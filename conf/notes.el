@@ -1,3 +1,4 @@
+(use-package org)
 
 ;; ;;
 ;; (setq org-todo-keywords

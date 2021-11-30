@@ -1,6 +1,9 @@
 ;; Enable mouse support in the terminal.
-(require 'mouse)
-(xterm-mouse-mode t)
+(use-package mouse
+  :straight nil
+  :init (setq mouse-sel-mode t)
+  :config (xterm-mouse-mode t))
+
 (global-set-key [mouse-4] '(lambda ()
                             (interactive)
                             (scroll-down 1)))
@@ -8,4 +11,3 @@
                             (interactive)
                             (scroll-up 1)))
 (defun track-mouse (e))
-(setq mouse-sel-mode t)

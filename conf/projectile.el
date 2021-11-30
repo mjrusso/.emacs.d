@@ -1,36 +1,30 @@
-(require 'projectile)
-
-(projectile-mode +1)
+(use-package projectile
+  :init
+  (setq projectile-use-git-grep t)
+  (setq projectile-enable-caching t)
+  (setq projectile-indexing-method 'alien)
+  (setq projectile-require-project-root nil)
+  ;; When using projectile commands directly, rather than the counsel variants,
+  ;; use ivy completion.
+  (setq projectile-completion-system 'ivy)
+  :config
+  (setq projectile-globally-ignored-directories
+        (append '("build"
+                  "eggs"
+                  "git-eggs"
+                  "develop-eggs"
+                  "node_modules"
+                  "log"
+                  "tmp")
+                projectile-globally-ignored-directories))
+  (projectile-mode +1))
 
 (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
 
-(setq projectile-use-git-grep t)
-
-(setq projectile-enable-caching t)
-
-(setq projectile-indexing-method 'alien)
-
-(setq projectile-require-project-root nil)
-
-(setq projectile-globally-ignored-directories
-      (append '("build"
-                "eggs"
-                "git-eggs"
-                "develop-eggs"
-                "node_modules"
-                "log"
-                "tmp")
-              projectile-globally-ignored-directories))
-
-(require 'counsel-projectile)
-
-(counsel-projectile-mode t)
-
-(setq counsel-projectile-remove-current-project nil)
-
-;; When using projectile commands directly, rather than the counsel variants,
-;; use ivy completion.
-(setq projectile-completion-system 'ivy)
+(use-package counsel-projectile
+  :after (counsel projectile)
+  :init (setq counsel-projectile-remove-current-project nil)
+  :config (counsel-projectile-mode t))
 
 (defun mjr/counsel-projectile-switch-open-project ()
   "A counsel version of `projectile-switch-open-project', in lieu
