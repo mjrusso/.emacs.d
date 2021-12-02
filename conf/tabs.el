@@ -3,7 +3,7 @@
 (setq tab-bar-show nil)
 
 ;; On initialization, name the initial tab.
-(tab-rename "scratch")
+(tab-rename "untitled")
 
 (defun mjr/new-tab ()
   "Create a new tab, prompting for its name first."
