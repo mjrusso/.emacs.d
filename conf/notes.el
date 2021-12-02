@@ -69,20 +69,12 @@
       :head "#+title: ${title}\n"
       :immediate-finish t
       :unnarrowed t)))
-  (org-roam-dailies-directory "daily/")
-  (org-roam-dailies-capture-templates
-   '(("d" "default" entry
-      #'org-roam-capture--get-point
-      "* %?"
-      :file-name "daily/%<%Y-%m-%d>"
-      :head "#+title: %<%Y-%m-%d>\n\n")))
   :bind (:map org-mode-map
               (("C-c n l" . org-roam-buffer-toggle)
                ("C-c n i" . org-roam-node-insert)
                ("C-c n f" . org-roam-node-find)
                ("C-c n r" . org-roam-ref-find)
-               ("C-c n g" . org-roam-show-graph)
-               ("C-c n t" . org-roam-dailies-capture-today))))
+               ("C-c n g" . org-roam-show-graph))))
 
 ;; Update org-id-locations, which are now used by org-roam (as of v2).
 ;;
