@@ -63,10 +63,10 @@
   :custom
   (org-roam-directory (file-truename "~/Dropbox/org-roam/"))
   (org-roam-capture-templates
-   '(("d" "default" plain (function org-roam--capture-get-point)
+   '(("d" "default" plain
       "%?"
-      :file-name "${slug}"
-      :head "#+title: ${title}\n"
+      :if-new (file+head "${slug}.org"
+                         "#+title: ${title}\n")
       :immediate-finish t
       :unnarrowed t)))
   :bind (:map org-mode-map
