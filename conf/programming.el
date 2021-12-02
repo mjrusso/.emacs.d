@@ -1,4 +1,5 @@
 (use-package lsp-mode
+  :defer t
   :init
   (setq lsp-keymap-prefix "C-c l")
   :commands lsp)
@@ -48,6 +49,7 @@
 (advice-add 'compilation-filter :around #'mjr/advice-compilation-filter)
 
 (use-package magit
+  :defer t
   :config
   ;; Display most magit buffers in the currently-selected window (unless the
   ;; buffer's mode derives from ~magit-diff-mode~ or ~magit-process-mode~, in
@@ -79,6 +81,7 @@
 ;; To use LSP with Rust, ensure RLS is installed: https://github.com/rust-lang/rls
 ;; Run: `rustup component add rls rust-analysis rust-src`
 (use-package rust-mode
+  :defer t
   :init
   (setq rust-format-on-save t)
   :hook (rust-mode . lsp)
@@ -91,9 +94,11 @@
   (setq lsp-sourcekit-executable "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/sourcekit-lsp"))
 
 (use-package swift-mode
+  :defer t
   :hook (swift-mode . lsp))
 
 (use-package js2-mode
+  :defer t
   :init
   (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
   (add-to-list 'auto-mode-alist '("\\.jsx$" . js2-jsx-mode))
@@ -118,8 +123,9 @@
 ;;
 ;; - https://github.com/prettier/prettier-emacs#using-node_modulesbinprettier
 ;; - https://github.com/codesuki/add-node-modules-path
-(use-package add-node-modules-path)
+(use-package add-node-modules-path :defer t)
 (use-package prettier-js
+  :defer t
   :init
   (add-hook 'js2-mode-hook 'add-node-modules-path)
   (add-hook 'js2-mode-hook 'prettier-js-mode))
