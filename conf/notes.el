@@ -69,12 +69,12 @@
                          "#+title: ${title}\n")
       :immediate-finish t
       :unnarrowed t)))
-  :bind (:map org-mode-map
-              (("C-c n l" . org-roam-buffer-toggle)
-               ("C-c n i" . org-roam-node-insert)
-               ("C-c n f" . org-roam-node-find)
-               ("C-c n r" . org-roam-ref-find)
-               ("C-c n g" . org-roam-show-graph))))
+  :bind (("C-c n f" . org-roam-node-find)
+         :map org-mode-map
+         (("C-c n l" . org-roam-buffer-toggle)
+          ("C-c n i" . org-roam-node-insert)
+          ("C-c n r" . org-roam-ref-find)
+          ("C-c n g" . org-roam-show-graph))))
 
 ;; Update org-id-locations, which are now used by org-roam (as of v2).
 ;;
