@@ -3,8 +3,8 @@
 ;; https://github.com/abo-abo/avy
 
 (use-package avy
-  :bind (("C-'" . avy-goto-char-timer)
-         ("C-;" . avy-goto-line)))
+  :bind (("s-j" . avy-goto-char-timer)
+         ("C-'" . avy-goto-line)))
 
 ;; ace-window: improved window selection.
 ;;
