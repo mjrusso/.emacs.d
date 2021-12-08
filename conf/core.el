@@ -7,7 +7,6 @@
       indent-tabs-mode nil
       shift-select-mode nil
       mouse-yank-at-point t
-      uniquify-buffer-name-style 'forward
       ediff-window-setup-function 'ediff-setup-windows-plain
       save-place-file (concat user-emacs-directory "places")
       save-interprogram-paste-before-kill t

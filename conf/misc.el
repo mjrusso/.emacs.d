@@ -25,7 +25,8 @@
 
 (use-package uniquify
   :straight nil
-  :init (setq uniquify-buffer-name-style 'forward))
+  :init (setq uniquify-buffer-name-style 'post-forward-angle-brackets
+              uniquify-min-dir-content 2))
 
 (use-package ripgrep)
 
