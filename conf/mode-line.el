@@ -52,6 +52,7 @@ isn't visiting a file)."
 (defface mjr/mode-line-file-dir-face
   '((t
      :weight normal
+     :foreground "LemonChiffon2"
      :background nil
      :box nil))
   "Face for the file's directory."
