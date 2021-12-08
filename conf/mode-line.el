@@ -3,7 +3,20 @@
 ;;
 ;; - https://github.com/tarsius/minions
 (use-package minions
-  :config (minions-mode 1))
+  :init
+  (defface mjr/minions-mode-line-face
+    '((t
+       :weight normal
+       :foreground "MediumPurple1"
+       :background nil
+       :box nil))
+    "Face for the minions mode line."
+    :group 'mjr/faces)
+  (setq minions-mode-line-face 'mjr/minions-mode-line-face
+        minions-mode-line-lighter "ϟ"
+        minions-mode-line-delimiters '("" . ""))
+  :config
+  (minions-mode 1))
 
 ;; Mode line tweaks. With thanks to:
 ;; https://github.com/drusso/.emacs.d/blob/main/conf/mode-line.el
