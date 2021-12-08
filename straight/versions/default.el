@@ -35,6 +35,7 @@
  ("magit" . "84104e84bbf9811b49b0f9a2a29aa15ff72d39ce")
  ("markdown-mode" . "c3c2f0d473a3f8ca8c4ffb2ecc094d5c3541769f")
  ("melpa" . "76e7a6c9e67bcea5b681dacf6725f7e313f0c1a8")
+ ("minions" . "fca3ba548dccc6e553affca8068c9aecb6a9a789")
  ("monokai-emacs" . "c5a7978bfc2ad2aa90882e6b2583668dc7b3e1a5")
  ("olivetti" . "a31ac05a161a91fe5c157930b62a6c07037982ee")
  ("org" . "5e35de34a6f54c2f76b90aa23b69876aca6587ee")

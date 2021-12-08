@@ -1,3 +1,10 @@
+;; A minor-mode menu for the mode line, which hides the list of enabled
+;; minor-modes that are displayed in the mode line by default.
+;;
+;; - https://github.com/tarsius/minions
+(use-package minions
+  :config (minions-mode 1))
+
 ;; Mode line tweaks. With thanks to:
 ;; https://github.com/drusso/.emacs.d/blob/main/conf/mode-line.el
 
@@ -67,16 +74,6 @@ isn't visiting a file)."
      :background nil
      :box nil))
   "Face for the line/column info."
-  :group 'mjr/faces)
-
-(defface mjr/mode-line-major-mode-face
-  '((t
-     :weight normal
-     :slant italic
-     :foreground "LemonChiffon2"
-     :background nil
-     :box nil))
-  "Face for the version control branch."
   :group 'mjr/faces)
 
 ;; An `alist' cache of values that are (relatively) expensive to compute on
@@ -194,15 +191,9 @@ if the the file is not visiting a file."
 
 (setq-default mjr/mode-line-format-right
               (list
-               ;; The major mode.
-               '(:eval (propertize " %m "
-                                   'face 'mjr/mode-line-major-mode-face
-                                   'help-echo nil))
-
+               minions-mode-line-modes ; Instead of `mode-line-modes`.
                " "
-
                mode-line-misc-info
-
                ))
 
 (defun mjr/render-mode-line (left-format right-format)
