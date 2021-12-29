@@ -47,6 +47,7 @@
  ("posframe" . "3b1dc400d286b0a4bd42e518bf3e7eedb49fd1e6")
  ("prettier-emacs" . "e9b73e81d3e1642aec682195f127a42dfb0b5774")
  ("projectile" . "08fcdd51269d7e3c1c41c7f688555534067daa0e")
+ ("rainbow-delimiters" . "d576e6694ad3a3e88b2bb1363305b38fa364c149")
  ("ripgrep.el" . "40e871dcc4519a70981e9f28acea304692a60978")
  ("rust-mode" . "3f67a880dc8b31b330cf59aee875d9dc96e7c475")
  ("s.el" . "08661efb075d1c6b4fa812184c1e5e90c08795a9")
