@@ -31,12 +31,20 @@
 
 (use-package swiper
   :after ivy
+  ;; Once the Swiper minibuffer is active:
+  ;;
+  ;; - M-n (ivy-next-history-element) will get symbol-at-point into the
+  ;;   minibuffer
+  ;; - M-j (ivy-yank-word) will extend the minibuffer input with the next
+  ;;   word (like using C-s C-w with isearch)
+  ;;
+  ;; See: https://github.com/abo-abo/swiper/issues/260#issuecomment-147411904n
   :bind (("C-s" . swiper-isearch)
          ("C-r" . swiper-isearch)
          :map ivy-minibuffer-map
          (
-          ;; When the selected candidate is a directory, continue completion with that
-          ;; directory, rather than open dired.
+          ;; When the selected candidate is a directory, continue completion
+          ;; with that directory, rather than open dired.
           ("RET" . ivy-alt-done)
           ;; Support C-s/C-r in the ivy minibuffer.
           ("C-s" . ivy-next-line)
