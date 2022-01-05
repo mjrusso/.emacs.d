@@ -87,6 +87,27 @@
 
 (add-hook 'python-mode-hook (lambda () (highlight-indentation-mode)))
 
+(use-package toml-mode
+  :mode "\\.toml\\'")
+
+(use-package cargo
+  :pretty-hydra
+  ((:quit-key "q")
+   ("Packages"
+    (("a" cargo-process-add "add")
+     ("u" cargo-process-update "update")
+     ("x" cargo-process-rm "remove")
+     ("U" cargo-process-upgrade "upgrade"))
+    "Actions"
+    (("b" cargo-process-build "build")
+     ("r" cargo-process-run "run")
+     ("c" cargo-process-check "check")
+     ("f" cargo-process-format "format")
+     ("s" cargo-process-search "search"))
+    "Tests"
+    (("t" cargo-process-current-file-tests "test")
+     ("T" cargo-process-test "test all")))))
+
 ;; To use LSP with Rust, ensure RLS is installed: https://github.com/rust-lang/rls
 ;; Run: `rustup component add rls rust-analysis rust-src`
 (use-package rust-mode
@@ -94,7 +115,15 @@
   :init
   (setq rust-format-on-save t)
   :hook (rust-mode . lsp)
-  (rust-mode . (lambda () (setq indent-tabs-mode nil))))
+  (rust-mode . (lambda () (setq indent-tabs-mode nil)))
+  :mode-hydra
+  ((:color teal :quit-key "q")
+   ("Quick Action"
+    (("b" cargo-process-build "build")
+     ("t" cargo-process-current-file-tests "test")
+     ("T" cargo-process-test "test all")
+     ("R" cargo-process-run "run")
+     ("C" cargo-hydra/body "cargo...")))))
 
 ;; For more on using LSP with Swift, see https://github.com/emacs-lsp/lsp-sourcekit
 (use-package lsp-sourcekit
@@ -143,3 +172,26 @@
   :mode ("\\.clj\\'"
          "\\.cljs\\'"
          "\\.edn\\'"))
+
+;; LSP-related Hydras. Adapted from:
+;; https://github.com/jerrypnz/.emacs.d/blob/master/lisp/jp-lsp-hydra.el
+(major-mode-hydra-define+ (rust-mode swift-mode)
+  (:color teal :quit-key "q")
+  ("LSP Quick Action"
+   (("d" lsp-describe-thing-at-point "describe symbol")
+    ("a" lsp-execute-code-action "code action")
+    ("f" lsp-format-buffer "format")
+    ("O" lsp-organize-imports "organize imports"))
+   "Find & Goto"
+   (("gr" lsp-ui-peek-find-references "references")
+    ("gd" lsp-ui-peek-find-definitions "definitions")
+    ("gf" lsp-ivy-workspace-symbol "workspace symbol"))
+   "Connection"
+   (("cc" lsp "start")
+    ("cr" lsp-restart-workspace "restart")
+    ("cd" lsp-describe-session "describe session")
+    ("cq" lsp-shutdown-workspace "shutdown"))
+   "Toggles"
+   (("ol" lsp-lens-mode "toggle lens" :toggle t :exit nil)
+    ("od" lsp-ui-doc-mode "toggle hover doc" :toggle t :exit nil)
+    ("os" lsp-ui-sideline-mode "toggle sideline" :toggle t :exit nil))))
