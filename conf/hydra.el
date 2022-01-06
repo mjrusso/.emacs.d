@@ -1,7 +1,7 @@
 (use-package major-mode-hydra
   :demand t
   :bind
-  ("C-M-SPC" . major-mode-hydra))
+  ("M-SPC" . major-mode-hydra))
 
 (use-package hydra-posframe
   :straight (:host github :repo "Ladicle/hydra-posframe"
