@@ -51,3 +51,18 @@
           ("C-s" . ivy-next-line)
           ("C-r" . ivy-previous-line)
           )))
+
+;; https://github.com/tumashu/ivy-posframe
+(use-package ivy-posframe
+  :config
+  (progn
+    (setq ivy-posframe-border-width 1
+          ivy-posframe-hide-minibuffer t
+          ivy-posframe-min-width 100
+          ;ivy-posframe-min-height 20
+          ivy-posframe-parameters '((alpha 100 100)
+                                    (max-width . 180)
+                                    (left-fringe . 8)
+                                    (right-fringe . 8)))
+    (set-face-attribute 'ivy-posframe nil :foreground "white" :background "#120022")
+    (ivy-posframe-mode 1)))

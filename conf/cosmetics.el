@@ -64,6 +64,9 @@
 ;; - http://blogs.adobe.com/typblography/2012/09/source-code-pro.html
 (add-to-list 'default-frame-alist '(font . "Source Code Pro Medium"))
 
+;; - https://github.com/tumashu/posframe
+(use-package posframe)
+
 ;; Display ido results vertically, rather than horizontally
 (setq ido-decorations '("\n-> " "" "\n   " "\n   ..." "[" "]"
                         " [No match]" " [Matched]" " [Not readable]"
