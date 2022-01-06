@@ -26,6 +26,8 @@
 
 (global-set-key [(super f)] 'projectile-find-file)
 (global-set-key [(super d)] 'projectile-find-dir)
+(global-set-key (kbd "C-x C-f") 'counsel-find-file)
+
 
 (global-set-key [(super p)] 'mjr/open-project)
 
