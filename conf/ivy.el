@@ -68,5 +68,5 @@
                                                  (complete-symbol . ivy-posframe-display-at-point)
                                                  (counsel-M-x     . ivy-posframe-display-at-frame-center)
                                                  (t . ivy-posframe-display-at-window-center)))
-    (set-face-attribute 'ivy-posframe nil :foreground "white" :background "#120022")
+    (set-face-attribute 'ivy-posframe nil :foreground "white" :background "#1E3D58") ; "#120022" "#1D253B"
     (ivy-posframe-mode 1)))
