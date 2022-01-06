@@ -24,10 +24,10 @@
 ;; C-u S-r (or M-1 S-r): allows user to specify search directory
 (global-set-key [(super r)] 'projectile-ripgrep)
 
-(global-set-key [(super f)] 'projectile-find-file)
-(global-set-key [(super d)] 'projectile-find-dir)
 (global-set-key (kbd "C-x C-f") 'counsel-find-file)
 
+(global-set-key [(super f)] 'counsel-projectile-find-file)
+(global-set-key [(super d)] 'counsel-projectile-find-dir)
 
 (global-set-key [(super p)] 'mjr/open-project)
 
