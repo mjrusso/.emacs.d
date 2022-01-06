@@ -23,7 +23,8 @@
   ;; transformation. The motivation for this is to improve performance when
   ;; listing buffers.
   (ivy-configure 'internal-complete-buffer
-    :display-transformer-fn '(lambda (str) str)))
+    :display-transformer-fn '(lambda (str) str))
+  :bind (("C-x b" . ivy-switch-buffer)))
 
 (use-package counsel
   :after ivy
