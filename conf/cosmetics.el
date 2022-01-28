@@ -67,6 +67,9 @@
 ;; - https://github.com/tumashu/posframe
 (use-package posframe)
 
+;; - https://github.com/purcell/page-break-lines
+(use-package page-break-lines)
+
 ;; Display ido results vertically, rather than horizontally
 (setq ido-decorations '("\n-> " "" "\n   " "\n   ..." "[" "]"
                         " [No match]" " [Matched]" " [Not readable]"
