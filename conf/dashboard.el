@@ -17,3 +17,18 @@
                                     "While any text editor can save your files, only Emacs can save your soul"))
   :config
   (dashboard-setup-startup-hook))
+
+
+(defun my/switch-to-dashboard ()
+  "Switch to the dashboard buffer."
+  (interactive)
+  (dashboard-refresh-buffer)
+  (switch-to-buffer "*dashboard*"))
+
+(defun my/switch-to-dashboard-and-refresh ()
+  "Refresh the dashboard buffer, and switch to it."
+  (interactive)
+  (dashboard-refresh-buffer)
+  (my/switch-to-dashboard))
+
+(global-set-key (kbd "C-c d") #'my/switch-to-dashboard-and-refresh)
