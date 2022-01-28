@@ -120,8 +120,19 @@ With a prefix ARG always prompt for command to use."
   (let* ((current-directory (file-name-directory buffer-file-name)))
     (call-process mjr/open-command nil 0 nil current-directory)))
 
-(global-set-key (kbd "C-c f") 'mjr/open-file-with)
-(global-set-key (kbd "C-c d") 'mjr/open-directory)
+(defun mjr/open-parent-directory ()
+  "Open parent directory of visited file in default external program."
+  (interactive)
+  (let* ((parent-directory
+          (file-name-directory
+           (directory-file-name
+            (file-name-directory
+             (directory-file-name buffer-file-name))))))
+    (call-process mjr/open-command nil 0 nil parent-directory)))
+
+(global-set-key (kbd "C-c o f") 'mjr/open-file-with)
+(global-set-key (kbd "C-c o d") 'mjr/open-directory)
+(global-set-key (kbd "C-c o p") 'mjr/open-parent-directory)
 
 (defun mjr/print-env ()
   (interactive)
