@@ -20,8 +20,8 @@
 
 ;; Automatically delete trailing whitespace, except in the case of Fountain
 ;; Mode. (Fountain relies on trailing whitespace in certain circumstances.)
-(add-hook 'before-save-hook 'mjr/nuke-trailing-whitespace)
-(defun mjr/nuke-trailing-whitespace ()
+(add-hook 'before-save-hook 'my/nuke-trailing-whitespace)
+(defun my/nuke-trailing-whitespace ()
   ;; Note additional option: https://github.com/lewang/ws-butler
   (when (not (derived-mode-p 'fountain-mode))
     (delete-trailing-whitespace)))

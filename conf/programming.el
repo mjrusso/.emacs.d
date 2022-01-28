@@ -44,9 +44,9 @@
 ;;
 ;; - https://github.com/atomontage/xterm-color#compilation-buffers
 (setq compilation-environment '("TERM=xterm-256color"))
-(defun mjr/advice-compilation-filter (f proc string)
+(defun my/advice-compilation-filter (f proc string)
   (funcall f proc (xterm-color-filter string)))
-(advice-add 'compilation-filter :around #'mjr/advice-compilation-filter)
+(advice-add 'compilation-filter :around #'my/advice-compilation-filter)
 
 (use-package magit
   :defer t

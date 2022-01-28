@@ -94,12 +94,12 @@
   (global-company-mode 1))
 
 ;; The command to use to open a file using its default external program.
-(setq mjr/open-command
+(setq my/open-command
       (pcase system-type
         (`darwin "open")
         ((or `gnu `gnu/linux `gnu/kfreebsd) "xdg-open")))
 
-(defun mjr/open-file-with (arg)
+(defun my/open-file-with (arg)
   "Open visited file in default external program.
 When in dired mode, open file under the cursor.
 With a prefix ARG always prompt for command to use."
@@ -108,19 +108,19 @@ With a prefix ARG always prompt for command to use."
           (if (eq major-mode 'dired-mode)
               (dired-get-file-for-visit)
             buffer-file-name))
-         (open mjr/open-command)
+         (open my/open-command)
          (program (if (or arg (not open))
                       (read-shell-command "Open current file with: ")
                     open)))
     (call-process program nil 0 nil current-file-name)))
 
-(defun mjr/open-directory ()
+(defun my/open-directory ()
   "Open directory of visited file in default external program."
   (interactive)
   (let* ((current-directory (file-name-directory buffer-file-name)))
-    (call-process mjr/open-command nil 0 nil current-directory)))
+    (call-process my/open-command nil 0 nil current-directory)))
 
-(defun mjr/open-parent-directory ()
+(defun my/open-parent-directory ()
   "Open parent directory of visited file in default external program."
   (interactive)
   (let* ((parent-directory
@@ -128,13 +128,13 @@ With a prefix ARG always prompt for command to use."
            (directory-file-name
             (file-name-directory
              (directory-file-name buffer-file-name))))))
-    (call-process mjr/open-command nil 0 nil parent-directory)))
+    (call-process my/open-command nil 0 nil parent-directory)))
 
-(global-set-key (kbd "C-c o f") 'mjr/open-file-with)
-(global-set-key (kbd "C-c o d") 'mjr/open-directory)
-(global-set-key (kbd "C-c o p") 'mjr/open-parent-directory)
+(global-set-key (kbd "C-c o f") 'my/open-file-with)
+(global-set-key (kbd "C-c o d") 'my/open-directory)
+(global-set-key (kbd "C-c o p") 'my/open-parent-directory)
 
-(defun mjr/print-env ()
+(defun my/print-env ()
   (interactive)
   (message "Shell: %s\nPath: %s"
            (getenv "SHELL")

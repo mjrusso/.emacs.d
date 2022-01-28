@@ -6,7 +6,7 @@
   (setq dashboard-startup-banner 3)
   (setq dashboard-center-content t)
   (setq dashboard-projects-backend 'projectile)
-  (setq dashboard-projects-switch-function 'mjr/open-project-in-new-tab-action)
+  (setq dashboard-projects-switch-function 'my/open-project-in-new-tab-action)
   (setq dashboard-items '((recents  . 5)
                           (projects . 10)
                           (bookmarks . 5)

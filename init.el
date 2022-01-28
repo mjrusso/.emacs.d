@@ -18,11 +18,11 @@
 (use-package straight
              :custom (straight-use-package-by-default t))
 
-(defun mjr/load-all-conf-files ()
+(defun my/load-all-conf-files ()
   (interactive)
   (mapc 'load (directory-files (concat user-emacs-directory "conf") t "^[^#].*el$")))
 
-(mjr/load-all-conf-files)
+(my/load-all-conf-files)
 
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
    (when (file-exists-p custom-file)

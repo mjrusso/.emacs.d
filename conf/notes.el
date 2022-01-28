@@ -80,12 +80,12 @@
 ;;
 ;; - https://org-roam.discourse.group/t/org-roam-v2-org-id-id-link-resolution-problem/1491/4
 ;; - https://lists.gnu.org/archive/html/emacs-orgmode/2009-11/msg01195.html
-(defun mjr/org-id-update-org-roam-files ()
+(defun my/org-id-update-org-roam-files ()
   "Update Org-ID locations for all Org-roam files."
   (interactive)
   (org-id-update-id-locations (org-roam--list-all-files)))
 
-(defun mjr/org-id-update-id-current-file ()
+(defun my/org-id-update-id-current-file ()
   "Scan the current buffer for Org-ID locations and update them."
   (interactive)
   (org-id-update-id-locations (list (buffer-file-name (current-buffer)))))

@@ -32,7 +32,7 @@
 (global-set-key [(super f)] 'counsel-projectile-find-file)
 (global-set-key [(super d)] 'counsel-projectile-find-dir)
 
-(global-set-key [(super p)] 'mjr/open-project)
+(global-set-key [(super p)] 'my/open-project)
 
 ;; Search
 (global-set-key (kbd "C-M-s") 'isearch-forward-regexp)
@@ -50,8 +50,8 @@
 (global-set-key (kbd "s-{") 'tab-previous)
 (global-set-key (kbd "s--") 'tab-bar-select-tab-by-name)
 (global-unset-key (kbd "s-_"))
-(global-set-key (kbd "s-=") 'mjr/new-tab)
-(global-set-key (kbd "s-+") 'mjr/open-project-in-new-tab)
+(global-set-key (kbd "s-=") 'my/new-tab)
+(global-set-key (kbd "s-+") 'my/open-project-in-new-tab)
 (dotimes (i 9) ;; Bind s-1 through s-9 to tabs.
    (let ((d (+ i 1)))
      (global-set-key (kbd (format "s-%d" d))
