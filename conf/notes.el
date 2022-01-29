@@ -49,7 +49,7 @@
          ("s-y" . org-download-yank))))
 
 ;; Configure org-agenda.
-(setq org-agenda-files (list "~/Dropbox/org-roam/"))
+(setq org-agenda-files (list "~/Dropbox/org/"))
 
 ;; Org-roam uses ripgrep (when it's installed) for better performance.
 ;;
@@ -59,9 +59,9 @@
   :init
   (setq org-roam-v2-ack t)
   :config
+  (setq org-roam-directory (file-truename "~/Dropbox/org/"))
   (org-roam-db-autosync-mode)
   :custom
-  (org-roam-directory (file-truename "~/Dropbox/org-roam/"))
   (org-roam-capture-templates
    '(("d" "default" plain
       "%?"
