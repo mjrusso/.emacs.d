@@ -55,6 +55,11 @@
 ;;
 ;; ripgrep: https://github.com/BurntSushi/ripgrep
 
+;; To update an existing org-mode document to work with org-roam, run the
+;; command `M-x org-id-get-create` from a corresponding buffer. This will add
+;; the requisite :ID: needed for org-roam to find the file. For new documents,
+;; simply run `org-roam-node-file`.
+
 (use-package org-roam
   :init
   (setq org-roam-v2-ack t)
