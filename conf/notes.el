@@ -31,7 +31,9 @@
 
 ;; https://www.reddit.com/r/orgmode/comments/l215r5/terrible_performance_with_inline_images_on_macs/
 ;; https://www.reddit.com/r/emacs/comments/55zk2d/adjust_the_size_of_pictures_to_be_shown_inside/d8geca2
-(setq org-image-actual-width (/ (display-pixel-width) 3))
+;; (setq org-image-actual-width (/ (display-pixel-width) 3))
+;; https://www.reddit.com/r/orgmode/comments/i6hl8b/comment/g1vsef2/
+(setq org-image-actual-width (/ (window-pixel-width) 3))
 
 ;; https://github.com/abo-abo/org-download
 ;; https://www.orgroam.com/manual.html#Org_002ddownload
