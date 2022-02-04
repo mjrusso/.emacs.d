@@ -12,7 +12,7 @@
  ("diff-hl" . "4a08b02afec1fc6b1e84de46cc34f75f6c9c3bcc")
  ("el-get" . "960f3fb962c35d3196bab20b2a3f6d6228119277")
  ("emacs-async" . "5d365ffc6a2c2041657eaa5d762c395ea748c8d7")
- ("emacs-dashboard" . "78eaa0ff4e61f3f6bfa6ba5ef4a7912e03e59631")
+ ("emacs-dashboard" . "d6e9f4df42815de467765e78b7c27125f35d30bb")
  ("emacs-htmlize" . "dd27bc3f26efd728f2b1f01f9e4ac4f61f2ffbf9")
  ("emacs-idle-highlight-mode" . "0916be7075e792773440c3bdb5cf9c153691846b")
  ("emacs-memoize" . "51b075935ca7070f62fae1d69fe0ff7d8fa56fdd")
