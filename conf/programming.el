@@ -28,6 +28,16 @@
      (set-face-foreground 'diff-added "green4")
      (set-face-foreground 'diff-removed "red3")))
 
+;; Highlight uncommitted changes in the gutter.
+;; - https://github.com/dgutov/diff-hl
+(use-package diff-hl
+  :config
+  (add-hook 'magit-pre-refresh-hook 'diff-hl-magit-pre-refresh)
+  (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
+  (add-hook 'dired-mode-hook 'diff-hl-dired-mode)
+  (add-hook 'prog-mode-hook 'turn-on-diff-hl-mode)
+  (add-hook 'vc-dir-mode-hook 'turn-on-diff-hl-mode))
+
 ;; Highlight indentation levels.
 ;; - https://github.com/DarthFennec/highlight-indent-guides
 (use-package highlight-indent-guides

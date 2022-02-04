@@ -9,6 +9,7 @@
  ("darkokai" . "5820aeddfc8c869ba840cc534eba776936656a66")
  ("dash.el" . "da167c51e9fd167a48d06c7c0ee8e3ac7abd9718")
  ("deft" . "28be94d89bff2e1c7edef7244d7c5ba0636b1296")
+ ("diff-hl" . "4a08b02afec1fc6b1e84de46cc34f75f6c9c3bcc")
  ("el-get" . "960f3fb962c35d3196bab20b2a3f6d6228119277")
  ("emacs-async" . "5d365ffc6a2c2041657eaa5d762c395ea748c8d7")
  ("emacs-dashboard" . "78eaa0ff4e61f3f6bfa6ba5ef4a7912e03e59631")
