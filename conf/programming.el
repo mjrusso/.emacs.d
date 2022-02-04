@@ -26,6 +26,17 @@
      (set-face-foreground 'diff-added "green4")
      (set-face-foreground 'diff-removed "red3")))
 
+;; Highlight indentation levels.
+;; - https://github.com/DarthFennec/highlight-indent-guides
+(use-package highlight-indent-guides
+  :init
+  (setq highlight-indent-guides-method 'character)
+  (setq highlight-indent-guides-responsive 'stack)
+  (setq highlight-indent-guides-auto-character-face-perc 8)
+  (setq highlight-indent-guides-character ?\┆)
+  :config
+  (add-hook 'prog-mode-hook 'highlight-indent-guides-mode))
+
 (setq-default fill-column 79)
 
 (setq whitespace-line-column 80)

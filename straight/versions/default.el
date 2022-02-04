@@ -23,6 +23,7 @@
  ("flx" . "e3b3f0533e44c5250ce73d728b59a7e96c692b5d")
  ("fountain-mode" . "f2178d215ae1d2689d33ad60f66d850a0b706e25")
  ("gnu-elpa-mirror" . "fea2b2e75458dc7ed77290d10fc0a7c47dccd24d")
+ ("highlight-indent-guides" . "cf352c85cd15dd18aa096ba9d9ab9b7ab493e8f6")
  ("ht.el" . "c4c1be487d6ecb353d07881526db05d7fc90ea87")
  ("hydra" . "2d553787aca1aceb3e6927e426200e9bb9f056f1")
  ("hydra-posframe" . "ec55440615228fcc7fcb04187bb77a20e6cfd5df")
