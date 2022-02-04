@@ -19,7 +19,6 @@
 ;; https://github.com/magit/magit/issues/3415#issuecomment-378941991
 (use-package git-commit)
 
-(use-package highlight-indentation)
 (use-package idle-highlight-mode)
 
 (eval-after-load 'diff-mode
