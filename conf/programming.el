@@ -19,7 +19,9 @@
 ;; https://github.com/magit/magit/issues/3415#issuecomment-378941991
 (use-package git-commit)
 
-(use-package idle-highlight-mode)
+(use-package idle-highlight-mode
+  :config
+  (add-hook 'prog-mode-hook 'idle-highlight-mode))
 
 (eval-after-load 'diff-mode
   '(progn
