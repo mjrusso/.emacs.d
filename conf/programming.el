@@ -2,6 +2,8 @@
   :defer t
   :init
   (setq lsp-keymap-prefix "C-c l")
+  ;; https://emacs-lsp.github.io/lsp-mode/tutorials/how-to-turn-off/
+  (setq lsp-headerline-breadcrumb-enable nil)
   :commands lsp)
 
 (use-package lsp-ui
