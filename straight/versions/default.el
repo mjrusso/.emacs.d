@@ -69,6 +69,7 @@
  ("transient" . "4e8aa09b3f9b909dddde85269eb5051b5801a07c")
  ("treemacs" . "d00cc19cab8df4fec7ed6608e00bd16fe797369a")
  ("twilight-theme" . "77c4741cb3dcf16e53d06d6c2ffdc660c40afb5b")
+ ("typescript.el" . "e82416205158d4b21d42d6b60c4385f68f0ae1b1")
  ("typoel" . "173ebe4fc7ac38f344b16e6eaf41f79e38f20d57")
  ("use-package" . "a7422fb8ab1baee19adb2717b5b47b9c3812a84c")
  ("web-mode" . "61f057a6baeba6b3595e412ba79b3080dca17dcc")

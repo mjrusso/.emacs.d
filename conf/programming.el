@@ -159,6 +159,20 @@
   :defer t
   :hook (swift-mode . lsp))
 
+;; For more on using LSP with Typescript, see:
+;; https://emacs-lsp.github.io/lsp-mode/page/lsp-typescript/
+;;
+;; FIXME: Both the typescript-language-server, *and* typescript, must be
+;; available in the current PATH. I'm using a global install (i.e.,
+;; `npm i -g typescript typescript-language-server`), but this approach is
+;; brittle, and would be well served by per-project virtual environments. Try a
+;; solution like emacs-direnv, lsp-docker, etc.
+(use-package typescript-mode
+  :defer t
+  :init
+  (add-to-list 'auto-mode-alist '("\\.ts$" . typescript-mode))
+  :hook (typescript-mode . lsp))
+
 (use-package js2-mode
   :defer t
   :init
