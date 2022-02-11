@@ -52,7 +52,8 @@
                 term-mode-hook
                 comint-mode-hook
                 compilation-mode-hook
-                minibuffer-setup-hook))
+                minibuffer-setup-hook
+                calendar-mode-hook))
   (add-hook hook
     (lambda () (setq show-trailing-whitespace nil))))
 
