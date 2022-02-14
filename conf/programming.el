@@ -159,26 +159,39 @@
   :defer t
   :hook (swift-mode . lsp))
 
+;; https://github.com/codesuki/add-node-modules-path
+(use-package add-node-modules-path :defer t)
+
+;; https://github.com/prettier/prettier-emacs
+(use-package prettier-js :defer t)
+
 ;; For more on using LSP with Typescript, see:
 ;; https://emacs-lsp.github.io/lsp-mode/page/lsp-typescript/
 ;;
-;; FIXME: Both the typescript-language-server, *and* typescript, must be
-;; available in the current PATH. I'm using a global install (i.e.,
-;; `npm i -g typescript typescript-language-server`), but this approach is
-;; brittle, and would be well served by per-project virtual environments. Try a
-;; solution like emacs-direnv, lsp-docker, etc.
+;; Note that the typescript-language-server, *and* typescript (`tsc`), must be
+;; available in the current path. Instead of a global install (i.e., `npm i -g
+;; typescript typescript-language-server`), rely on the add-node-modules-path
+;; package, which adds `node_modules/.bin/` to the current path.
 (use-package typescript-mode
   :defer t
   :init
   (add-to-list 'auto-mode-alist '("\\.ts$" . typescript-mode))
-  :hook (typescript-mode . lsp))
+  :hook
+  (typescript-mode . add-node-modules-path)
+  (typescript-mode . prettier-js-mode)
+  (typescript-mode . lsp-deferred)
+  )
 
 (use-package js2-mode
   :defer t
   :init
   (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
   (add-to-list 'auto-mode-alist '("\\.jsx$" . js2-jsx-mode))
-  (add-to-list 'auto-mode-alist '("\\.json$" . javascript-mode)))
+  (add-to-list 'auto-mode-alist '("\\.json$" . javascript-mode))
+  :hook
+  (js2-mode . add-node-modules-path)
+  (js2-mode . prettier-js-mode)
+  )
 
 (use-package web-mode
   :mode ("\\.html?\\'"
@@ -194,17 +207,6 @@
    web-mode-enable-auto-opening t
    web-mode-enable-auto-pairing t
    web-mode-enable-auto-indentation t))
-
-;; Prefer node_modules/.bin/prettier, when available.
-;;
-;; - https://github.com/prettier/prettier-emacs#using-node_modulesbinprettier
-;; - https://github.com/codesuki/add-node-modules-path
-(use-package add-node-modules-path :defer t)
-(use-package prettier-js
-  :defer t
-  :init
-  (add-hook 'js2-mode-hook 'add-node-modules-path)
-  (add-hook 'js2-mode-hook 'prettier-js-mode))
 
 (use-package clojure-mode
   :mode ("\\.clj\\'"
