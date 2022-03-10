@@ -13,6 +13,7 @@
  ("el-get" . "960f3fb962c35d3196bab20b2a3f6d6228119277")
  ("emacs-async" . "5d365ffc6a2c2041657eaa5d762c395ea748c8d7")
  ("emacs-dashboard" . "d6e9f4df42815de467765e78b7c27125f35d30bb")
+ ("emacs-emojify" . "1b726412f19896abf5e4857d4c32220e33400b55")
  ("emacs-htmlize" . "dd27bc3f26efd728f2b1f01f9e4ac4f61f2ffbf9")
  ("emacs-idle-highlight-mode" . "0916be7075e792773440c3bdb5cf9c153691846b")
  ("emacs-libvterm" . "a940dd2ee8a82684860e320c0f6d5e15d31d916f")
