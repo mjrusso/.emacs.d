@@ -60,6 +60,11 @@
 ;; - http://blogs.adobe.com/typblography/2012/09/source-code-pro.html
 (add-to-list 'default-frame-alist '(font . "Source Code Pro Medium"))
 
+;; Display emojis in buffer, when Apple's emoji font is available.
+(when (member "Apple Color Emoji" (font-family-list))
+  (set-fontset-font
+   t 'symbol (font-spec :family "Apple Color Emoji") nil 'prepend))
+
 ;; - https://github.com/tumashu/posframe
 (use-package posframe)
 
