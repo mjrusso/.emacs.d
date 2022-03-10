@@ -1,4 +1,8 @@
-(use-package org)
+(use-package org
+  :bind
+  (:map org-mode-map
+        (("C-c i d" . org-time-stamp-inactive)
+         ("C-c i t" . org-insert-structure-template))))
 
 ;; ;;
 ;; (setq org-todo-keywords
