@@ -15,6 +15,7 @@
  ("emacs-dashboard" . "d6e9f4df42815de467765e78b7c27125f35d30bb")
  ("emacs-htmlize" . "dd27bc3f26efd728f2b1f01f9e4ac4f61f2ffbf9")
  ("emacs-idle-highlight-mode" . "0916be7075e792773440c3bdb5cf9c153691846b")
+ ("emacs-libvterm" . "a940dd2ee8a82684860e320c0f6d5e15d31d916f")
  ("emacs-memoize" . "51b075935ca7070f62fae1d69fe0ff7d8fa56fdd")
  ("emacsmirror-mirror" . "82752f0de28041e61b709810d3acb67fba69c8c1")
  ("emacsql" . "9dca5996168c4963eb67e61c7f17fdcb8228e314")
