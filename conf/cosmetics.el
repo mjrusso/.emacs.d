@@ -11,8 +11,6 @@
   :config (load-theme 'darkokai t))
 
 (when window-system
-  (setq frame-title-format
-        (list '(:eval (my/current-tab-name-with-index))))
   (tooltip-mode -1)
   (mouse-wheel-mode t)
   (blink-cursor-mode -1))

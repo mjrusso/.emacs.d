@@ -98,7 +98,8 @@ isn't visiting a file)."
   "Populate all of the values (buffer local) we keep in the cache
 for each mode line redraw."
   (setq-local my/mode-line-cache
-              `((project-name . ,(projectile-project-name))
+              `((perspective-name . ,(persp-current-name))
+                (project-name . ,(projectile-project-name))
                 (project-root . ,(projectile-project-root))
                 (buffer-file-name . ,(buffer-file-name))
                 (file-name-nondirectory . ,(let ((name (buffer-file-name)))
@@ -128,11 +129,16 @@ construct (which will print the buffer name as-is)."
     (or name "%b")))
 
 (defun my/mode-line-project ()
-  "For use in `mode-line-format'. Returns the projectile project
-name (from cache) if the buffer is within the context of a
-project. Otherwise, an empty string is returned."
-  (let ((project (my/mode-line-get 'project-name)))
-    (if project (format "[%s] " project) "")))
+  "For use in `mode-line-format'. Accesses the perspective name
+and the project names (from cache). The string return value
+differentiates between various cases: perspective name and
+project name are the same; there is no associated project; and,
+the perspective and project names are different."
+  (let ((perspective (my/mode-line-get 'perspective-name))
+        (project (my/mode-line-get 'project-name)))
+    (cond ((string= perspective project) (format "{%s} " perspective))
+          ((string= project "-") (format "(%s) " perspective))
+          ((format "[%s|%s] " perspective project)))))
 
 (defun my/mode-line-file-dir ()
   "For use in `mode-line-format'. If the buffer is visiting a

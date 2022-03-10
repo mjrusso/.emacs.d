@@ -50,6 +50,7 @@
  ("org-roam" . "c3889b3b17d43092be9146825d45c46c5eaea798")
  ("page-break-lines" . "28783cd6b86b3cd41e51e6b2486173e2485a76cc")
  ("paredit" . "8330a41e8188fe18d3fa805bb9aa529f015318e8")
+ ("perspective-el" . "7297dabf6de83642e8242052fe95c79d4233eac7")
  ("pfuture" . "d7926de3ba0105a36cfd00811fd6278aea903eef")
  ("posframe" . "3b1dc400d286b0a4bd42e518bf3e7eedb49fd1e6")
  ("prettier-emacs" . "e9b73e81d3e1642aec682195f127a42dfb0b5774")

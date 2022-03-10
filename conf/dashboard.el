@@ -7,7 +7,7 @@
   (setq dashboard-center-content t)
   (setq dashboard-page-separator "\n\f\n")
   (setq dashboard-projects-backend 'projectile)
-  (setq dashboard-projects-switch-function 'my/open-project-in-new-tab-action)
+  (setq dashboard-projects-switch-function 'my/open-project-in-new-perspective-action)
   (setq dashboard-items '((recents  . 5)
                           (projects . 10)
                           (bookmarks . 5)

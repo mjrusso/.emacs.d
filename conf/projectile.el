@@ -53,27 +53,32 @@ fallback to dired if the project is not managed with a VCS."
 (defun my/open-project-action (project-root)
   (my/counsel-projectile-switch-project-action-maybe-vc project-root))
 
-(defun my/open-project-in-new-tab-action (project-root)
-  (tab-new)
-  (my/open-project-action project-root)
-  (delete-other-windows)
-  (let ((name (projectile-project-name)))
-    (tab-rename name)))
+(defun my/open-project-in-new-perspective-action (project-root)
+  (let ((name (projectile-default-project-name project-root)))
+    (persp-switch name)
+    (my/open-project-action project-root)))
 
-(defun my/open-project-prompt (open-in-new-tab)
+(defun my/open-project-prompt (open-in-new-perspective)
   (ivy-read (projectile-prepend-project-name
-             (if open-in-new-tab "Open project in new tab: "
+             (if open-in-new-perspective "Open project in new perspective: "
                "Open project: "))
             projectile-known-projects
             :preselect (and (projectile-project-p)
                             (abbreviate-file-name (projectile-project-root)))
             :action (lambda (x)
-                      (if open-in-new-tab
-                          (my/open-project-in-new-tab-action x)
+                      (if open-in-new-perspective
+                          (my/open-project-in-new-perspective-action x)
                         (my/open-project-action x)))
             :require-match t
             :sort counsel-projectile-sort-projects
-            :caller 'my/open-project-in-new-tab))
+            :caller 'my/open-project-in-new-perspective))
+
+(defun my/open-project-in-new-perspective ()
+  "Prompts for a project to open in a new perspective. The project opens
+immediately to the project's magit status buffer (or equivalent
+for other VCS). The perspective is named after the project name."
+  (interactive)
+  (my/open-project-prompt t))
 
 (defun my/open-project ()
   "Prompts for a project to open. The project opens immediately
@@ -81,10 +86,3 @@ to the project's magit status buffer (or equivalent for other
 VCS)."
   (interactive)
   (my/open-project-prompt nil))
-
-(defun my/open-project-in-new-tab ()
-  "Prompts for a project to open in a new tab. The project opens
-immediately to the project's magit status buffer (or equivalent
-for other VCS). The tab is named after the project name."
-  (interactive)
-  (my/open-project-prompt t))
