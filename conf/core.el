@@ -27,3 +27,6 @@
 (set-default 'indicate-buffer-boundaries nil)
 (set-default 'imenu-auto-rescan t)
 
+;; These tweaks are based on the recommendations by lsp-doctor.
+(setq read-process-output-max (* 1024 1024)) ;; 1 MB
+(setq gc-cons-threshold (* 100 (* 1024 1024))) ;; 100 MB
