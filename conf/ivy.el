@@ -61,7 +61,8 @@
           ivy-posframe-hide-minibuffer t
           ivy-posframe-min-width 60
           ivy-posframe-parameters '((alpha 100 100)
-                                    (max-width . 180)
+                                    (max-width . 300)
+                                    (min-width . 100)
                                     (left-fringe . 8)
                                     (right-fringe . 4))
           ivy-posframe-display-functions-alist '((swiper          . ivy-display-function-fallback)
