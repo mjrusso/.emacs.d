@@ -24,7 +24,6 @@
 (defun my/switch-to-dashboard ()
   "Switch to the dashboard buffer."
   (interactive)
-  (dashboard-refresh-buffer)
   (switch-to-buffer "*dashboard*"))
 
 (defun my/switch-to-dashboard-and-refresh ()
@@ -33,4 +32,4 @@
   (dashboard-refresh-buffer)
   (my/switch-to-dashboard))
 
-(global-set-key (kbd "C-c d") #'my/switch-to-dashboard-and-refresh)
+(global-set-key (kbd "C-c s d") #'my/switch-to-dashboard-and-refresh)
