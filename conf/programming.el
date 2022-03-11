@@ -30,15 +30,35 @@
      (set-face-foreground 'diff-added "green4")
      (set-face-foreground 'diff-removed "red3")))
 
-;; Highlight uncommitted changes in the gutter.
+;; Highlight uncommitted changes in the gutter, using a mix of diff-hl and
+;; git-gutter/git-gutter-fringe, depending on the context.
+;;
 ;; - https://github.com/dgutov/diff-hl
+;; - https://github.com/emacsorphanage/git-gutter
+;; - https://github.com/emacsorphanage/git-gutter-fringe
+;;
+;; Also see:
+;;
+;; - https://ianyepan.github.io/posts/emacs-git-gutter/
 (use-package diff-hl
   :config
+  (add-hook 'dired-mode-hook 'diff-hl-dired-mode)
   (add-hook 'magit-pre-refresh-hook 'diff-hl-magit-pre-refresh)
   (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
-  (add-hook 'dired-mode-hook 'diff-hl-dired-mode)
-  (add-hook 'prog-mode-hook 'turn-on-diff-hl-mode)
-  (add-hook 'vc-dir-mode-hook 'turn-on-diff-hl-mode))
+;;  (add-hook 'prog-mode-hook 'turn-on-diff-hl-mode)
+;;  (add-hook 'vc-dir-mode-hook 'turn-on-diff-hl-mode)
+  )
+
+(use-package git-gutter
+  :hook (prog-mode . git-gutter-mode)
+  :config
+  (setq git-gutter:update-interval 0))
+
+(use-package git-gutter-fringe
+  :config
+  (define-fringe-bitmap 'git-gutter-fr:added [224] nil nil '(center repeated))
+  (define-fringe-bitmap 'git-gutter-fr:modified [224] nil nil '(center repeated))
+  (define-fringe-bitmap 'git-gutter-fr:deleted [128 192 224 240] nil nil 'bottom))
 
 ;; Highlight indentation levels.
 ;; - https://github.com/DarthFennec/highlight-indent-guides
