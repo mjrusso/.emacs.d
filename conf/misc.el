@@ -35,11 +35,16 @@
 ;; When you visit a file, point goes to the last place where it was when you
 ;; previously visited the same file.
 ;; - https://www.emacswiki.org/emacs/SavePlace
-(save-place-mode 1)
+(use-package saveplace
+  :init
+  (save-place-mode 1))
 
-;; Persist M-x command history across shutdowns.
+;; Persist M-x command history (and other minibuffer histories) across
+;; shutdowns.
 ;; - https://www.emacswiki.org/emacs/SaveHist
-(savehist-mode 1)
+(use-package savehist
+  :init
+  (savehist-mode 1))
 
 (defalias 'yes-or-no-p 'y-or-n-p)
 

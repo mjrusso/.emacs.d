@@ -1,3 +1,5 @@
+(add-hook 'text-mode-hook 'turn-on-auto-fill)
+
 (use-package markdown-mode
   :mode (("\\.markdown\\'" . markdown-mode)
          ("\\.mdown\\'" . markdown-mode)
