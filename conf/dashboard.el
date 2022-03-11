@@ -8,11 +8,12 @@
   (setq dashboard-page-separator "\n\f\n")
   (setq dashboard-projects-backend 'projectile)
   (setq dashboard-projects-switch-function 'my/open-project-in-new-perspective-action)
-  (setq dashboard-items '((recents  . 5)
-                          (projects . 10)
-                          (bookmarks . 5)
+  (setq dashboard-items '(
+                          (bookmarks . 12)
+                          (recents  . 12)
+                          (projects . 12)
                           ;; (agenda . 5)
-                          (registers . 5)
+                          ;; (registers . 5)
                           ))
   (setq dashboard-footer-messages '("Welcome to the church of Emacs"
                                     "While any text editor can save your files, only Emacs can save your soul"))
