@@ -20,6 +20,7 @@ auto-save-list
 backups
 bookmarks
 history
+ispell-personal-dictionary
 custom.el
 eshell/history
 eshell/lastdir
