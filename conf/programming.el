@@ -205,6 +205,7 @@
 (use-package js2-mode
   :defer t
   :init
+  (setq js-indent-level 2)
   (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
   (add-to-list 'auto-mode-alist '("\\.jsx$" . js2-jsx-mode))
   (add-to-list 'auto-mode-alist '("\\.json$" . javascript-mode))
