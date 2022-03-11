@@ -245,7 +245,7 @@
 
 ;; LSP-related Hydras. Adapted from:
 ;; https://github.com/jerrypnz/.emacs.d/blob/master/lisp/jp-lsp-hydra.el
-(major-mode-hydra-define+ (rust-mode swift-mode)
+(major-mode-hydra-define+ (rust-mode swift-mode typescript-mode)
   (:color teal :quit-key "q")
   ("LSP Quick Action"
    (("d" lsp-describe-thing-at-point "describe symbol")
