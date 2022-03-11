@@ -213,6 +213,16 @@
          "\\.cljs\\'"
          "\\.edn\\'"))
 
+;; Interactively make HTTP requests, for testing RESTful APIs.
+;;
+;; - https://github.com/pashky/restclient.el
+;; - https://erick.navarro.io/blog/testing-an-api-with-emacs-and-restclient/
+;; - https://jakemccrary.com/blog/2014/07/04/using-emacs-to-explore-an-http-api/
+;;
+;; Other options: https://emacs.stackexchange.com/q/2427
+(use-package restclient
+  :mode (("\\.http\\'" . restclient-mode)))
+
 ;; LSP-related Hydras. Adapted from:
 ;; https://github.com/jerrypnz/.emacs.d/blob/master/lisp/jp-lsp-hydra.el
 (major-mode-hydra-define+ (rust-mode swift-mode)
