@@ -3,7 +3,6 @@
 ;; https://github.com/nex3/perspective-el
 
 (use-package perspective
-
   :bind
  (("C-x b" . persp-ivy-switch-buffer)
   ("C-x k" . persp-kill-buffer*)
@@ -28,7 +27,7 @@
  (setq persp-modestring-short nil)
  (setq persp-sort 'created)
  (when window-system
-  ;; Set the text corresponding to the perspective mode line as the frame title.
+   ;; Set the text corresponding to the perspective mode line as the frame title.
    (setq frame-title-format
          (list '(:eval (my/perspective-names)))))
  (persp-mode))
@@ -44,7 +43,6 @@ perspective is currently active."
      (append
        (list '"    ϟ    ")
        (persp-intersperse (persp-names) (list '"  |  "))))))
-
 
 ;; Group buffers by perspective name in the ibuffer buffer.
 (add-hook 'ibuffer-hook
