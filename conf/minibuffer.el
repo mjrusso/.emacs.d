@@ -23,6 +23,7 @@
 (use-package marginalia
   :config
   (setq marginalia-align 'left)
+  :init
   (marginalia-mode)
   :bind (:map minibuffer-local-map
               ("M-A" . marginalia-cycle)))
