@@ -15,15 +15,6 @@
   (mouse-wheel-mode t)
   (blink-cursor-mode -1))
 
-;; Tweak the size and placement of the initial frame.
-(when window-system
-  (let* ((width (floor (/ (x-display-pixel-width) 2)))
-         (height (floor (/ (x-display-pixel-height) 1)))
-         (x (- (x-display-pixel-width) width (floor (* width 0.02))))
-         (y (- (x-display-pixel-height) height)))
-    (set-frame-position (selected-frame) x y)
-    (set-frame-size (selected-frame) width height t)))
-
 ;; Enable the menu bar.
 (menu-bar-mode t)
 
