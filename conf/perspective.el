@@ -39,15 +39,16 @@
 
 (defun my/perspective-names ()
   "Returns the names of all perspectives. The currently-active
-perspective name is specifically repeated, in the case when there
-is more than one perspective, to make it clearer which
+perspective name is specially marked, to make it clearer which
 perspective is currently active."
-  (append
-   (list (persp-current-name))
-   (when (> (length (persp-names)) 1)
-     (append
-       (list '"    ϟ    ")
-       (persp-intersperse (persp-names) (list '"  |  "))))))
+  (persp-intersperse
+   (mapcar
+    '(lambda (name)
+       (if (eq name (persp-current-name))
+           (concat "*" name "*")
+         name))
+    (persp-names))
+   '"   |   "))
 
 ;; Group buffers by perspective name in the ibuffer buffer.
 (add-hook 'ibuffer-hook
