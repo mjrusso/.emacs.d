@@ -1,7 +1,28 @@
 ;; https://github.com/minad/vertico
 (use-package vertico
+
+  ;; Straight needs some help here, because additional extensions are included
+  ;; in the same package/repository as Vertico itself. See:
+  ;;
+  ;; - https://github.com/raxod502/straight.el/issues/819#issuecomment-882039946
+  ;; - https://kristofferbalintona.me/posts/vertico-marginalia-all-the-icons-completion-and-orderless/
+  :straight (vertico :files (:defaults "extensions/*")
+                     :includes (vertico-buffer
+                                vertico-directory
+                                vertico-flat
+                                vertico-grid
+                                vertico-indexed
+                                vertico-mouse
+                                vertico-multiform
+                                vertico-quick
+                                vertico-repeat
+                                vertico-reverse
+                                vertico-unobtrusive
+                                ))
   :init
+
   (vertico-mode)
+
   :config
 
   (setq vertico-count 14)
@@ -12,11 +33,6 @@
 
 (use-package vertico-directory
   :after vertico
-  ;; Straight needs some help here, because vertico-directory is included in
-  ;; the same repo as vertico. See:
-  ;; https://github.com/raxod502/straight.el/issues/819
-  :straight nil
-  :load-path "straight/build/vertico/extensions"
   :bind (:map vertico-map
               ("RET" . vertico-directory-enter)
               ("DEL" . vertico-directory-delete-char)
