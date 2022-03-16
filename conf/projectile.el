@@ -4,10 +4,23 @@
   (setq projectile-enable-caching t)
   (setq projectile-indexing-method 'alien)
   (setq projectile-require-project-root nil)
-  ;; When using projectile commands directly, rather than the counsel variants,
-  ;; use ivy completion.
-  (setq projectile-completion-system 'ivy)
+  (setq projectile-completion-system 'default)
+  (projectile-mode +1)
+
+  :bind (
+         ("s-f" . projectile-find-file)
+         ("s-d" . projectile-find-dir)
+
+         ;; S-R: search entire project
+         ;; C-u S-R (or M-1 S-R): allows user to specify search directory
+         ;;
+         ;; To display search results in the minibuffer, invoke
+         ;; `M-x consult-ripgrep` directly.
+         ("s-R" . projectile-ripgrep)
+         )
+
   :config
+  (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
   (setq projectile-globally-ignored-directories
         (append '("build"
                   "eggs"
@@ -17,21 +30,7 @@
                   "log"
                   "tmp")
                 projectile-globally-ignored-directories))
-  (projectile-mode +1))
-
-(define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
-
-(use-package counsel-projectile
-  :after (counsel projectile)
-  :init (setq counsel-projectile-remove-current-project nil)
-  :config (counsel-projectile-mode t))
-
-(defun my/counsel-projectile-switch-open-project ()
-  "A counsel version of `projectile-switch-open-project', in lieu
-of one from the counsel library."
-  (interactive)
-  (let ((my/projectile-force-open-projects t))
-    (counsel-projectile-switch-project)))
+)
 
 (advice-add
  'projectile-relevant-known-projects
@@ -42,47 +41,30 @@ of one from the counsel library."
        (apply (symbol-function 'projectile-relevant-open-projects) args)
        (apply fn args))))
 
-(defun my/counsel-projectile-switch-project-action-maybe-vc (project-root)
-  "Open a project to magit (or any other supported VCS), with a
-fallback to dired if the project is not managed with a VCS."
-  (let ((vc (projectile-project-vcs project-root)))
-    (if (eq vc 'none)
-        (counsel-projectile-switch-project-action-dired project-root)
-      (counsel-projectile-switch-project-action-vc project-root))))
-
-(defun my/open-project-action (project-root)
-  (my/counsel-projectile-switch-project-action-maybe-vc project-root))
-
-(defun my/open-project-in-new-perspective-action (project-root)
-  (let ((name (projectile-default-project-name project-root)))
+(defun my/open-project-in-new-perspective-action ()
+  "Open project to magit (or any other supported VCS),
+with a fallback to dired if the project is not managed with a
+VCS."
+  (let* ((project-root (projectile-project-root))
+         (name (projectile-default-project-name project-root))
+         (vc (projectile-project-vcs (projectile-project-root))))
     (persp-switch name)
-    (my/open-project-action project-root)))
+    (if (eq vc 'none)
+        (projectile-dired)
+      (projectile-vc))))
 
-(defun my/open-project-prompt (open-in-new-perspective)
-  (ivy-read (projectile-prepend-project-name
-             (if open-in-new-perspective "Open project in new perspective: "
-               "Open project: "))
-            projectile-known-projects
-            :preselect (and (projectile-project-p)
-                            (abbreviate-file-name (projectile-project-root)))
-            :action (lambda (x)
-                      (if open-in-new-perspective
-                          (my/open-project-in-new-perspective-action x)
-                        (my/open-project-action x)))
-            :require-match t
-            :sort counsel-projectile-sort-projects
-            :caller 'my/open-project-in-new-perspective))
+(defun my/open-project-by-name-in-new-perspective (project-root)
+  "Opens a project with the specified project root in a new perspective."
+  (let ((projectile-switch-project-action 'my/open-project-in-new-perspective-action))
+    (funcall 'projectile-switch-project-by-name project-root)))
 
 (defun my/open-project-in-new-perspective ()
-  "Prompts for a project to open in a new perspective. The project opens
-immediately to the project's magit status buffer (or equivalent
-for other VCS). The perspective is named after the project name."
+  "Prompts for a project to open in a new perspective."
   (interactive)
-  (my/open-project-prompt t))
+  (let ((projectile-switch-project-action 'my/open-project-in-new-perspective-action))
+    (call-interactively 'projectile-switch-project)))
 
 (defun my/open-project ()
-  "Prompts for a project to open. The project opens immediately
-to the project's magit status buffer (or equivalent for other
-VCS)."
+  "Prompts for a project to open (in the current perspective)."
   (interactive)
-  (my/open-project-prompt nil))
+  (projectile-switch-project))

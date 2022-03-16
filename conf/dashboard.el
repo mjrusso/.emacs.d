@@ -1,13 +1,13 @@
 ;; https://github.com/emacs-dashboard/emacs-dashboard
 (use-package dashboard
-  :after (counsel projectile page-break-lines)
+  :after (projectile page-break-lines)
   :init
   (setq dashboard-set-init-info t)
   (setq dashboard-startup-banner 3)
   (setq dashboard-center-content t)
   (setq dashboard-page-separator "\n\f\n")
   (setq dashboard-projects-backend 'projectile)
-  (setq dashboard-projects-switch-function 'my/open-project-in-new-perspective-action)
+  (setq dashboard-projects-switch-function 'my/open-project-by-name-in-new-perspective)
   (setq dashboard-items '(
                           (bookmarks . 12)
                           (recents  . 12)

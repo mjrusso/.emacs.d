@@ -3,15 +3,15 @@
 ;; https://github.com/nex3/perspective-el
 
 (use-package perspective
+
   :bind
- (("C-x b" . persp-ivy-switch-buffer)
-  ("C-x k" . persp-kill-buffer*)
   ;; Mimic shortcuts for tab-based navigation.
   ("s-}" . persp-next)
   ("s-{" . persp-prev)
   ("s-=" . persp-switch)
   ("s-+" . 'my/open-project-in-new-perspective)
   ("s-0" . persp-kill))
+  (("C-x k" . persp-kill-buffer*)
 
  :config
  ;; Bind s-1 through s-9 to specific perspectives.
@@ -50,3 +50,31 @@ perspective is currently active."
             (persp-ibuffer-set-filter-groups)
             (unless (eq ibuffer-sorting-mode 'alphabetic)
               (ibuffer-do-sort-by-alphabetic))))
+
+;; As an alternative to using `persp-switch-to-buffer*', add the
+;; perspective-filtered buffer list as a virtual buffer source to consult. This
+;; makes the list of buffers in the current perspective available to
+;; `consult-buffer'.
+;;
+;; For more details on how this works, see
+;; <https://github.com/minad/consult#multiple-sources>.
+
+(defvar my/consult--source-perspective-buffer
+  `(:name     "Perspective Buffer"
+    :hidden   nil
+    :category buffer
+    :face     consult-buffer
+    :history  buffer-name-history
+    :default  t
+    :state    ,#'consult--buffer-state
+    :enabled  ,(lambda () t)
+    :items    ,(lambda ()
+                 (consult--buffer-query :sort 'visibility
+                                        :predicate (lambda (arg) (not (persp-buffer-filter arg)))
+                                        :as #'buffer-name)))
+  "Perspective buffer candidate source for `consult-buffer'.")
+
+(defun my/add-perspective-virtual-buffer-source-to-consult ()
+  "Add all perspective-filtered buffers as a `consult-buffer'
+virtual buffer source."
+  (add-to-list 'consult-buffer-sources 'my/consult--source-perspective-buffer))

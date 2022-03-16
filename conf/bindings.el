@@ -20,42 +20,4 @@
 (global-set-key (kbd "C-c C-t") 'projectile-test-project)
 (global-set-key (kbd "C-c C-c") 'projectile-repeat-last-command)
 
-;; S-r: search entire project
-;; C-u S-r (or M-1 S-r): allows user to specify search directory
-;;
-;; To display search results in a separate buffer, invoke
-;; `M-x projectile-ripgrep` directly.
-(global-set-key [(super r)] 'counsel-projectile-rg)
-
-(global-set-key (kbd "C-x C-f") 'counsel-find-file)
-
-(global-set-key [(super f)] 'counsel-projectile-find-file)
-(global-set-key [(super d)] 'counsel-projectile-find-dir)
-
 (global-set-key [(super p)] 'my/open-project)
-
-;; Search
-(global-set-key (kbd "C-M-s") 'isearch-forward-regexp)
-(global-set-key (kbd "C-M-r") 'isearch-backward-regexp)
-(global-set-key (kbd "C-S-s") 'swiper-isearch-thing-at-point)
-(global-set-key (kbd "M-%") 'query-replace-regexp)
-(global-set-key (kbd "C-M-%") 'query-replace)
-
-;; Move point from window to window using shift and the arrow keys.
-(when (fboundp 'windmove-default-keybindings)
-  (windmove-default-keybindings))
-
-;; Tab navigation
-;; (global-set-key (kbd "s-}") 'tab-next)
-;; (global-set-key (kbd "s-{") 'tab-previous)
-;; (global-set-key (kbd "s--") 'tab-bar-select-tab-by-name)
-;; (global-unset-key (kbd "s-_"))
-;; (global-set-key (kbd "s-=") 'my/new-tab)
-;; (global-set-key (kbd "s-+") 'my/open-project-in-new-tab)
-;; (dotimes (i 9) ;; Bind s-1 through s-9 to tabs.
-;;    (let ((d (+ i 1)))
-;;      (global-set-key (kbd (format "s-%d" d))
-;;                      `(lambda ()
-;;                         (interactive)
-;;                         (tab-bar-select-tab ,d)))))
-;; (global-set-key (kbd "s-0") 'tab-close)

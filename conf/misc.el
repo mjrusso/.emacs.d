@@ -28,8 +28,6 @@
   :init (setq uniquify-buffer-name-style 'post-forward-angle-brackets
               uniquify-min-dir-content 2))
 
-(use-package ripgrep)
-
 (use-package htmlize)
 
 ;; Persist a list of recently-opened files.
@@ -63,44 +61,6 @@
   (savehist-mode 1))
 
 (defalias 'yes-or-no-p 'y-or-n-p)
-
-(unless (or (fboundp 'helm-mode) (fboundp 'ivy-mode))
-  (ido-mode t)
-  (setq ido-enable-flex-matching t))
-
-(use-package flx)
-
-(use-package flx-ido
-  :after flx
-  :init
-  (setq ido-enable-prefix nil
-      ido-enable-flex-matching t
-      ido-auto-merge-work-directories-length nil
-      ido-create-new-buffer 'always
-      ido-use-faces nil
-      ido-use-filename-at-point 'guess
-      ido-use-virtual-buffers t
-      ido-handle-duplicate-virtual-buffers 2
-      ido-max-prospects 10
-      ido-ubiquitous-allow-on-functional-collection t)
-  :config
-  (ido-mode 1)
-  (ido-everywhere 1)
-  (flx-ido-mode 1))
-
-(use-package ido-completing-read+
-  :after flx-ido
-  :config
-  (ido-ubiquitous-mode 1))
-
-(use-package smex
-  :init
-  (setq smex-save-file (concat user-emacs-directory ".smex-items"))
-  :config
-  (smex-initialize)
-  :bind
-  (("M-x" . counsel-M-x)) ;; `counsel-M-x' is enhanced by smex.
-  )
 
 (use-package imenu-list)
 
