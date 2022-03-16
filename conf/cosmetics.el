@@ -24,10 +24,6 @@
     (set-frame-position (selected-frame) x y)
     (set-frame-size (selected-frame) width height t)))
 
-;; Tweak window split thresholds.
-(setq split-width-threshold 120)
-(setq split-height-threshold 160)
-
 ;; Enable the menu bar.
 (menu-bar-mode t)
 
