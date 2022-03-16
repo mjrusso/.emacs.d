@@ -6,12 +6,12 @@
 
   :bind
   ;; Mimic shortcuts for tab-based navigation.
-  ("s-}" . persp-next)
-  ("s-{" . persp-prev)
   ("s-=" . persp-switch)
   ("s-+" . 'my/open-project-in-new-perspective)
   ("s-0" . persp-kill))
   (("C-x k" . persp-kill-buffer*)
+   ("s-}" . (lambda () (interactive) (my/call-func-if-minibuffer-not-open 'persp-next)))
+   ("s-{" . (lambda () (interactive) (my/call-func-if-minibuffer-not-open 'persp-prev)))
 
  :config
  ;; Bind s-1 through s-9 to specific perspectives.
@@ -31,6 +31,11 @@
    (setq frame-title-format
          (list '(:eval (my/perspective-names)))))
  (persp-mode))
+
+(defun my/call-func-if-minibuffer-not-open (persp-change-func)
+  (if (active-minibuffer-window)
+         (error "Preventing perspective switch while minibuffer open")
+       (funcall persp-change-func)))
 
 (defun my/perspective-names ()
   "Returns the names of all perspectives. The currently-active
