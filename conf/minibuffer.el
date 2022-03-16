@@ -22,6 +22,7 @@
 ;; https://github.com/minad/marginalia
 (use-package marginalia
   :config
+  (setq marginalia-align 'left)
   (marginalia-mode)
   :bind (:map minibuffer-local-map
               ("M-A" . marginalia-cycle)))
