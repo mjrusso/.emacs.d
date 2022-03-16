@@ -23,6 +23,7 @@
 
 (use-package idle-highlight-mode
   :config
+  (setq idle-highlight-exclude-point t)
   (add-hook 'prog-mode-hook 'idle-highlight-mode))
 
 (eval-after-load 'diff-mode
