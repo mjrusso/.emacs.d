@@ -2,6 +2,10 @@
 (use-package vertico
   :init
   (vertico-mode)
+  :config
+
+  (setq vertico-count 14)
+
   :bind (:map vertico-map
               ("C-s" . vertico-next)
               ("C-r" . vertico-previous)))
