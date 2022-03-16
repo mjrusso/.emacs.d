@@ -5,13 +5,13 @@
 (use-package perspective
 
   :bind
-  ;; Mimic shortcuts for tab-based navigation.
-  ("s-=" . persp-switch)
-  ("s-+" . 'my/open-project-in-new-perspective)
-  ("s-0" . persp-kill))
   (("C-x k" . persp-kill-buffer*)
+   ;; Mimic shortcuts for tab-based navigation.
    ("s-}" . (lambda () (interactive) (my/call-func-if-minibuffer-not-open 'persp-next)))
    ("s-{" . (lambda () (interactive) (my/call-func-if-minibuffer-not-open 'persp-prev)))
+   ("s-=" . persp-switch)
+   ("s-+" . 'my/open-project-in-new-perspective)
+   ("s-0" . persp-kill))
 
  :config
  ;; Bind s-1 through s-9 to specific perspectives.
