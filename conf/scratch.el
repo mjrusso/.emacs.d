@@ -16,3 +16,5 @@ location `my/scratch-files-dir'."
   (let* ((initial-path (format "%s" my/persistent-scratch-files-dir))
          (path (format "%s%s" initial-path name)))
     (find-file path)))
+
+(global-set-key (kbd "C-c n s") 'my/persistent-scratch-file)
