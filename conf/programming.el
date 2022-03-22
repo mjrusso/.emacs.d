@@ -108,6 +108,24 @@
 ;; compilation buffer.
 (setq compilation-scroll-output 'first-error)
 
+;; (Very hacky) functions to disable (and re-enable) error parsing in
+;; compilation mode.
+
+(defun my/disable-error-parsing-in-compilation-mode ()
+  (interactive)
+  (if (not (boundp 'my/cached-compilation-error-regexp-alist))
+      (setq my/cached-compilation-error-regexp-alist compilation-error-regexp-alist))
+  (setq compilation-error-regexp-alist nil)
+  (message "Error parsing disabled for compilation mode"))
+
+(defun my/enable-error-parsing-in-compilation-mode ()
+  (interactive)
+  (if (boundp 'my/cached-compilation-error-regexp-alist)
+      (progn
+        (setq compilation-error-regexp-alist my/cached-compilation-error-regexp-alist)
+        (message "Error parsing enabled for compilation mode"))
+    (message "Error parsing already enabled for compilation mode")))
+
 ;; Don't stop scrolling when encountering warnings.
 (setq compilation-skip-threshold 2)
 
