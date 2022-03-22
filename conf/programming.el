@@ -85,6 +85,10 @@
 ;; Don't stop scrolling when encountering warnings.
 (setq compilation-skip-threshold 2)
 
+;; Always kill the current compilation process before starting a new one, in
+;; lieu of prompting.
+(setq compilation-always-kill t)
+
 ;; Properly interpret control sequences (colours!) in compilation buffers.
 ;;
 ;; - https://github.com/atomontage/xterm-color#compilation-buffers
