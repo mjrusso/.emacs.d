@@ -2,7 +2,7 @@
   :straight nil
   :bind
   (("C-s" . isearch-forward-regexp)
-   ("C-r" . isearch-backward-regex)
+   ("C-r" . isearch-backward-regexp)
 ;; ("C-M-s" . isearch-forward)
 ;; ("C-M-r" . isearch-backward)
 ;; ("M-%" . query-replace-regexp)
