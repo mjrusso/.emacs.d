@@ -16,7 +16,7 @@
 (straight-use-package 'use-package)
 
 (use-package straight
-             :custom (straight-use-package-by-default t))
+  :custom (straight-use-package-by-default t))
 
 (defun my/load-all-conf-files ()
   (interactive)
@@ -25,5 +25,5 @@
 (my/load-all-conf-files)
 
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
-   (when (file-exists-p custom-file)
-     (load custom-file))
+(when (file-exists-p custom-file)
+  (load custom-file))
