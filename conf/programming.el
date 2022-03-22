@@ -1,9 +1,14 @@
 (use-package lsp-mode
   :defer t
   :init
+
   (setq lsp-keymap-prefix "C-c l")
+
   ;; https://emacs-lsp.github.io/lsp-mode/tutorials/how-to-turn-off/
-  (setq lsp-headerline-breadcrumb-enable nil)
+  (setq lsp-headerline-breadcrumb-enable nil
+        lsp-signature-auto-activate nil
+        lsp-signature-render-documentation nil)
+
   ;; Configure completion via Corfu. Configuration adapted from the "advanced
   ;; example configuration with orderless" example on the Corfu wiki:
   ;; https://github.com/minad/corfu/wiki#advanced-example-configuration-with-orderless
