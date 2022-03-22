@@ -24,6 +24,9 @@
         gnutls-verify-error t
         network-security-level 'high)
 
+  ;; Emacs 28: Hide commands in M-x which do not apply to the current mode.
+  (setq read-extended-command-predicate #'command-completion-default-include-p)
+
   (setq-default indent-tabs-mode nil
                 indicate-empty-lines t
                 indicate-buffer-boundaries nil)
