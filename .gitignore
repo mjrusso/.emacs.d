@@ -8,6 +8,7 @@ ido.last
 recentf
 projects
 eln-cache/
+.cache/
 .smex-items
 smex-items
 projectile-bookmarks.eld

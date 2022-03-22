@@ -67,6 +67,7 @@
  ("solarized-emacs" . "f34a171ff0e39549972edf533120f0b556f0b5ad")
  ("spinner" . "34905eae12a236753fa88abc831eff1e41e8576e")
  ("straight.el" . "af5437f2afd00936c883124d6d3098721c2d306c")
+ ("svg-lib" . "5ff87b7f9a85e728360a63d8e4ae7aaa7eccf7d3")
  ("swift-mode" . "4777c409ba0cd0d02b9a8397ba810e449b5ac213")
  ("swiper" . "1c6b3da377a840e898b14020133f59fca9ceea1c")
  ("tango-plus-theme" . "0460aff3638b7c9e290f28be8eb2b90887a74eed")
