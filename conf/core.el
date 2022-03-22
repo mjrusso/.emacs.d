@@ -1,6 +1,5 @@
 (use-package emacs
 
-
   :init
 
   (setq visible-bell t

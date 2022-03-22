@@ -17,8 +17,7 @@
                           ))
   (setq dashboard-footer-messages '("Welcome to the church of Emacs"
                                     "While any text editor can save your files, only Emacs can save your soul"))
-  :config
-  (dashboard-setup-startup-hook))
+  )
 
 
 (defun my/switch-to-dashboard ()
@@ -33,3 +32,16 @@
   (my/switch-to-dashboard))
 
 (global-set-key (kbd "C-c s d") #'my/switch-to-dashboard-and-refresh)
+
+(defun my/default-window-setup ()
+  "Called by emacs-startup-hook to set up my initial window configuration."
+  (my/switch-to-dashboard)
+  (split-window-right)
+  (other-window 1)
+  (find-file "~/Dropbox/org/inbox.org")
+  (split-window-below)
+  (my/find-persistent-scratch-file "scratch.el")
+  (other-window 2)
+  )
+
+(add-hook 'emacs-startup-hook #'my/default-window-setup)
