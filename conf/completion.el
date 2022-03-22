@@ -119,6 +119,7 @@
          ("s-F" . consult-find)
          ("s-D" . my/consult-find-dir)
          ("s-o" . consult-outline)
+         ("M-l" . consult-line)
 
          ;; C-c bindings (mode-specific-map)
          ("C-c h" . consult-history)
