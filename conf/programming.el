@@ -192,6 +192,7 @@
   :defer t
   :init
   (add-to-list 'auto-mode-alist '("\\.ts$" . typescript-mode))
+  (setq-default typescript-indent-level 2)
   :hook
   (typescript-mode . add-node-modules-path)
   (typescript-mode . prettier-js-mode)
