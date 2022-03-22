@@ -5,10 +5,20 @@
 ;; Do not scroll dramatically when moving only one line at a time.
 (setq-default scroll-conservatively 1)
 
-;; Enable cua mode, but only for rectangles.
-;; (C-RET will start a rectangular selection.)
-(setq cua-enable-cua-keys nil)
-(cua-mode t)
+;; Previously, I used cua-mode, but only for rectangular selections. This was
+;; configured like so:
+;;
+;;   (setq cua-enable-cua-keys nil)
+;;   (cua-mode t)
+;;
+;; Rectangular selection is now available natively in Emacs, without cua-mode.
+;; Use `C-x SPC` to start a rectangular selection, instead of `C-RET`.
+;;
+;; Note that there was other behaviour of cua-mode that I had come to rely on
+;; without realizing, particularly related to how normal kill and delete
+;; commands (which don't normally respect the active region) are handled. To
+;; compensate, turn on delete-selection-mode.
+(delete-selection-mode 1)
 
 (use-package winner
   :straight nil

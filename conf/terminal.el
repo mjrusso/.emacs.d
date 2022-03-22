@@ -14,7 +14,6 @@
   (vterm-max-scrollback 10000)
   :hook
   (vterm-mode . (lambda ()
-                  (cua-mode -1) ;; cua-mode interferes with yanking in vterm.
                   (setq-local show-trailing-whitespace nil))))
 
 (global-set-key [(super t)] 'my/vterm-for-current-project)
