@@ -6,6 +6,8 @@ straight/repos
 .lsp-session*
 ido.last
 recentf
+projects
+eln-cache/
 .smex-items
 smex-items
 projectile-bookmarks.eld
