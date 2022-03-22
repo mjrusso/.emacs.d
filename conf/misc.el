@@ -79,8 +79,11 @@
 
 (defalias 'yes-or-no-p 'y-or-n-p)
 
-(use-package imenu-list)
+(use-package imenu
+  :init
+  (setq-default imenu-auto-rescan t))
 
+(use-package imenu-list)
 
 ;; The command to use to open a file using its default external program.
 (setq my/open-command
