@@ -10,3 +10,9 @@ location `my/scratch-files-dir'."
          (path (read-file-name "Scratch file: "
                                initial-path nil nil default-prefix)))
     (find-file path)))
+
+(defun my/find-persistent-scratch-file (name)
+  "Find a persistent scratch file with the provided name located in the `my/scratch-files-dir' directory."
+  (let* ((initial-path (format "%s" my/persistent-scratch-files-dir))
+         (path (format "%s%s" initial-path name)))
+    (find-file path)))
