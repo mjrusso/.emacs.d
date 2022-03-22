@@ -1,7 +1,105 @@
 ;; https://github.com/oantolin/orderless
 (use-package orderless
   :init
-  (setq completion-styles '(orderless)))
+  (setq completion-styles '(orderless partial-completion)
+        completion-category-defaults nil
+        completion-category-overrides nil))
+
+;; https://github.com/minad/corfu
+;;
+;; Includes configuration adapted from:
+;; - https://kristofferbalintona.me/posts/corfu-kind-icon-and-corfu-doc/
+(use-package corfu
+
+  :custom
+
+  (corfu-auto t)
+  (corfu-auto-prefix 2)
+  (corfu-auto-delay 0.25)
+  (corfu-min-width 80)
+  (corfu-max-width corfu-min-width)
+  (corfu-count 14)
+  (corfu-scroll-margin 4)
+  (corfu-cycle nil)
+  (corfu-echo-documentation nil) ; Use corfu-doc instead.
+
+  ;; Configuration for orderless completion. See
+  ;; https://github.com/minad/corfu#orderless-completion for details.
+  (corfu-quit-at-boundary t)
+  (corfu-separator ?\s)
+  (corfu-quit-no-match t)
+  (corfu-preview-current 'insert)
+  (corfu-preselect-first t)
+
+  :init
+
+  (corfu-global-mode)
+
+  :config
+
+  ;; Enable Corfu more generally for every minibuffer, as long as no other
+  ;; completion UI is active (when Mct or Vertico are used as the main
+  ;; minibuffer completion UI). Implementation copied from:
+  ;; https://github.com/minad/corfu#completing-with-corfu-in-the-minibuffer
+  (defun my/corfu-enable-always-in-minibuffer ()
+    "Enable Corfu in the minibuffer if Vertico/Mct are not active."
+    (unless (or (bound-and-true-p mct--active)
+                (bound-and-true-p vertico--input))
+      (setq-local corfu-auto nil)
+      (corfu-mode 1)))
+
+  (add-hook 'minibuffer-setup-hook #'my/corfu-enable-always-in-minibuffer 1)
+
+  )
+
+(use-package emacs
+  :init
+
+  ;; Never use completion cycling.
+  (setq completion-cycle-threshold nil)
+
+  ;; Works with `indent-for-tab-command', enabling both indentation and
+  ;; completion with the TAB key.
+  (setq tab-always-indent 'complete))
+
+;; Use dabbrev with Corfu.
+(use-package dabbrev
+  ;; Swap M-/ and C-M-/
+  :bind (("M-/" . dabbrev-completion)
+         ("C-M-/" . dabbrev-expand)))
+
+;; https://github.com/jdtsmith/kind-icon
+(use-package kind-icon
+  :after corfu
+  :custom
+  (kind-icon-default-face 'corfu-default)
+  :config
+  (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter))
+
+;; https://github.com/galeo/corfu-doc
+;;
+;; Includes configuration adapted from:
+;; - https://kristofferbalintona.me/posts/corfu-kind-icon-and-corfu-doc/
+(use-package corfu-doc
+  ;; NOTE 2022-02-05: `corfu-doc' is not yet on melpa
+  :straight (corfu-doc :type git :host github :repo "galeo/corfu-doc")
+  :after corfu
+  :hook (corfu-mode . corfu-doc-mode)
+
+  :bind (
+         :map corfu-map
+         ("M-n" . corfu-doc-scroll-up)
+         ("M-p" . corfu-doc-scroll-down)
+         )
+
+  :custom
+  (corfu-doc-delay 0.25)
+  (corfu-doc-max-width 70)
+  (corfu-doc-max-height 20)
+  )
+
+;; https://github.com/minad/cape
+(use-package cape)
 
 ;; https://github.com/minad/consult
 ;;

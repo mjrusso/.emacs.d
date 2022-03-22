@@ -4,6 +4,27 @@
   (setq lsp-keymap-prefix "C-c l")
   ;; https://emacs-lsp.github.io/lsp-mode/tutorials/how-to-turn-off/
   (setq lsp-headerline-breadcrumb-enable nil)
+  ;; Configure completion via Corfu. Configuration adapted from the "advanced
+  ;; example configuration with orderless" example on the Corfu wiki:
+  ;; https://github.com/minad/corfu/wiki#advanced-example-configuration-with-orderless
+
+  (setq lsp-completion-provider :none) ;; Use Corfu instead.
+
+  (defun my/orderless-dispatch-flex-first (_pattern index _total)
+    (and (eq index 0) 'orderless-flex))
+
+  ;; Configure the first word as flex-filtered.
+  (add-hook 'orderless-style-dispatchers #'my/orderless-dispatch-flex-first nil 'local)
+
+  (defun my/lsp-mode-setup-completion ()
+    (setf (alist-get 'styles (alist-get 'lsp-capf completion-category-defaults))
+          '(orderless)))
+
+  ;; Configure the cape-capf-buster.
+  (setq-local completion-at-point-functions (list (cape-capf-buster #'lsp-completion-at-point)))
+
+  (add-hook 'lsp-completion-mode #'my/lsp-mode-setup-completion)
+
   :commands lsp)
 
 (use-package lsp-ui
