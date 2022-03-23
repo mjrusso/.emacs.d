@@ -119,6 +119,8 @@
          ("s-F" . consult-find)
          ("s-D" . my/consult-find-dir)
          ("s-o" . consult-outline)
+         ;; Note that `consult-line' is *not* intended as a replacement for
+         ;; isearch; see: https://github.com/minad/consult/issues/417
          ("M-l" . consult-line)
 
          ;; C-c bindings (mode-specific-map)
@@ -160,10 +162,7 @@
          ("M-s g" . consult-grep)
          ("M-s G" . consult-git-grep)
          ("M-s r" . consult-ripgrep)
-         ("M-s l" . consult-line)        ;; Note that `consult-line' is *not*
-                                         ;; intended as a replacement for
-                                         ;; isearch:
-                                         ;; https://github.com/minad/consult/issues/417
+         ("M-s l" . consult-line)
          ("M-s L" . consult-line-multi)
          ("M-s m" . consult-multi-occur)
          ("M-s k" . consult-keep-lines)
@@ -226,12 +225,7 @@
        (consult-find)))
 
   (consult-customize
-   ;; For `consult-line' change the prompt and specify multiple preview
-   ;; keybindings. Note that you should bind <S-up> and <S-down> in the
-   ;; `minibuffer-local-completion-map' or `vertico-map' to the commands which
-   ;; select the previous or next candidate.
-   consult-line :prompt "Search: "
-   :preview-key (list (kbd "<S-down>") (kbd "<S-up>")))
+   consult-line :prompt "Search: ")
 
   (consult-customize
    consult-theme
