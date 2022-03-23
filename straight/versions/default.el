@@ -12,6 +12,7 @@
  ("dash.el" . "da167c51e9fd167a48d06c7c0ee8e3ac7abd9718")
  ("deft" . "28be94d89bff2e1c7edef7244d7c5ba0636b1296")
  ("diff-hl" . "4a08b02afec1fc6b1e84de46cc34f75f6c9c3bcc")
+ ("dockerfile-mode" . "b63a3d12b7dea0cb9efc7f78d7ad5672ceab2a3f")
  ("el-get" . "9353309744e4f8a7c9b1adf22ec99536fb2146b0")
  ("emacs-async" . "5d365ffc6a2c2041657eaa5d762c395ea748c8d7")
  ("emacs-dashboard" . "d6e9f4df42815de467765e78b7c27125f35d30bb")

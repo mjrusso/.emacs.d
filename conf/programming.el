@@ -289,6 +289,10 @@
 (use-package restclient
   :mode (("\\.http\\'" . restclient-mode)))
 
+;; https://github.com/spotify/dockerfile-mode
+(use-package dockerfile-mode
+  :mode "Dockerfile\\'")
+
 ;; LSP-related Hydras. Adapted from:
 ;; https://github.com/jerrypnz/.emacs.d/blob/master/lisp/jp-lsp-hydra.el
 (major-mode-hydra-define+ (rust-mode swift-mode typescript-mode)
