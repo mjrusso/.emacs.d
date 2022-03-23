@@ -40,9 +40,19 @@
   :after lsp-mode
   :commands lsp-treemacs-errors-list)
 
-(use-package lsp-ivy
-  :after (lsp-mode ivy)
-  :commands lsp-ivy-workspace-symbol)
+;; https://github.com/gagbo/consult-lsp
+;;
+;; Also see: https://github.com/minad/vertico/issues/127
+;;
+;; Currently disabled, because none of the commands (`consult-lsp-symbols',
+;; `consult-lsp-file-symbols', `consult-lsp-diagnostics') seem to work. Not
+;; sure if it's an issue with the package, or lsp-mode, or the specific
+;; language servers I've been testing with.
+;;
+;; (use-package consult-lsp)
+;;   :after (lsp-mode consult)
+;;   :init
+;;   (consult-lsp-marginalia-mode))
 
 ;; https://github.com/magit/magit/issues/3415#issuecomment-378941991
 (use-package git-commit)
@@ -305,7 +315,10 @@
    "Find & Goto"
    (("gr" lsp-ui-peek-find-references "references")
     ("gd" lsp-ui-peek-find-definitions "definitions")
-    ("gf" lsp-ivy-workspace-symbol "workspace symbol"))
+    ;; ("gs" consult-lsp-symbols "workspace symbol")
+    ;; ("gf" consult-lsp-file-symbols "file symbol")
+    ;; ("gx" consult-lsp-diagnostics "diagnostics")
+    )
    "Connection"
    (("cc" lsp "start")
     ("cr" lsp-restart-workspace "restart")
