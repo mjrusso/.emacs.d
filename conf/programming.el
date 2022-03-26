@@ -163,16 +163,24 @@
 (use-package magit
   :defer t
   :config
-  ;; Display most magit buffers in the currently-selected window (unless the
-  ;; buffer's mode derives from ~magit-diff-mode~ or ~magit-process-mode~, in
-  ;; which case it will get a new window).
-  ;;
-  ;; - https://github.com/magit/magit/issues/2541
-  ;; - https://github.com/magit/magit/pull/2656
+
+  ;; Display magit buffers in the current window, rather than a new window.
   (setq magit-display-buffer-function
-        'magit-display-buffer-same-window-except-diff-v1)
   ;; Display 20 commits, for example, in the recent commits section.
   (setq magit-log-section-commit-count 20))
+        (lambda (buffer)
+          (display-buffer buffer '(display-buffer-same-window))))
+
+  ;; Don't show the diff buffer when authoring a commit. To manually bring up the
+  ;; diff, use `C-c C-d'.
+  ;;
+  ;; The `server-switch-hook' change is documented here:
+  ;;
+  ;;   <https://magit.vc/manual/magit/Performance.html>
+  ;;
+  (setq magit-commit-show-diff nil)
+  (remove-hook 'server-switch-hook 'magit-commit-diff)
+
 
 ;; Highlight matching parentheses when the point is on them.
 ;; - https://www.emacswiki.org/emacs/ShowParenMode
