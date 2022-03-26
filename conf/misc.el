@@ -12,7 +12,8 @@
 ;;   (cua-mode t)
 ;;
 ;; Rectangular selection is now available natively in Emacs, without cua-mode.
-;; Use `C-x SPC` to start a rectangular selection, instead of `C-RET`.
+;; Use `C-x SPC' to start a rectangular selection, instead of `C-RET', and then
+;; `C-t' before entering text.
 ;;
 ;; Note that there was other behaviour of cua-mode that I had come to rely on
 ;; without realizing, particularly related to how normal kill and delete
