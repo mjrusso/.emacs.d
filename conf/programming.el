@@ -166,8 +166,6 @@
 
   ;; Display magit buffers in the current window, rather than a new window.
   (setq magit-display-buffer-function
-  ;; Display 20 commits, for example, in the recent commits section.
-  (setq magit-log-section-commit-count 20))
         (lambda (buffer)
           (display-buffer buffer '(display-buffer-same-window))))
 
@@ -181,6 +179,8 @@
   (setq magit-commit-show-diff nil)
   (remove-hook 'server-switch-hook 'magit-commit-diff)
 
+  ;; Display 40 commits, for example, in the recent commits section.
+  (setq magit-log-section-commit-count 40))
 
 ;; Highlight matching parentheses when the point is on them.
 ;; - https://www.emacswiki.org/emacs/ShowParenMode
