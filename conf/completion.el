@@ -122,6 +122,7 @@
          ;; Note that `consult-line' is *not* intended as a replacement for
          ;; isearch; see: https://github.com/minad/consult/issues/417
          ("M-l" . consult-line)
+         ("M-m" . consult-flymake)
 
          ;; C-c bindings (mode-specific-map)
          ("C-c h" . consult-history)

@@ -1,58 +1,62 @@
-(use-package lsp-mode
+;; https://github.com/joaotavora/eglot
+;;
+;; Emacs LSP client.
+;;
+;; Note that Eglot is not currently configured to start automatically; instead,
+;; enable manually by running `M-x eglot'.
+;;
+;; Also note that `C-h .' is mapped to `eglot-help-at-point', but this does not
+;; display diagnostic errors at point (only the documentation, if available).
+;; It seems like this will be addressed in eldoc (see
+;; https://github.com/joaotavora/eglot/issues/454), but for now, to see
+;; diagnostic errors, either manually invoke `M-x display-local-help' or use
+;; flymake (`M-x consult-flymake' is particularly nice).
+(use-package eglot
   :defer t
+
+  :custom
+
+  (eglot-autoshutdown t)
+
+  :config
+
+  ;; Ignore (i.e., disable) document highlight support. (Highlighting the
+  ;; symbol under the cursor is distracting.)
+  (add-to-list 'eglot-ignored-server-capabilites :documentHighlightProvider)
+
   :init
 
-  (setq lsp-keymap-prefix "C-c l")
+  ;; Use Orderless completion with Corfu. See:
+  ;; https://github.com/minad/corfu/wiki#configuring-corfu-for-eglot
+  (setq completion-category-overrides '((eglot (styles orderless))))
 
-  ;; https://emacs-lsp.github.io/lsp-mode/tutorials/how-to-turn-off/
-  (setq lsp-headerline-breadcrumb-enable nil
-        lsp-signature-auto-activate nil
-        lsp-signature-render-documentation nil)
+  )
 
-  ;; Configure completion via Corfu. Configuration adapted from the "advanced
-  ;; example configuration with orderless" example on the Corfu wiki:
-  ;; https://github.com/minad/corfu/wiki#advanced-example-configuration-with-orderless
+;; xref works great with eglot; for example: `xref-find-definitions',
+;; `xref-find-references', `xref-go-back', etc.
+(use-package xref)
 
-  (setq lsp-completion-provider :none) ;; Use Corfu instead.
+(use-package eldoc
+  :custom (eldoc-echo-area-prefer-doc-buffer t))
 
-  (defun my/orderless-dispatch-flex-first (_pattern index _total)
-    (and (eq index 0) 'orderless-flex))
+(use-package flymake
+  :hook ((prog-mode . flymake-mode))
+  :bind
+  (:map flymake-mode-map
+        ("M-n" . flymake-goto-next-error)
+        ("M-p" . flymake-goto-prev-error))
+  )
 
-  ;; Configure the first word as flex-filtered.
-  (add-hook 'orderless-style-dispatchers #'my/orderless-dispatch-flex-first nil 'local)
-
-  (defun my/lsp-mode-setup-completion ()
-    (setf (alist-get 'styles (alist-get 'lsp-capf completion-category-defaults))
-          '(orderless)))
-
-  ;; Configure the cape-capf-buster.
-  (setq-local completion-at-point-functions (list (cape-capf-buster #'lsp-completion-at-point)))
-
-  (add-hook 'lsp-completion-mode #'my/lsp-mode-setup-completion)
-
-  :commands lsp)
-
-(use-package lsp-ui
-  :after lsp-mode
-  :commands lsp-ui-mode)
-
-(use-package lsp-treemacs
-  :after lsp-mode
-  :commands lsp-treemacs-errors-list)
-
-;; https://github.com/gagbo/consult-lsp
+;; https://github.com/mohkale/consult-eglot
 ;;
-;; Also see: https://github.com/minad/vertico/issues/127
+;; Currently disabled, because `consult-eglot-symbols' does not seem to work.
+;; Not sure if it's an issue with the package, or eglot, or consult, or the
+;; specific language servers I've been testing with...
 ;;
-;; Currently disabled, because none of the commands (`consult-lsp-symbols',
-;; `consult-lsp-file-symbols', `consult-lsp-diagnostics') seem to work. Not
-;; sure if it's an issue with the package, or lsp-mode, or the specific
-;; language servers I've been testing with.
-;;
-;; (use-package consult-lsp)
-;;   :after (lsp-mode consult)
-;;   :init
-;;   (consult-lsp-marginalia-mode))
+;;      (use-package consult-eglot
+;;        :after (eglot consult)
+;;        :bind (:map eglot-mode-map ("M-j" . #'consult-eglot-symbols)))
+
 
 ;; https://github.com/magit/magit/issues/3415#issuecomment-378941991
 (use-package git-commit)
@@ -212,7 +216,7 @@
   :defer t
   :init
   (setq rust-format-on-save t)
-  :hook (rust-mode . lsp)
+  :hook
   (rust-mode . (lambda () (setq indent-tabs-mode nil)))
   :mode-hydra
   ((:color teal :quit-key "q")
@@ -223,15 +227,18 @@
      ("R" cargo-process-run "run")
      ("C" cargo-hydra/body "cargo...")))))
 
-;; For more on using LSP with Swift, see https://github.com/emacs-lsp/lsp-sourcekit
-(use-package lsp-sourcekit
-  :after lsp-mode
-  :config
-  (setq lsp-sourcekit-executable "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/sourcekit-lsp"))
+;; FIXME: Does lsp-sourcekit work with eglot, or is it lsp-mode specific?
+;;        Also see:
+;;          - https://github.com/danielmartin/swift-helpful/issues/2
+;;          - https://www.reddit.com/r/emacs/comments/sndriv/i_finally_got_full_autocompetion_in_swift_with/
+;;
+;; (use-package lsp-sourcekit
+;;   :after lsp-mode
+;;   :config
+;;   (setq lsp-sourcekit-executable "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/sourcekit-lsp"))
 
 (use-package swift-mode
-  :defer t
-  :hook (swift-mode . lsp))
+  :defer t)
 
 ;; https://github.com/codesuki/add-node-modules-path
 (use-package add-node-modules-path :defer t)
@@ -254,7 +261,6 @@
   :hook
   (typescript-mode . add-node-modules-path)
   (typescript-mode . prettier-js-mode)
-  (typescript-mode . lsp-deferred)
   )
 
 (use-package js2-mode
@@ -311,26 +317,27 @@
 
 ;; LSP-related Hydras. Adapted from:
 ;; https://github.com/jerrypnz/.emacs.d/blob/master/lisp/jp-lsp-hydra.el
-(major-mode-hydra-define+ (rust-mode swift-mode typescript-mode)
-  (:color teal :quit-key "q")
-  ("LSP Quick Action"
-   (("d" lsp-describe-thing-at-point "describe symbol")
-    ("a" lsp-execute-code-action "code action")
-    ("f" lsp-format-buffer "format")
-    ("O" lsp-organize-imports "organize imports"))
-   "Find & Goto"
-   (("gr" lsp-ui-peek-find-references "references")
-    ("gd" lsp-ui-peek-find-definitions "definitions")
-    ;; ("gs" consult-lsp-symbols "workspace symbol")
-    ;; ("gf" consult-lsp-file-symbols "file symbol")
-    ;; ("gx" consult-lsp-diagnostics "diagnostics")
-    )
-   "Connection"
-   (("cc" lsp "start")
-    ("cr" lsp-restart-workspace "restart")
-    ("cd" lsp-describe-session "describe session")
-    ("cq" lsp-shutdown-workspace "shutdown"))
-   "Toggles"
-   (("ol" lsp-lens-mode "toggle lens" :toggle t :exit nil)
-    ("od" lsp-ui-doc-mode "toggle hover doc" :toggle t :exit nil)
-    ("os" lsp-ui-sideline-mode "toggle sideline" :toggle t :exit nil))))
+;;
+;; (major-mode-hydra-define+ (rust-mode swift-mode typescript-mode)
+;;   (:color teal :quit-key "q")
+;;   ("LSP Quick Action"
+;;    (("d" lsp-describe-thing-at-point "describe symbol")
+;;     ("a" lsp-execute-code-action "code action")
+;;     ("f" lsp-format-buffer "format")
+;;     ("O" lsp-organize-imports "organize imports"))
+;;    "Find & Goto"
+;;    (("gr" lsp-ui-peek-find-references "references")
+;;     ("gd" lsp-ui-peek-find-definitions "definitions")
+;;     ;; ("gs" consult-lsp-symbols "workspace symbol")
+;;     ;; ("gf" consult-lsp-file-symbols "file symbol")
+;;     ;; ("gx" consult-lsp-diagnostics "diagnostics")
+;;     )
+;;    "Connection"
+;;    (("cc" lsp "start")
+;;     ("cr" lsp-restart-workspace "restart")
+;;     ("cd" lsp-describe-session "describe session")
+;;     ("cq" lsp-shutdown-workspace "shutdown"))
+;;    "Toggles"
+;;    (("ol" lsp-lens-mode "toggle lens" :toggle t :exit nil)
+;;     ("od" lsp-ui-doc-mode "toggle hover doc" :toggle t :exit nil)
+;;     ("os" lsp-ui-sideline-mode "toggle sideline" :toggle t :exit nil))))
