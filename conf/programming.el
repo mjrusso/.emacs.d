@@ -174,12 +174,14 @@
   ;; Display 20 commits, for example, in the recent commits section.
   (setq magit-log-section-commit-count 20))
 
-
 ;; Highlight matching parentheses when the point is on them.
 ;; - https://www.emacswiki.org/emacs/ShowParenMode
-(setq show-paren-delay 0)
-(show-paren-mode 1)
+(use-package paren
+  :init
+  (setq show-paren-delay 0)
+  (show-paren-mode 1))
 
+;; https://github.com/Fanael/rainbow-delimiters
 (use-package rainbow-delimiters
   :config
   (add-hook 'emacs-lisp-mode-hook #'rainbow-delimiters-mode)
@@ -188,6 +190,7 @@
   (add-hook 'lisp-interaction-mode-hook #'rainbow-delimiters-mode)
   (add-hook 'scheme-mode-hook #'rainbow-delimiters-mode))
 
+;; https://github.com/Fuco1/smartparens
 (use-package smartparens
   :hook ((prog-mode . smartparens-mode)
          (ielm-mode-hook . smartparens-mode))
