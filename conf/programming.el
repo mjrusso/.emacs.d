@@ -299,6 +299,12 @@
 (use-package restclient
   :mode (("\\.http\\'" . restclient-mode)))
 
+;; Major mode for fish shell scripts.
+;;
+;; https://github.com/emacsmirror/fish-mode
+(use-package fish-mode
+  :defer t)
+
 ;; https://github.com/spotify/dockerfile-mode
 (use-package dockerfile-mode
   :mode "Dockerfile\\'")
