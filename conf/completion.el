@@ -29,7 +29,7 @@
   (corfu-separator ?\s)
   (corfu-quit-no-match t)
   (corfu-preview-current 'insert)
-  (corfu-preselect-first t)
+  (corfu-preselect-first nil)
 
   :init
 
