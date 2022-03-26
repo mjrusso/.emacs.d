@@ -6,6 +6,7 @@
  ("cfrs" . "c1f639d7bfd3e728cf85dbe224b06a4be76158f4")
  ("clojure-mode" . "7d3c0c16e4aa14a051b393c249f0f4d307a2c74d")
  ("consult" . "800824601b610016066991d6e2dde198d4b0ad8f")
+ ("consult-yasnippet" . "9f38ad510328e708370a3a6b41cf40e8bd031b04")
  ("corfu" . "b559cc5f493eb0c4b3b4c326f4a65a6e4dffde35")
  ("corfu-doc" . "a8835a654048e0ba687e1377a29083e05888fe81")
  ("darkokai" . "5820aeddfc8c869ba840cc534eba776936656a66")
@@ -84,5 +85,7 @@
  ("web-mode" . "61f057a6baeba6b3595e412ba79b3080dca17dcc")
  ("with-editor" . "cfe70f43c551852125bc139df467e28e1b6087df")
  ("xterm-color" . "1a4012854c69a5cdaeb5a73d2ad705011892fca3")
+ ("yasnippet" . "5cbdbf0d2015540c59ed8ee0fcf4788effdf75b6")
+ ("yasnippet-snippets" . "b7c09f1ad7e1a62da6f6042bfaa2b26d111c7e81")
  ("zenburn-emacs" . "13266182dc51534394bd427840bc78e2a78d01bd"))
 :beta
