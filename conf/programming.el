@@ -112,11 +112,12 @@
   :config
   (add-hook 'prog-mode-hook 'highlight-indent-guides-mode))
 
-(setq-default fill-column 79)
-
-(setq whitespace-line-column 80)
-(setq whitespace-style '(face trailing lines-tail tabs))
-(add-hook 'prog-mode-hook 'whitespace-mode)
+(use-package whitespace
+  :config
+  (setq whitespace-line-column 80)
+  (setq whitespace-style '(face trailing lines-tail tabs))
+  :init
+  (add-hook 'prog-mode-hook 'whitespace-mode))
 
 ;; If there's an error, ensure that it's visible; otherwise, keep scrolling the
 ;; compilation buffer.

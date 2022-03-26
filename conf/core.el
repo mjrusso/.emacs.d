@@ -28,6 +28,7 @@
   (setq read-extended-command-predicate #'command-completion-default-include-p)
 
   (setq-default indent-tabs-mode nil
+                fill-column 79
                 indicate-empty-lines t
                 indicate-buffer-boundaries nil)
 
