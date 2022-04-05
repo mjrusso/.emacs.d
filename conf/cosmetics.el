@@ -29,6 +29,10 @@
 (use-package ns-auto-titlebar
   :config
   (when (eq system-type 'darwin) (ns-auto-titlebar-mode)))
+
+;; Don't display the proxy icon in the titlebar.
+(setq ns-use-proxy-icon nil)
+
 ;; Show column numbers.
 (column-number-mode t)
 
