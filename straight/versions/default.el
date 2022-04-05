@@ -33,6 +33,7 @@
  ("git-gutter-fringe" . "648cb5b57faec55711803cdc9434e55a733c3eba")
  ("gnu-elpa-mirror" . "b9591336dc6ece42784901c4c00dded50be415fa")
  ("highlight-indent-guides" . "cf352c85cd15dd18aa096ba9d9ab9b7ab493e8f6")
+ ("hl-todo" . "7772ce536e5146f44efc3cc0ce2d9326f115683d")
  ("ht.el" . "c4c1be487d6ecb353d07881526db05d7fc90ea87")
  ("hydra" . "2d553787aca1aceb3e6927e426200e9bb9f056f1")
  ("hydra-posframe" . "ec55440615228fcc7fcb04187bb77a20e6cfd5df")
@@ -82,5 +83,5 @@
  ("xterm-color" . "1a4012854c69a5cdaeb5a73d2ad705011892fca3")
  ("yaml-mode" . "535273d5a1eb76999d20afbcf4d9f056d8ffd2da")
  ("yasnippet" . "5cbdbf0d2015540c59ed8ee0fcf4788effdf75b6")
- ("yasnippet-snippets" . "b7c09f1ad7e1a62da6f6042bfaa2b26d111c7e81")
+ ("yasnippet-snippets" . "b7c09f1ad7e1a62da6f6042bfaa2b26d111c7e81"))
 :beta

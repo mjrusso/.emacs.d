@@ -41,3 +41,20 @@
 
 ;; - https://github.com/purcell/page-break-lines
 (use-package page-break-lines)
+
+ ;; https://github.com/tarsius/hl-todo
+(use-package hl-todo
+  :config
+  (setq hl-todo-highlight-punctuation ":")
+  ;; https://www.reddit.com/r/emacs/comments/f8tox6/comment/fipxb2w
+  (setq hl-todo-keyword-faces
+        `(("TODO"       error bold italic)
+          ("FIXME"      warning bold italic)
+          ("HACK"       font-lock-constant-face bold)
+          ("BUG"        error bold)
+          ("XXX"        font-lock-constant-face bold)
+          ("REVIEW"     font-lock-keyword-face bold)
+          ("NOTE"       success bold)
+          ("DEPRECATED" font-lock-doc-face bold)))
+ :init
+ (global-hl-todo-mode))
