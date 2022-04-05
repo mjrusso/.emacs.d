@@ -50,6 +50,7 @@
  ("melpa" . "144364ae1ab127dd4e630a848741eb561e00ab24")
  ("minions" . "fca3ba548dccc6e553affca8068c9aecb6a9a789")
  ("monokai-emacs" . "c5a7978bfc2ad2aa90882e6b2583668dc7b3e1a5")
+ ("ns-auto-titlebar" . "60273e764bf8d95abc40dd2fdc23af87ea9ee33b")
  ("olivetti" . "a31ac05a161a91fe5c157930b62a6c07037982ee")
  ("orderless" . "7ddf5dfe9e982ee1510ceec36eeb4d8bb802ea73")
  ("org" . "6304afcaa40a29291bc0705f8527e0ab75f7b807")

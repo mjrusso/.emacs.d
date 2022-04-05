@@ -25,6 +25,10 @@
 ;; Don't use native fullscreen on MacOS. (This make `toggle-frame-fullscreen` usable.)
 (setq ns-use-native-fullscreen nil)
 
+;; Transparent titlebars, on MacOS: https://github.com/purcell/ns-auto-titlebar
+(use-package ns-auto-titlebar
+  :config
+  (when (eq system-type 'darwin) (ns-auto-titlebar-mode)))
 ;; Show column numbers.
 (column-number-mode t)
 
