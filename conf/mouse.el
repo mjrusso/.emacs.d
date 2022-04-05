@@ -1,3 +1,6 @@
+;; Enable smooth scrolling.
+(pixel-scroll-precision-mode 1)
+
 ;; Enable mouse support in the terminal.
 (use-package mouse
   :straight nil
