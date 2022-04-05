@@ -65,7 +65,7 @@
 (typo-global-mode 1)
 
 ;; Use Typo with text-mode...
-(add-hook 'text-mode-hook 'typo-mode)
+;;(add-hook 'text-mode-hook 'typo-mode)
 
 ;; ...but disable it when we're in an org-mode src block.
 ;; https://emacs.stackexchange.com/a/56167
