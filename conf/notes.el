@@ -1,43 +1,83 @@
 (use-package org
+
   :bind
+
   (:map org-mode-map
         (("C-c i d" . org-time-stamp-inactive)
-         ("C-c i t" . org-insert-structure-template))))
+         ("C-c i t" . org-insert-structure-template)))
 
-;; ;;
-;; (setq org-todo-keywords
-;;       '((sequence "TODO(t)" "HOLD(h)" "NOTE(n)" "|" "DONE(d)" "DEAD(x)")))
+  :config
+
+  (setq
+   org-adapt-indentation nil
+   org-indent-indentation-per-level 0
+   org-startup-folded t
+   org-startup-indented nil
+   org-auto-align-tags nil
+   org-tags-column 0
+   org-catch-invisible-edits 'show-and-error
+   org-special-ctrl-a/e t
+   org-insert-heading-respect-content t
+   org-hide-emphasis-markers t
+   org-pretty-entities t
+   org-ellipsis "…"
+   org-use-fast-todo-selection 'expert ; https://emacs.stackexchange.com/a/69927
+   )
+
+  (setq org-todo-keywords '((sequence "TODO(t)" "HOLD(h)" "NOTE(n)" "|" "DONE(d)" "DEAD(x)")))
+
+  (setq org-startup-with-inline-images t)
+
+  ;; https://www.reddit.com/r/orgmode/comments/l215r5/terrible_performance_with_inline_images_on_macs/
+  ;; https://www.reddit.com/r/emacs/comments/55zk2d/adjust_the_size_of_pictures_to_be_shown_inside/d8geca2
+  ;; (setq org-image-actual-width (/ (display-pixel-width) 3))
+  ;; https://www.reddit.com/r/orgmode/comments/i6hl8b/comment/g1vsef2/
+  (setq org-image-actual-width (/ (window-pixel-width) 3))
+
+  ;; https://www.reddit.com/r/emacs/comments/mt51h4/strike_through_orgdone_tasks_in_agenda_to/
+  (set-face-attribute 'org-headline-done nil :strike-through t)
+
+  :init
+
+  ;; Use visual line mode by default.
+  (add-hook 'org-mode-hook 'turn-off-auto-fill)
+  (add-hook 'org-mode-hook 'turn-on-visual-line-mode)
+
+  )
 
 
-;; ;; https://github.com/tarsius/hl-todo
-;; (setq hl-todo-keyword-faces
-;;       '(("TODO" . org-todo)
-;;         ("NOTE" . (:foreground "LightSalmon" :weight "bold"))
-;;         ("HOLD" . org-done)
-;;         ("DEAD" . org-done)))
+;; https://github.com/minad/org-modern
+(use-package org-modern
+  :disabled
 
-;; TODO see https://www.reddit.com/r/emacs/comments/mt51h4/strike_through_orgdone_tasks_in_agenda_to/
-;;(set-face-attribute 'org-headline-done nil :strike-through t)
+  :custom
+  (org-modern-star nil)
+  (org-modern-todo nil)
+  (org-modern-hide-stars nil)
+  (org-modern-timestamp nil)
+  (org-modern-variable-pitch nil)
+
+  :hook
+  (org-mode . org-modern-mode)
+  (org-agenda-finalize . org-modern-agenda)
+  )
+
+;; Adapted from https://zzamboni.org/post/my-emacs-configuration-with-commentary/
+(use-package org-agenda
+  :straight nil
+  :after org
+  :bind
+  ("C-c a" . org-agenda)
+  :custom
+  (org-agenda-files (list "~/Dropbox/org/"))
+  (org-agenda-include-diary t)
+  (org-agenda-prefix-format '((agenda . " %i %-12:c%?-12t% s")
+                              (todo . " %i %-12:c%l") ; indent by level to show nesting
+                              (tags . " %i %-12:c")
+                              (search . " %i %-12:c")))
+  )
 
 
-;; Use visual line mode by default for org files.
-(add-hook 'org-mode-hook 'turn-off-auto-fill)
-(add-hook 'org-mode-hook 'turn-on-visual-line-mode)
-
-;; Use org-indent-mode by default.
-(add-hook 'org-mode-hook (lambda () (org-indent-mode t)) t)
-
-(setq org-completion-use-ido t)
-
-(setq org-startup-folded t)
-
-(setq org-startup-with-inline-images t)
-
-;; https://www.reddit.com/r/orgmode/comments/l215r5/terrible_performance_with_inline_images_on_macs/
-;; https://www.reddit.com/r/emacs/comments/55zk2d/adjust_the_size_of_pictures_to_be_shown_inside/d8geca2
-;; (setq org-image-actual-width (/ (display-pixel-width) 3))
-;; https://www.reddit.com/r/orgmode/comments/i6hl8b/comment/g1vsef2/
-(setq org-image-actual-width (/ (window-pixel-width) 3))
 
 ;; https://github.com/abo-abo/org-download
 ;; https://www.orgroam.com/manual.html#Org_002ddownload
@@ -53,9 +93,6 @@
   (:map org-mode-map
         (("s-Y" . org-download-clipboard)
          ("s-y" . org-download-yank))))
-
-;; Configure org-agenda.
-(setq org-agenda-files (list "~/Dropbox/org/"))
 
 ;; Org-roam uses ripgrep (when it's installed) for better performance.
 ;;
