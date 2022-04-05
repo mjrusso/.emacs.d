@@ -74,6 +74,7 @@
  ("svg-lib" . "5ff87b7f9a85e728360a63d8e4ae7aaa7eccf7d3")
  ("swift-mode" . "4777c409ba0cd0d02b9a8397ba810e449b5ac213")
  ("tango-plus-theme" . "0460aff3638b7c9e290f28be8eb2b90887a74eed")
+ ("themes" . "83fd9545c2823b4b2610947802fa3a52995517b4")
  ("toml-mode.el" . "f6c61817b00f9c4a3cab1bae9c309e0fc45cdd06")
  ("transient" . "4e8aa09b3f9b909dddde85269eb5051b5801a07c")
  ("twilight-theme" . "77c4741cb3dcf16e53d06d6c2ffdc660c40afb5b")
