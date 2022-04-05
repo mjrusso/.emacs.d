@@ -49,7 +49,7 @@ perspective is currently active."
            (concat "*" name "*")
          name))
     (persp-names))
-   '"   |   "))
+   '"   —   "))
 
 ;; Group buffers by perspective name in the ibuffer buffer.
 (add-hook 'ibuffer-hook
