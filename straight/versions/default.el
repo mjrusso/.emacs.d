@@ -75,7 +75,7 @@
  ("typescript.el" . "e82416205158d4b21d42d6b60c4385f68f0ae1b1")
  ("typoel" . "173ebe4fc7ac38f344b16e6eaf41f79e38f20d57")
  ("use-package" . "a7422fb8ab1baee19adb2717b5b47b9c3812a84c")
- ("vertico" . "e98ccbcad7278b1937b346d488d1cd5a21a5ea99")
+ ("vertico" . "104f512f5091d107a740d6e565de0e0f45ae633e")
  ("vertico-posframe" . "c9e380d2a51a41df0d3704d43b493f230e8f5998")
  ("web-mode" . "61f057a6baeba6b3595e412ba79b3080dca17dcc")
  ("with-editor" . "cfe70f43c551852125bc139df467e28e1b6087df")
