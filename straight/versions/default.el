@@ -25,7 +25,6 @@
  ("emacsql" . "374726060d74df0e2bcb9d0355ff41e2c400ed30")
  ("embark" . "5faf1389162dd64bfe3511dfb8f52c18efb5140b")
  ("exec-path-from-shell" . "3a8d97c096c2c5714b667130fd8a80d5622ee067")
- ("f.el" . "50af874cd19042f17c8686813d52569b1025c76a")
  ("flymake" . "46e3682127c183e4a58601bcba18a67e6bb27912")
  ("fountain-mode" . "f2178d215ae1d2689d33ad60f66d850a0b706e25")
  ("fringe-helper.el" . "ef4a9c023bae18ec1ddd7265f1f2d6d2e775efdd")
