@@ -25,7 +25,7 @@
 
   :config
 
-  (setq vertico-count 14)
+  (setq vertico-count 20)
 
   :bind (:map vertico-map
               ("C-s" . vertico-next)
@@ -38,6 +38,16 @@
               ("DEL" . vertico-directory-delete-char)
               ("M-DEL" . vertico-directory-delete-word))
   :hook (rfn-eshadow-update-overlay . vertico-directory-tidy))
+
+;; https://github.com/tumashu/vertico-posframe/
+(use-package vertico-posframe
+  :after (vertico posframe)
+  :config
+  (setq vertico-posframe-parameters
+      '((left-fringe . 8)
+        (right-fringe . 8)))
+  (setq vertico-posframe-min-width 212)
+  (vertico-posframe-mode 1))
 
 ;; https://github.com/minad/marginalia
 (use-package marginalia
