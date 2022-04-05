@@ -35,6 +35,8 @@
   (add-to-list 'safe-local-variable-values '(lexical-binding . t))
   (add-to-list 'safe-local-variable-values '(whitespace-line-column . 80))
 
+  (global-unset-key (kbd "s-s"))
+
   ;; These tweaks are based on the recommendations by lsp-doctor.
   (setq read-process-output-max (* 1024 1024)) ;; 1 MB
   (setq gc-cons-threshold (* 100 (* 1024 1024))) ;; 100 MB
