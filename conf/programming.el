@@ -342,6 +342,10 @@
          "\\.cljs\\'"
          "\\.edn\\'"))
 
+;; https://github.com/yoshiki/yaml-mode
+(use-package yaml-mode
+  :mode ("\\.yml\\'" . yaml-mode))
+
 ;; Interactively make HTTP requests, for testing RESTful APIs.
 ;;
 ;; - https://github.com/pashky/restclient.el

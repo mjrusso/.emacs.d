@@ -80,6 +80,7 @@
  ("with-editor" . "cfe70f43c551852125bc139df467e28e1b6087df")
  ("xref" . "169455e1205bab1c7b7a1519ec21589e7eb7a19f")
  ("xterm-color" . "1a4012854c69a5cdaeb5a73d2ad705011892fca3")
+ ("yaml-mode" . "535273d5a1eb76999d20afbcf4d9f056d8ffd2da")
  ("yasnippet" . "5cbdbf0d2015540c59ed8ee0fcf4788effdf75b6")
  ("yasnippet-snippets" . "b7c09f1ad7e1a62da6f6042bfaa2b26d111c7e81")
 :beta
