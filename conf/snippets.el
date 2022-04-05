@@ -18,4 +18,5 @@
 
 ;; https://github.com/mohkale/consult-yasnippet
 (use-package consult-yasnippet
-  :after (yasnippet consult))
+  :after (yasnippet consult)
+  :bind (("s-s" . consult-yasnippet)))
