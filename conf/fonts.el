@@ -3,6 +3,52 @@
 ;; - http://blogs.adobe.com/typblography/2012/09/source-code-pro.html
 (add-to-list 'default-frame-alist '(font . "Source Code Pro Medium"))
 
+(defun my/set-initial-font-size ()
+  "Called by window-setup-hook to set my initial font height configuration."
+  (my/set-font-size 160))
+
+; (add-hook 'window-setup-hook #'my/set-initial-font-size)
+
+(defun my/set-font-size (new-height)
+  (set-face-attribute 'default nil :height new-height)
+  (message "Default font height set to %s" (face-attribute 'default :height)))
+
+(defun my/zoom-text (arg)
+  "Increase (or decrease) the default font size by the value of the universal argument ARG.
+Note that if the absolute value of ARG is less than or equal to
+4, the font is increased (or decreased) by 10 instead."
+  (interactive "p")
+  (let* ((current-height (face-attribute 'default :height))
+         (absolute-delta (if (<= (abs arg) 4) 10 (abs arg)))
+         (delta (if (natnump arg) absolute-delta (- absolute-delta)))
+         (new-height (+ current-height delta)))
+    (message "Current default font height is %s; changing (by %s)"
+             current-height delta)
+    (my/set-font-size new-height)))
+
+(defun my/pick-text-zoom-level (arg)
+  "Select a text size from a list of existing options."
+  (interactive
+   (list
+    (completing-read "Choose text size: "
+                     '("extra-small" "small" "default" "medium" "large" "extra-large"))))
+  (cond ((string-equal arg "extra-small") (my/set-font-size 100))
+         ((string-equal arg "small") (my/set-font-size 110))
+         ((string-equal arg "default") (my/set-font-size 120))
+         ((string-equal arg "medium") (my/set-font-size 160))
+         ((string-equal arg "large") (my/set-font-size 180))
+         ((string-equal arg "extra-large") (my/set-font-size 220))))
+
+(defun my/zoom-text-bigger ()
+  "Increase the default font size by 10 points."
+  (interactive)
+  (my/zoom-text 10))
+
+(defun my/zoom-text-smaller ()
+  "Decrease the default font size by 10 points."
+  (interactive)
+  (my/zoom-text -10))
+
 ;; Display emojis in buffer, when Apple's emoji font is available.
 (when (member "Apple Color Emoji" (font-family-list))
   (set-fontset-font
