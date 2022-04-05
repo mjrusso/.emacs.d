@@ -13,10 +13,8 @@
 (when window-system
   (tooltip-mode -1)
   (mouse-wheel-mode t)
+  (menu-bar-mode -1)
   (blink-cursor-mode -1))
-
-;; Enable the menu bar.
-(menu-bar-mode t)
 
 ;; Disable the default minibuffer message.
 (defun display-startup-echo-area-message ()
