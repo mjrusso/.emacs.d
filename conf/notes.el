@@ -100,21 +100,3 @@
   "Scan the current buffer for Org-ID locations and update them."
   (interactive)
   (org-id-update-id-locations (list (buffer-file-name (current-buffer)))))
-
-;; Configure Deft. (http://jblevins.org/projects/deft/)
-;; Additional resources:
-;; - https://www.orgroam.com/manual.html#Full_002dtext-search-interface-with-Deft
-;; - http://emacs-fu.blogspot.ca/2011/09/quick-note-taking-with-deft-and-org.html
-;; - http://www.jontourage.com/2013/08/15/setting-up-deft-mode-in-emacs-with-org-mode/
-;; - http://www.emacswiki.org/emacs/DeftMode
-
-(use-package deft
-  :after org
-  :bind
-  ("C-c n d" . deft)
-  :custom
-  (deft-recursive t)
-  (deft-use-filter-string-for-filename t)
-  (deft-default-extension "org")
-  (deft-directory org-roam-directory)
-  (deft-auto-save-interval 0))

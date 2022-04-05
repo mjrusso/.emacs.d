@@ -9,7 +9,6 @@
  ("corfu" . "b559cc5f493eb0c4b3b4c326f4a65a6e4dffde35")
  ("corfu-doc" . "a8835a654048e0ba687e1377a29083e05888fe81")
  ("dash.el" . "da167c51e9fd167a48d06c7c0ee8e3ac7abd9718")
- ("deft" . "28be94d89bff2e1c7edef7244d7c5ba0636b1296")
  ("diff-hl" . "4a08b02afec1fc6b1e84de46cc34f75f6c9c3bcc")
  ("dockerfile-mode" . "b63a3d12b7dea0cb9efc7f78d7ad5672ceab2a3f")
  ("eglot" . "afe2e1135fba26099ba363bac27d75a747870f32")
