@@ -17,6 +17,7 @@
         save-interprogram-paste-before-kill t
         load-prefer-newer t
         backup-directory-alist `(("." . ,(concat user-emacs-directory "backups")))
+        auto-save-file-name-transforms `((".*" ,(concat user-emacs-directory "auto-saves/") t))
         diff-switches "-u"
         epa-armor t
         tls-checktrust 'ask
