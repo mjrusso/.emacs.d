@@ -28,5 +28,5 @@
   (ace-window-display-mode)
   :custom
   (aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
-  (aw-background nil)
+  (aw-background t)
   :bind ("C-x o" . ace-window))
