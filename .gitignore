@@ -22,6 +22,7 @@ abbrev_defs
 auto-save-list
 auto-saves
 backups
+locks
 bookmarks
 history
 ispell-personal-dictionary

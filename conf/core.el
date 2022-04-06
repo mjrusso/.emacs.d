@@ -18,6 +18,7 @@
         load-prefer-newer t
         backup-directory-alist `(("." . ,(concat user-emacs-directory "backups")))
         auto-save-file-name-transforms `((".*" ,(concat user-emacs-directory "auto-saves/") t))
+        lock-file-name-transforms `((".*" ,(concat user-emacs-directory "locks/") t))
         diff-switches "-u"
         epa-armor t
         tls-checktrust 'ask
