@@ -27,6 +27,7 @@ bookmarks
 history
 ispell-personal-dictionary
 custom.el
+scratchpad.el
 eshell/history
 eshell/lastdir
 image-dired/
