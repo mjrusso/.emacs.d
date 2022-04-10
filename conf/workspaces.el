@@ -14,7 +14,8 @@
              (other-window 1))))
 
 (defun my/workspace-main ()
-  "Get or create the main workspace, which displays a \"dashboard\" of useful information."
+  "Get or create the main workspace, which displays a \"dashboard\" of useful information.
+This workspace is created automatically when Emacs launches."
   (interactive)
   (persp-switch persp-initial-frame-name)
   (if (= 1 (count-windows))
