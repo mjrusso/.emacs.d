@@ -1,3 +1,5 @@
+(setq my/primary-org-directory (file-truename "~/Dropbox/org/"))
+
 (use-package org
 
   :bind
@@ -69,15 +71,13 @@
   :bind
   ("C-c a" . org-agenda)
   :custom
-  (org-agenda-files (list "~/Dropbox/org/"))
+  (org-agenda-files (list my/primary-org-directory))
   (org-agenda-include-diary t)
   (org-agenda-prefix-format '((agenda . " %i %-12:c%?-12t% s")
                               (todo . " %i %-12:c%l") ; indent by level to show nesting
                               (tags . " %i %-12:c")
                               (search . " %i %-12:c")))
   )
-
-
 
 ;; https://github.com/abo-abo/org-download
 ;; https://www.orgroam.com/manual.html#Org_002ddownload
@@ -107,7 +107,7 @@
   :init
   (setq org-roam-v2-ack t)
   :config
-  (setq org-roam-directory (file-truename "~/Dropbox/org/"))
+  (setq org-roam-directory my/primary-org-directory)
   (org-roam-db-autosync-mode)
   :custom
   (org-roam-capture-templates
