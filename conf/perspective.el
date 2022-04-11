@@ -44,10 +44,10 @@ perspective name is specially marked, to make it clearer which
 perspective is currently active."
   (persp-intersperse
    (mapcar
-    '(lambda (name)
-       (if (eq name (persp-current-name))
-           (concat "*" name "*")
-         name))
+    #'(lambda (name)
+        (if (eq name (persp-current-name))
+            (concat "*" name "*")
+          name))
     (persp-names))
    '"   —   "))
 
