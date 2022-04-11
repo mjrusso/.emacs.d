@@ -10,7 +10,7 @@
       (format "%d packages loaded in %s seconds" package-count time))))
 
 (defun my/display-emacs-load-time-and-package-count ()
-  "Log how long Emacs took to load (and the package count) to the minibuffer."
+  "Log how long Emacs took to load (and the number of packages that were loaded) to the minibuffer."
   (interactive)
   (message (my/get-emacs-load-time-and-package-count)))
 
@@ -18,6 +18,6 @@
 
 (defun my/construct-default-workspace-and-window-setup ()
   "Called by emacs-startup-hook to set up my initial window configuration."
-  (my/workspace-main))
+  (my/workspace:main))
 
 (add-hook 'emacs-startup-hook #'my/construct-default-workspace-and-window-setup)
