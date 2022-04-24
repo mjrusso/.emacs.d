@@ -55,6 +55,7 @@
           ("XXX"        font-lock-constant-face bold)
           ("REVIEW"     font-lock-keyword-face bold)
           ("NOTE"       success bold)
+          ("IMPORTANT"  font-lock-constant-face italic)
           ("DEPRECATED" font-lock-doc-face bold)))
  :init
  (global-hl-todo-mode))
