@@ -71,7 +71,7 @@
  ("spinner" . "34905eae12a236753fa88abc831eff1e41e8576e")
  ("straight.el" . "af5437f2afd00936c883124d6d3098721c2d306c")
  ("svg-lib" . "5ff87b7f9a85e728360a63d8e4ae7aaa7eccf7d3")
- ("swift-mode" . "4777c409ba0cd0d02b9a8397ba810e449b5ac213")
+ ("swift-mode" . "0d1ef0ef183398143b13fb8c76c1284df0d5e616")
  ("themes" . "83fd9545c2823b4b2610947802fa3a52995517b4")
  ("toml-mode.el" . "f6c61817b00f9c4a3cab1bae9c309e0fc45cdd06")
  ("transient" . "4e8aa09b3f9b909dddde85269eb5051b5801a07c")
