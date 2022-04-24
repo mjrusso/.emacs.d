@@ -2,8 +2,8 @@
 ;;
 ;; Emacs LSP client.
 ;;
-;; Note that Eglot is not currently configured to start automatically; instead,
-;; enable manually by running `M-x eglot'.
+;; Some major modes are configured to start Eglot automatically. In cases where
+;; Eglot is not auto-enabled, run `M-x eglot' to start it manually.
 ;;
 ;; Also note that `C-h .' is mapped to `eglot-help-at-point', but this does not
 ;; display diagnostic errors at point (only the documentation, if available).
@@ -11,8 +11,8 @@
 ;; https://github.com/joaotavora/eglot/issues/454), but for now, to see
 ;; diagnostic errors, either manually invoke `M-x display-local-help' or use
 ;; flymake (`M-x consult-flymake' is particularly nice).
+
 (use-package eglot
-  :defer t
 
   :custom
 
@@ -293,13 +293,11 @@
 ;; https://github.com/prettier/prettier-emacs
 (use-package prettier-js :defer t)
 
-;; For more on using LSP with Typescript, see:
-;; https://emacs-lsp.github.io/lsp-mode/page/lsp-typescript/
-;;
 ;; Note that the typescript-language-server, *and* typescript (`tsc`), must be
-;; available in the current path. Instead of a global install (i.e., `npm i -g
-;; typescript typescript-language-server`), rely on the add-node-modules-path
-;; package, which adds `node_modules/.bin/` to the current path.
+;; available in the current path in order to use LSP (via eglot). Instead of a
+;; global install (i.e., `npm i -g typescript typescript-language-server`),
+;; rely on the add-node-modules-path package, which adds `node_modules/.bin/`
+;; to the current path.
 (use-package typescript-mode
   :defer t
   :init
@@ -308,6 +306,7 @@
   :hook
   (typescript-mode . add-node-modules-path)
   (typescript-mode . prettier-js-mode)
+  (typescript-mode . eglot-ensure)
   )
 
 (use-package js2-mode
