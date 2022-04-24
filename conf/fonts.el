@@ -3,6 +3,9 @@
 ;; - http://blogs.adobe.com/typblography/2012/09/source-code-pro.html
 (add-to-list 'default-frame-alist '(font . "Source Code Pro Medium"))
 
+;; NOTE: consider using a package like https://github.com/WJCFerguson/textsize
+;; to automatically adapt the font size based on the currently-active display.
+
 (defun my/set-initial-font-size ()
   "Called by window-setup-hook to set my initial font height configuration."
   (my/set-font-size 160))
