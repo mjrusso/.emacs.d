@@ -1,6 +1,3 @@
-
-(global-set-key (kbd "C-c g") 'magit-status)
-
 ;; Build, run, and test, using Projectile.
 ;; Particularly handy in conjunction with .dir-locals.el; see:
 ;; - https://emacs.stackexchange.com/a/706

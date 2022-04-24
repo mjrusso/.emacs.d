@@ -162,6 +162,10 @@
 
 (use-package magit
   :defer t
+
+  :bind
+  (("C-c g" . magit-status))
+
   :config
 
   ;; Display magit buffers in the current window, rather than a new window.
