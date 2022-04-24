@@ -10,6 +10,7 @@
    ("s-}" . (lambda () (interactive) (my/call-func-if-minibuffer-not-open 'persp-next)))
    ("s-{" . (lambda () (interactive) (my/call-func-if-minibuffer-not-open 'persp-prev)))
    ("s-=" . persp-switch)
+   ("s-_" . 'my/open-project)
    ("s-+" . 'my/open-project-in-new-perspective)
    ("s-0" . persp-kill))
 

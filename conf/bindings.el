@@ -19,5 +19,3 @@
 (global-set-key (kbd "C-c C-r") 'projectile-run-project)
 (global-set-key (kbd "C-c C-t") 'projectile-test-project)
 (global-set-key (kbd "C-c C-c") 'projectile-repeat-last-command)
-
-(global-set-key [(super p)] 'my/open-project)

@@ -56,6 +56,7 @@
  ("org-roam" . "d71675fb479d11da3ae597bb13bc1c96256ff0b0")
  ("page-break-lines" . "28783cd6b86b3cd41e51e6b2486173e2485a76cc")
  ("perspective-el" . "7297dabf6de83642e8242052fe95c79d4233eac7")
+ ("popper" . "6599c9b5a12b411c6cf1536bf200ae233fa24389")
  ("popup-el" . "3bf430270c74dad830ab9d776aab23cbf3ea3953")
  ("posframe" . "c91d4d53fa479ceb604071008ce0a901770eff57")
  ("prettier-emacs" . "e9b73e81d3e1642aec682195f127a42dfb0b5774")
