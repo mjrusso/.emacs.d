@@ -1,13 +1,5 @@
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
-;; HippieExpand looks at the word before point and tries to expand it in
-;; various ways including expanding from a fixed list (like `‘expand-abbrev’’),
-;; expanding from matching text found in a buffer (like `‘dabbrev-expand’’) or
-;; expanding in ways defined by your own functions.
-;;
-;; https://www.emacswiki.org/emacs/HippieExpand
-(global-set-key (kbd "M-/") 'hippie-expand)
-
 (global-set-key (kbd "C-c g") 'magit-status)
 
 ;; Build, run, and test, using Projectile.
