@@ -5,3 +5,18 @@
   :config
   (setq power-mode-streak-shake-threshold nil)
   )
+
+;; OpenStreetMap viewer
+;;
+;; https://github.com/minad/osm
+;;
+;; Primary top-level commands: `osm-home' and `osm-search'
+(use-package osm
+  :disabled
+  :custom
+  (osm-server 'default)
+  (osm-copyright nil)
+  :init
+  ;; Load Org link support
+  (with-eval-after-load 'org
+    (require 'osm-ol)))
