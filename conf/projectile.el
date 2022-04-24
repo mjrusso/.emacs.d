@@ -11,12 +11,12 @@
          ("s-f" . projectile-find-file)
          ("s-d" . projectile-find-dir)
 
-         ;; S-R: search entire project
-         ;; C-u S-R (or M-1 S-R): allows user to specify search directory
+         ;; M-R: search entire project
+         ;; C-u M-R (or M-1 M-R): allows user to specify search directory
          ;;
          ;; To display search results in the minibuffer, invoke
          ;; `M-x consult-ripgrep` directly.
-         ("s-R" . projectile-ripgrep)
+         ("M-R" . projectile-ripgrep)
          )
 
   :config

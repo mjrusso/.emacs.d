@@ -11,4 +11,13 @@
    ("C-q" . isearch-delete-char)
    ("DEL" . isearch-del-char)))
 
+;; Note that this is only required for `projectile-ripgrep'; for running
+;; ripgrep interactively, prefer `deadgrep'.
 (use-package ripgrep)
+
+;; https://github.com/Wilfred/deadgrep
+(use-package deadgrep
+  :commands deadgrep
+  :bind
+  (("s-R" . deadgrep)))
+
