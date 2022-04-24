@@ -1,4 +1,3 @@
-(global-set-key (kbd "C-x C-b") 'ibuffer)
 
 (global-set-key (kbd "C-c g") 'magit-status)
 

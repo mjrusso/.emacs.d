@@ -41,6 +41,10 @@
 
 (use-package htmlize)
 
+(use-package ibuffer
+  :bind
+  (("C-x C-b" . ibuffer)))
+
 ;; Excerpted from: https://blog.sumtypeofway.com/posts/emacs-config.html
 (use-package dired
   :straight nil
