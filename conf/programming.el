@@ -284,6 +284,70 @@
                '(swift-mode . ("/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/sourcekit-lsp")))
   )
 
+;; Helper functions for working with Xcode (the GUI app, *not* the xcodebuild
+;; command-line tool).
+;;
+;; Adapted from https://www.danielde.dev/blog/emacs-for-swift-development and
+;; https://github.com/konrad1977/emacs/blob/main/localpackages/xcode-build.el
+;;
+;; IMPORTANT: these commands tell Xcode to build, run, or test the frontmost
+;; project (i.e., whatever project is currently "active" in Xcode).
+;;
+;; TODO: add versions of these helper functions that use the xcodebuild
+;; command-line tool, plugging in to the existing compile infrastructure; for
+;; example: `(compile "xcodebuild -configuration Debug")'.
+
+(defun my/xcode-build ()
+  "Build with Xcode.
+
+Note that this builds the project corresponding to the frontmost
+Xcode window, which is not necessarily the same as the project
+being edited in Emacs. Xcode must already be running for this
+command to have any effect."
+  (interactive)
+  (save-some-buffers)
+  (shell-command-to-string
+   "osascript -e 'tell application \"Xcode\"' -e 'set targetProject to active workspace document' -e 'build targetProject' -e 'end tell'")
+  (message "Building frontmost project using Xcode..."))
+
+(defun my/xcode-run ()
+  "Run with Xcode.
+
+Note that this builds the project corresponding to the frontmost
+Xcode window, which is not necessarily the same as the project
+being edited in Emacs. Xcode must already be running for this
+command to have any effect."
+  (interactive)
+  (save-some-buffers)
+  (shell-command-to-string
+   "osascript -e 'tell application \"Xcode\"' -e 'set targetProject to active workspace document' -e 'stop targetProject' -e 'run targetProject' -e 'end tell'")
+  (message "Running frontmost project using Xcode..."))
+
+(defun my/xcode-test ()
+  "Test with Xcode.
+
+Note that this builds the project corresponding to the frontmost
+Xcode window, which is not necessarily the same as the project
+being edited in Emacs. Xcode must already be running for this
+command to have any effect."
+  (interactive)
+  (save-some-buffers)
+  (shell-command-to-string
+   "osascript -e 'tell application \"Xcode\"' -e 'set targetProject to active workspace document' -e 'stop targetProject' -e 'test targetProject' -e 'end tell'")
+  (message "Testing frontmost project using Xcode..."))
+
+(defun my/xcode-stop ()
+  "Tell Xcode to stop running the active operation.
+
+Note that this builds the project corresponding to the frontmost
+Xcode window, which is not necessarily the same as the project
+being edited in Emacs. Xcode must already be running for this
+command to have any effect."
+  (interactive)
+  (shell-command-to-string
+   "osascript -e 'tell application \"Xcode\"' -e 'set targetProject to active workspace document' -e 'stop targetProject' -e 'end tell'")
+  (message "Telling Xcode to stop..."))
+
 ;; https://github.com/danielmartin/swift-helpful
 (use-package swift-helpful
   ;; Disabled until support for eglot is added: https://github.com/danielmartin/swift-helpful/issues/2
