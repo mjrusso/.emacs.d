@@ -382,6 +382,10 @@ command to have any effect."
   (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
   (add-to-list 'auto-mode-alist '("\\.jsx$" . js2-jsx-mode))
   (add-to-list 'auto-mode-alist '("\\.json$" . javascript-mode))
+  :config
+  ;; Ensure that `M-.' is bound to `xref-jump-to-definition' instead of
+  ;; `js2-jump-to-definition'.
+  (define-key js2-mode-map "\M-." nil)
   :hook
   (js2-mode . add-node-modules-path)
   (js2-mode . prettier-js-mode)
