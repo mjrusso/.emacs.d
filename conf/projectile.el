@@ -17,6 +17,17 @@
          ;; To display search results in the minibuffer, invoke
          ;; `M-x consult-ripgrep` directly.
          ("M-R" . projectile-ripgrep)
+
+         ;; Build, run, and test, using Projectile.
+         ;; Particularly handy in conjunction with .dir-locals.el; see:
+         ;; - https://emacs.stackexchange.com/a/706
+         ;; - https://emacs.stackexchange.com/a/15290
+         ;; - https://docs.projectile.mx/projectile/projects.html#storing-project-settings
+         ("C-c C-b" . projectile-compile-project)
+         ("C-c C-r" . projectile-run-project)
+         ("C-c C-t" . projectile-test-project)
+         ("C-c C-c" . projectile-repeat-last-command)
+
          )
 
   :config
