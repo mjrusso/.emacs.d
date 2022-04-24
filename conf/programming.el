@@ -274,18 +274,20 @@
      ("R" cargo-process-run "run")
      ("C" cargo-hydra/body "cargo...")))))
 
-;; FIXME: Does lsp-sourcekit work with eglot, or is it lsp-mode specific?
-;;        Also see:
-;;          - https://github.com/danielmartin/swift-helpful/issues/2
-;;          - https://www.reddit.com/r/emacs/comments/sndriv/i_finally_got_full_autocompetion_in_swift_with/
-;;
-;; (use-package lsp-sourcekit
-;;   :after lsp-mode
-;;   :config
-;;   (setq lsp-sourcekit-executable "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/sourcekit-lsp"))
-
+;; https://github.com/swift-emacs/swift-mode
 (use-package swift-mode
-  :defer t)
+  :defer t
+  :hook
+  (swift-mode . eglot-ensure)
+  :config
+  (add-to-list 'eglot-server-programs
+               '(swift-mode . ("/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/sourcekit-lsp")))
+  )
+
+;; https://github.com/danielmartin/swift-helpful
+(use-package swift-helpful
+  ;; Disabled until support for eglot is added: https://github.com/danielmartin/swift-helpful/issues/2
+  :disabled)
 
 ;; https://github.com/codesuki/add-node-modules-path
 (use-package add-node-modules-path :defer t)
