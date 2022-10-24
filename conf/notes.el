@@ -47,6 +47,20 @@
 
   )
 
+(defun my/org-narrow-subtree-in-new-buffer ()
+  "Narrow to the current subtree, like `org-narrow-to-subtree', but do so in a new buffer."
+  (interactive)
+  (let ((buf-name (buffer-name))
+        (buf (funcall-interactively 'clone-indirect-buffer nil nil)))
+    (switch-to-buffer buf)
+    (org-narrow-to-subtree)
+    (save-excursion
+      (org-back-to-heading)
+      (let* ((el (org-element-at-point))
+             (heading (nth 1 el))
+             (heading-title (plist-get heading :title))
+             (name (concat buf-name "[" heading-title "]")))
+        (rename-buffer name t)))))
 
 ;; https://github.com/minad/org-modern
 (use-package org-modern
