@@ -472,6 +472,21 @@ command to have any effect."
 (use-package dockerfile-mode
   :mode "Dockerfile\\'")
 
+;; https://github.com/purcell/emacs-hcl-mode
+(use-package hcl-mode
+  :mode "\\.nomad\\'")
+
+;; https://github.com/emacsorphanage/terraform-mode
+(use-package terraform-mode
+  :hook
+  (terraform-mode . (lambda () ;; From: https://github.com/cmacrae/.emacs.d
+                      (when (and (stringp buffer-file-name)
+                        (string-match "\\.tf\\(vars\\)?\\'" buffer-file-name))
+                          (aggressive-indent-mode 0))))
+
+  (before-save . terraform-format-buffer))
+
+
 ;; LSP-related Hydras. Adapted from:
 ;; https://github.com/jerrypnz/.emacs.d/blob/master/lisp/jp-lsp-hydra.el
 ;;
