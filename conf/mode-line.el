@@ -102,8 +102,6 @@ for each mode line redraw."
                 (project-name . ,(projectile-project-name))
                 (project-root . ,(projectile-project-root))
                 (buffer-file-name . ,(buffer-file-name))
-                (file-name-nondirectory . ,(let ((name (buffer-file-name)))
-                                             (if name (file-name-nondirectory name) nil)))
                 (file-path-project-relative . ,(let ((name (buffer-file-name))
                                                      (project (projectile-project-name)))
                                                  (if name
@@ -120,13 +118,6 @@ isn't yet populated, populate it first."
       nil
       (my/mode-line-populate-cache))
   (cdr (assoc key my/mode-line-cache)))
-
-(defun my/mode-line-file-name-or-buffer-name ()
-  "For use in `mode-line-format'. Returns the file name if the
-current buffer is visiting a file, otherwise returns the '%b'
-construct (which will print the buffer name as-is)."
-  (let ((name (my/mode-line-get 'file-name-nondirectory)))
-    (or name "%b")))
 
 (defun my/mode-line-project ()
   "For use in `mode-line-format'. Accesses the perspective name
@@ -169,15 +160,14 @@ if the the file is not visiting a file."
 
                " "
 
-               ;; The file (or buffer) name. The face is selected based on
+               ;; The buffer name. The face is selected based on
                ;; whether the buffer is modified or not.
                '(:eval
-                 (let ((name (my/mode-line-file-name-or-buffer-name))
+                 (let ((name "%b")
                        (face
                         (if (buffer-modified-p)
                             'my/mode-line-file-name-modified-face
                           'my/mode-line-file-name-face))
-                       ;; (face 'my/mode-line-file-name-face)
                        )
                    (propertize name
                                'face face
