@@ -464,6 +464,10 @@ command to have any effect."
 (use-package fish-mode
   :defer t)
 
+;; https://github.com/john2x/jenkinsfile-mode
+(use-package jenkinsfile-mode
+  :mode "Jenkinsfile\\'")
+
 ;; https://github.com/spotify/dockerfile-mode
 (use-package dockerfile-mode
   :mode "Dockerfile\\'")
