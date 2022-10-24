@@ -1,5 +1,5 @@
 ;; Enable smooth scrolling.
-(if (and (display-graphic-p) (fboundp 'pixel-scroll-precision-mode)) 
+(if (and (display-graphic-p) (fboundp 'pixel-scroll-precision-mode))
  (pixel-scroll-precision-mode 1))
 
 ;; Enable mouse support in the terminal.
