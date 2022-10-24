@@ -357,24 +357,15 @@ command to have any effect."
   ;; Disabled until support for eglot is added: https://github.com/danielmartin/swift-helpful/issues/2
   :disabled)
 
-;; https://github.com/codesuki/add-node-modules-path
-(use-package add-node-modules-path :defer t)
-
 ;; https://github.com/prettier/prettier-emacs
 (use-package prettier-js :defer t)
 
-;; Note that the typescript-language-server, *and* typescript (`tsc`), must be
-;; available in the current path in order to use LSP (via eglot). Instead of a
-;; global install (i.e., `npm i -g typescript typescript-language-server`),
-;; rely on the add-node-modules-path package, which adds `node_modules/.bin/`
-;; to the current path.
 (use-package typescript-mode
   :defer t
   :init
   (add-to-list 'auto-mode-alist '("\\.ts$" . typescript-mode))
   (setq-default typescript-indent-level 2)
   :hook
-  (typescript-mode . add-node-modules-path)
   (typescript-mode . prettier-js-mode)
   (typescript-mode . eglot-ensure)
   )
@@ -391,7 +382,6 @@ command to have any effect."
   ;; `js2-jump-to-definition'.
   (define-key js2-mode-map "\M-." nil)
   :hook
-  (js2-mode . add-node-modules-path)
   (js2-mode . prettier-js-mode)
   )
 

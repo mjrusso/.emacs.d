@@ -1,5 +1,4 @@
 (("ace-window" . "c7cb315c14e36fded5ac4096e158497ae974bec9")
- ("add-node-modules-path" . "7d9be65b3be062842b7ead862dec15d6f25db4a2")
  ("avy" . "e92cb37457b43336b765630dbfbea8ba4be601fa")
  ("cape" . "79e8771c18c76a5bef5fdbf74718527e74b6d702")
  ("cargo.el" . "5589f9f46f3e1cdeb6261515ce314aab40f3d786")
@@ -17,6 +16,7 @@
  ("el-get" . "9353309744e4f8a7c9b1adf22ec99536fb2146b0")
  ("eldoc" . "eab3f2590621c6559cb92a5edc519fc7e51ef850")
  ("emacs-async" . "5d365ffc6a2c2041657eaa5d762c395ea748c8d7")
+ ("emacs-direnv" . "268536f564b7eba99264a89a9149268eb4bc67ac")
  ("emacs-elixir" . "d495ed87a9c507f5939a51c740f119950c83e2ff")
  ("emacs-emojify" . "1b726412f19896abf5e4857d4c32220e33400b55")
  ("emacs-fish" . "a7c953b1491ac3a3e00a7b560f2c9f46b3cb5c04")
