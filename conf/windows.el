@@ -59,7 +59,7 @@
           "^\\*eshell.*\\*$" eshell-mode
           "^\\*shell.*\\*$"  shell-mode
           "^\\*term.*\\*$"   term-mode
-          "^\\*vterm.*\\*$"  vterm-mode
+       ;; "^\\*vterm.*\\*$"  vterm-mode
           compilation-mode
           help-mode))
   (setq popper-group-function #'popper-group-by-perspective)
