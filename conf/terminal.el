@@ -16,9 +16,19 @@
   (vterm-mode . (lambda ()
                   (setq-local show-trailing-whitespace nil))))
 
-(global-set-key [(super t)] 'my/vterm-for-current-project)
+(global-set-key [(super t)] #'(lambda ()
+                                (interactive)
+                                (my/named-vterm-for-current-project "primary")))
 
-(global-set-key [(super T)] 'my/new-vterm-for-current-project)
+(global-set-key [(super T)] #'(lambda ()
+                                (interactive)
+                                (my/named-vterm-for-current-project "secondary")))
+
+(global-set-key (kbd "M-t" ) #'(lambda ()
+                                (interactive)
+                                (my/named-vterm-for-current-project "tertiary")))
+
+(global-set-key (kbd "M-T") 'my/new-vterm-for-current-project)
 
 (defun my/vterm-for-current-project ()
   "Switch to the project-specific vterm terminal buffer if it
@@ -26,6 +36,18 @@ already exists, or create a new vterm terminal buffer named after
 the current project."
   (interactive)
   (projectile-run-vterm))
+
+(defun my/named-vterm-for-current-project (name)
+  "Switch to the project-specific vterm terminal buffer identified
+by NAME if it already exists, or create a new vterm terminal
+buffer named after the current project and the provided NAME."
+  (let* ((project (projectile-acquire-root))
+         (name (format "vterm[%s]" name))
+         (buffer (projectile-generate-process-name name nil project)))
+    (unless (buffer-live-p (get-buffer buffer))
+      (projectile-with-default-dir project
+        (vterm buffer)))
+    (switch-to-buffer buffer)))
 
 (defun my/new-vterm-for-current-project ()
   "Open a new vterm terminal named after the current project.
