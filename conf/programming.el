@@ -403,6 +403,12 @@ command to have any effect."
 ;; https://github.com/elixir-editors/emacs-elixir
 (use-package elixir-mode
   :defer t
+  :hook
+  (elixir-mode . eglot-ensure)
+  :config
+  ;; Install ElixirLS from https://github.com/elixir-lsp/elixir-ls
+  (add-to-list 'eglot-server-programs
+               '(elixir-mode "~/.elixir-ls/language_server.sh"))
   :init
   ;; Automatically format source code on save.
   (add-hook 'elixir-mode-hook
