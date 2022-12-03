@@ -47,7 +47,10 @@ buffer named after the current project and the provided NAME."
     (unless (buffer-live-p (get-buffer buffer))
       (projectile-with-default-dir project
         (vterm buffer)))
-    (pop-to-buffer buffer)))
+    ;; If the buffer is already visible, switch to it. Otherwise, open the
+    ;; buffer in the current window.
+    (cond ((get-buffer-window buffer 0) (pop-to-buffer buffer nil))
+          (t (pop-to-buffer-same-window buffer nil)))))
 
 (defun my/new-vterm-for-current-project ()
   "Open a new vterm terminal named after the current project.
