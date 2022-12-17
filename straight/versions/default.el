@@ -31,7 +31,7 @@
  ("flymake" . "46e3682127c183e4a58601bcba18a67e6bb27912")
  ("fountain-mode" . "f2178d215ae1d2689d33ad60f66d850a0b706e25")
  ("fringe-helper.el" . "ef4a9c023bae18ec1ddd7265f1f2d6d2e775efdd")
- ("git-gutter" . "9174c74cd607e297d7f14c0595d4c20ebb53847d")
+ ("git-gutter" . "1451e3149865b88de2402ce4296ee5608fadc5b2")
  ("git-gutter-fringe" . "648cb5b57faec55711803cdc9434e55a733c3eba")
  ("gnu-elpa-mirror" . "b9591336dc6ece42784901c4c00dded50be415fa")
  ("groovy-emacs-modes" . "29210e5a969c02169b68e04f2e28e3bf2fc13363")
