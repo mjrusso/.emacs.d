@@ -406,9 +406,10 @@ command to have any effect."
   :hook
   (elixir-mode . eglot-ensure)
   :config
-  ;; Install ElixirLS from https://github.com/elixir-lsp/elixir-ls
+  ;; Elixir Language Server: https://github.com/elixir-lsp/elixir-ls
+  ;; On MacOS, install with: `brew install elixir-ls'
   (add-to-list 'eglot-server-programs
-               '(elixir-mode "~/.elixir-ls/language_server.sh"))
+               '(elixir-mode "elixir-ls"))
   :init
   ;; Automatically format source code on save.
   (add-hook 'elixir-mode-hook
