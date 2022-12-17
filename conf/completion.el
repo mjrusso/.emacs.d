@@ -11,6 +11,9 @@
 ;; - https://kristofferbalintona.me/posts/corfu-kind-icon-and-corfu-doc/
 (use-package corfu
 
+  :straight (corfu :files (:defaults "extensions/*")
+                   :includes (corfu-popupinfo))
+
   :custom
 
   (corfu-auto t)
@@ -21,7 +24,10 @@
   (corfu-count 14)
   (corfu-scroll-margin 4)
   (corfu-cycle nil)
-  (corfu-echo-documentation nil) ; Use corfu-doc instead.
+  (corfu-echo-documentation nil) ; Use corfu-popupinfo instead.
+  (corfu-popupinfo-delay 0.25)
+  (corfu-popupinfo-width 70)
+  (corfu-popupinfo-max-height 20)
 
   ;; Configuration for orderless completion. See
   ;; https://github.com/minad/corfu#orderless-completion for details.
@@ -33,7 +39,8 @@
 
   :init
 
-  (corfu-global-mode)
+  (global-corfu-mode)
+  (corfu-popupinfo-mode)
 
   :config
 
@@ -78,28 +85,6 @@
 
   ;; Ensure that the background colour is updated to match the active theme.
   (add-hook 'my/after-load-theme-hook #'kind-icon-reset-cache)
-  )
-
-;; https://github.com/galeo/corfu-doc
-;;
-;; Includes configuration adapted from:
-;; - https://kristofferbalintona.me/posts/corfu-kind-icon-and-corfu-doc/
-(use-package corfu-doc
-  ;; NOTE 2022-02-05: `corfu-doc' is not yet on melpa
-  :straight (corfu-doc :type git :host github :repo "galeo/corfu-doc")
-  :after corfu
-  :hook (corfu-mode . corfu-doc-mode)
-
-  :bind (
-         :map corfu-map
-         ("M-n" . corfu-doc-scroll-up)
-         ("M-p" . corfu-doc-scroll-down)
-         )
-
-  :custom
-  (corfu-doc-delay 0.25)
-  (corfu-doc-max-width 70)
-  (corfu-doc-max-height 20)
   )
 
 ;; https://github.com/minad/cape

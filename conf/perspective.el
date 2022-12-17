@@ -28,6 +28,7 @@
  (setq persp-show-modestring nil)
  (setq persp-modestring-short nil)
  (setq persp-sort 'created)
+ (setq persp-suppress-no-prefix-key-warning t)
  (when window-system
    ;; Set the text corresponding to the perspective mode line as the frame title.
    (setq frame-title-format
