@@ -243,23 +243,7 @@
 (use-package toml-mode
   :mode "\\.toml\\'")
 
-(use-package cargo
-  :pretty-hydra
-  ((:quit-key "q")
-   ("Packages"
-    (("a" cargo-process-add "add")
-     ("u" cargo-process-update "update")
-     ("x" cargo-process-rm "remove")
-     ("U" cargo-process-upgrade "upgrade"))
-    "Actions"
-    (("b" cargo-process-build "build")
-     ("r" cargo-process-run "run")
-     ("c" cargo-process-check "check")
-     ("f" cargo-process-format "format")
-     ("s" cargo-process-search "search"))
-    "Tests"
-    (("t" cargo-process-current-file-tests "test")
-     ("T" cargo-process-test "test all")))))
+(use-package cargo)
 
 ;; To use LSP with Rust, ensure rust-analyzer is installed:
 ;; https://rust-analyzer.github.io
@@ -276,15 +260,7 @@
   ;; https://github.com/rust-lang/rustup/issues/2411 for details.
   (add-to-list 'eglot-server-programs
                ;; `rustup which --toolchain stable rust-analyzer`
-               '(rust-mode "/Users/mjrusso/.rustup/toolchains/stable-x86_64-apple-darwin/bin/rust-analyzer"))
-  :mode-hydra
-  ((:color teal :quit-key "q")
-   ("Quick Action"
-    (("b" cargo-process-build "build")
-     ("t" cargo-process-current-file-tests "test")
-     ("T" cargo-process-test "test all")
-     ("R" cargo-process-run "run")
-     ("C" cargo-hydra/body "cargo...")))))
+               '(rust-mode "/Users/mjrusso/.rustup/toolchains/stable-x86_64-apple-darwin/bin/rust-analyzer")))
 
 ;; https://github.com/swift-emacs/swift-mode
 (use-package swift-mode
@@ -490,31 +466,3 @@ command to have any effect."
                           (aggressive-indent-mode 0))))
 
   (before-save . terraform-format-buffer))
-
-
-;; LSP-related Hydras. Adapted from:
-;; https://github.com/jerrypnz/.emacs.d/blob/master/lisp/jp-lsp-hydra.el
-;;
-;; (major-mode-hydra-define+ (rust-mode swift-mode typescript-mode)
-;;   (:color teal :quit-key "q")
-;;   ("LSP Quick Action"
-;;    (("d" lsp-describe-thing-at-point "describe symbol")
-;;     ("a" lsp-execute-code-action "code action")
-;;     ("f" lsp-format-buffer "format")
-;;     ("O" lsp-organize-imports "organize imports"))
-;;    "Find & Goto"
-;;    (("gr" lsp-ui-peek-find-references "references")
-;;     ("gd" lsp-ui-peek-find-definitions "definitions")
-;;     ;; ("gs" consult-lsp-symbols "workspace symbol")
-;;     ;; ("gf" consult-lsp-file-symbols "file symbol")
-;;     ;; ("gx" consult-lsp-diagnostics "diagnostics")
-;;     )
-;;    "Connection"
-;;    (("cc" lsp "start")
-;;     ("cr" lsp-restart-workspace "restart")
-;;     ("cd" lsp-describe-session "describe session")
-;;     ("cq" lsp-shutdown-workspace "shutdown"))
-;;    "Toggles"
-;;    (("ol" lsp-lens-mode "toggle lens" :toggle t :exit nil)
-;;     ("od" lsp-ui-doc-mode "toggle hover doc" :toggle t :exit nil)
-;;     ("os" lsp-ui-sideline-mode "toggle sideline" :toggle t :exit nil))))

@@ -70,9 +70,3 @@ specific term buffer if it already exists)."
 window."
   (interactive "sTerminal name: ")
   (vterm-other-window (concat "*vterm " term-name "*")))
-
-(major-mode-hydra-define+ (vterm-mode)
-  (:color teal :quit-key "q")
-  ("Quick Action"
-   (("cc" vterm-copy-mode "toggle copy mode" :toggle t :exit t)
-    ("cs" vterm-clear-scrollback "clear scrollback"))))
