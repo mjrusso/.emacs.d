@@ -25,7 +25,7 @@
   (corfu-scroll-margin 4)
   (corfu-cycle nil)
   (corfu-echo-documentation nil) ; Use corfu-popupinfo instead.
-  (corfu-popupinfo-delay 0.25)
+  (corfu-popupinfo-delay t)
   (corfu-popupinfo-width 70)
   (corfu-popupinfo-max-height 20)
 
