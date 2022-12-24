@@ -270,6 +270,7 @@
   (setq rust-format-on-save t)
   :hook
   (rust-mode . (lambda () (setq indent-tabs-mode nil)))
+  (rust-mode . eglot-ensure)
   :config
   ;; Eventually, this won't be necessary; see
   ;; https://github.com/rust-lang/rustup/issues/2411 for details.
