@@ -261,14 +261,21 @@
     (("t" cargo-process-current-file-tests "test")
      ("T" cargo-process-test "test all")))))
 
-;; To use LSP with Rust, ensure RLS is installed: https://github.com/rust-lang/rls
-;; Run: `rustup component add rls rust-analysis rust-src`
+;; To use LSP with Rust, ensure rust-analyzer is installed:
+;; https://rust-analyzer.github.io
+;; To install, run: `rustup component add rust-analyzer`
 (use-package rust-mode
   :defer t
   :init
   (setq rust-format-on-save t)
   :hook
   (rust-mode . (lambda () (setq indent-tabs-mode nil)))
+  :config
+  ;; Eventually, this won't be necessary; see
+  ;; https://github.com/rust-lang/rustup/issues/2411 for details.
+  (add-to-list 'eglot-server-programs
+               ;; `rustup which --toolchain stable rust-analyzer`
+               '(rust-mode "/Users/mjrusso/.rustup/toolchains/stable-x86_64-apple-darwin/bin/rust-analyzer"))
   :mode-hydra
   ((:color teal :quit-key "q")
    ("Quick Action"
