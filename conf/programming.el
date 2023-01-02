@@ -262,6 +262,11 @@
                ;; `rustup which --toolchain stable rust-analyzer`
                '(rust-mode "/Users/mjrusso/.rustup/toolchains/stable-x86_64-apple-darwin/bin/rust-analyzer")))
 
+;; Syntax highlighting for WebGPU Shading Language (WGSL)
+;; https://github.com/acowley/wgsl-mode
+(use-package wgsl-mode
+  :defer t)
+
 ;; https://github.com/swift-emacs/swift-mode
 (use-package swift-mode
   :defer t

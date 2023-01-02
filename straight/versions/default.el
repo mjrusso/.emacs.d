@@ -84,6 +84,7 @@
  ("vertico" . "3fde3be747d2b68637b2e5f373cdf2299d630c14")
  ("vertico-posframe" . "7d314fa1dcb205df4b0c5c628e0d4e69fec5c4ae")
  ("web-mode" . "4b8a695825fda366927894e498421f35fce1cbb9")
+ ("wgsl-mode" . "e7856d6755d93e40ed74598a68ef5f607322618b")
  ("with-editor" . "4da109748da0828b79198701eb641d5b724153ce")
  ("xref" . "0dc81218b59e7f199265704d1af37219af86d381")
  ("xterm-color" . "1a4012854c69a5cdaeb5a73d2ad705011892fca3")
