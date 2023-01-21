@@ -21,6 +21,14 @@
 
 ;; Maximize the initial frame on startup.
 (when window-system (my/maximize-frame nil))
+(defun my/resize-frame-to-middle-of-screen (frame)
+  (let* ((width (floor (/ (x-display-pixel-width) 2.0)))
+         (height (floor (/ (x-display-pixel-height) 1.25)))
+         (x (+ 0 (floor (* width 0.5))))
+         (y (+ 0 (floor (* height 0.1)))))
+    (set-frame-position (selected-frame) x y)
+    (set-frame-size (selected-frame) width height t)))
+
 
 ;; Make new frames (not the one on startup) a specific fixed size.
 (add-hook 'after-make-frame-functions 'my/resize-frame-to-right-half-of-screen)
