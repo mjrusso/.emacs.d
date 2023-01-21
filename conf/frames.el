@@ -19,8 +19,6 @@
 
 (defalias 'my/resize-current-frame-to-full-screen 'my/maximize-current-frame)
 
-;; Maximize the initial frame on startup.
-(when window-system (my/maximize-frame nil))
 (defun my/resize-frame-to-middle-of-screen (frame)
   (let* ((width (floor (/ (x-display-pixel-width) 2.0)))
          (height (floor (/ (x-display-pixel-height) 1.25)))
@@ -29,6 +27,8 @@
     (set-frame-position (selected-frame) x y)
     (set-frame-size (selected-frame) width height t)))
 
+;; On startup, tweak the size and placement of the initial frame.
+(when window-system (my/resize-frame-to-middle-of-screen (selected-frame)))
 
 ;; Make new frames (not the one on startup) a specific fixed size.
 (add-hook 'after-make-frame-functions 'my/resize-frame-to-right-half-of-screen)
