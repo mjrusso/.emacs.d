@@ -12,6 +12,18 @@
   (doom-themes-org-config)
   )
 
+;; Synchronize the theme with system appearance changes. See:
+;; https://github.com/d12frosted/homebrew-emacs-plus#system-appearance-change
+(defun my/apply-theme-after-system-appearance-change (appearance)
+  "Load theme, taking current system APPEARANCE into consideration."
+  (mapc #'disable-theme custom-enabled-themes)
+  (pcase appearance
+    ('light (load-theme 'doom-one-light t))
+    ('dark (load-theme 'doom-vibrant t))
+    ))
+
+(add-hook 'ns-system-appearance-change-functions #'my/apply-theme-after-system-appearance-change)
+
 ;; https://www.reddit.com/r/emacs/comments/4v7tcj/comment/d5wyu1r/
 (defvar my/after-load-theme-hook nil
   "Hook run after a color theme is loaded using `load-theme'.")
