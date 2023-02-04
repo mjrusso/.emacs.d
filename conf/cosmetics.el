@@ -37,7 +37,7 @@
     (lambda () (setq show-trailing-whitespace nil))))
 
 ;; - https://github.com/tumashu/posframe
-(use-package posframe)
+(use-package posframe :disabled)
 
 ;; - https://github.com/purcell/page-break-lines
 (use-package page-break-lines)

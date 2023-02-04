@@ -41,6 +41,7 @@
 
 ;; https://github.com/tumashu/vertico-posframe/
 (use-package vertico-posframe
+  :disabled
   :after (vertico posframe)
   :config
   (setq vertico-posframe-parameters
