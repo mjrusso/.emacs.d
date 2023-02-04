@@ -27,8 +27,6 @@
     (set-frame-position (selected-frame) x y)
     (set-frame-size (selected-frame) width height t)))
 
-;; On startup, tweak the size and placement of the initial frame.
-(when window-system (my/resize-frame-to-middle-of-screen (selected-frame)))
-
-;; Make new frames (not the one on startup) a specific fixed size.
-(add-hook 'after-make-frame-functions 'my/resize-frame-to-right-half-of-screen)
+;; On startup, tweak the size and placement of the initial frame (unless Emacs
+;; is running in a terminal).
+(when (display-graphic-p) (my/resize-frame-to-middle-of-screen (selected-frame)))

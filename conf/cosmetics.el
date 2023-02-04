@@ -1,4 +1,4 @@
-(when window-system
+(when (display-graphic-p)
   (tooltip-mode -1)
   (mouse-wheel-mode t)
   (menu-bar-mode -1)

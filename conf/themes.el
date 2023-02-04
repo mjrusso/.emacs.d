@@ -1,26 +1,30 @@
 ;; https://github.com/doomemacs/themes
 (use-package doom-themes
-
   :config
-
   (setq doom-themes-enable-bold t
         doom-themes-enable-italic t)
-
-;;  (load-theme 'doom-vibrant t)
-  (load-theme 'doom-one-light t)
-
   (doom-themes-org-config)
   )
+
+;; When a new terminal frame is created, ensure that we're using a dark theme.
+(add-to-list
+ 'after-make-frame-functions
+ #'(lambda (frame)
+     (if (display-graphic-p frame)
+         (message "New graphical frame created")
+       (progn
+         (message "New non-graphical (terminal) frame created")
+         (load-theme 'doom-vibrant t)))))
 
 ;; Synchronize the theme with system appearance changes. See:
 ;; https://github.com/d12frosted/homebrew-emacs-plus#system-appearance-change
 (defun my/apply-theme-after-system-appearance-change (appearance)
   "Load theme, taking current system APPEARANCE into consideration."
   (mapc #'disable-theme custom-enabled-themes)
-  (pcase appearance
-    ('light (load-theme 'doom-one-light t))
-    ('dark (load-theme 'doom-vibrant t))
-    ))
+  (when (display-graphic-p)
+    (pcase appearance
+      ('light (load-theme 'doom-one-light t))
+      ('dark (load-theme 'doom-vibrant t)))))
 
 (add-hook 'ns-system-appearance-change-functions #'my/apply-theme-after-system-appearance-change)
 
