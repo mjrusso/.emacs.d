@@ -15,20 +15,17 @@
                (switch-to-buffer (current-buffer)))
              (other-window 1))))
 
-(defun my/workspace:main ()
-  "Get or create the main workspace.
+(defun my/workspace:dashboard ()
+  "Get or create the dashboard workspace.
 
 This workspace displays information excerpted from an org file:
 the first two top-level headings are displayed in their own
 indirect buffers, narrowed to their subtrees, and displayed in
 side windows. The third top-level heading is also displayed in an
 indirect buffer, narrowed to its subtree, but displayed in a
-normal window.
-
-Note that this workspace is created automatically when Emacs
-launches."
+normal window."
   (interactive)
-  (persp-switch persp-initial-frame-name)
+  (persp-switch "dashboard")
   (if (= 1 (count-windows))
       (let ((dashboard-file-path (concat my/primary-org-directory "dashboard.org")))
         (when (file-exists-p dashboard-file-path)

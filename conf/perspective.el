@@ -24,7 +24,7 @@
                         (persp-switch-by-number ,d)))))
 
  :init
- (setq persp-initial-frame-name "main")
+ (setq persp-initial-frame-name "scratch")
  (setq persp-show-modestring nil)
  (setq persp-modestring-short nil)
  (setq persp-sort 'created)
