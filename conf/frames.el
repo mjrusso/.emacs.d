@@ -29,4 +29,8 @@
 
 ;; On startup, tweak the size and placement of the initial frame (unless Emacs
 ;; is running in a terminal).
-(when (display-graphic-p) (my/resize-frame-to-middle-of-screen (selected-frame)))
+(when (display-graphic-p)
+  (let ((width (floor (/ (x-display-pixel-width) 2))))
+    (if (< width 1000)
+        (my/maximize-frame (selected-frame))
+      (my/resize-frame-to-middle-of-screen (selected-frame)))))
