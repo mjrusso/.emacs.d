@@ -464,10 +464,6 @@ command to have any effect."
 
 ;; https://github.com/emacsorphanage/terraform-mode
 (use-package terraform-mode
-  :hook
-  (terraform-mode . (lambda () ;; From: https://github.com/cmacrae/.emacs.d
-                      (when (and (stringp buffer-file-name)
-                        (string-match "\\.tf\\(vars\\)?\\'" buffer-file-name))
-                          (aggressive-indent-mode 0))))
-
-  (before-save . terraform-format-buffer))
+  :init
+  (add-hook 'terraform-mode-hook
+            (lambda () (add-hook 'before-save-hook 'terraform-format-buffer nil t))))
