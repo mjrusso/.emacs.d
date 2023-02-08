@@ -9,7 +9,6 @@
         sentence-end-double-space nil
         require-final-newline t
         indent-tabs-mode nil
-        initial-scratch-message nil
         shift-select-mode nil
         mouse-yank-at-point t
         ediff-window-setup-function 'ediff-setup-windows-plain
