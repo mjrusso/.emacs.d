@@ -119,6 +119,14 @@
   :init
   (add-hook 'prog-mode-hook 'whitespace-mode))
 
+;; Ensure that code is indented, even when making disruptive changes.
+;; - https://github.com/Malabarba/aggressive-indent-mode
+(use-package aggressive-indent
+  :config
+  (global-aggressive-indent-mode 1)
+  (add-to-list 'aggressive-indent-excluded-modes 'html-mode)
+  (add-to-list 'aggressive-indent-excluded-modes 'terraform-mode))
+
 (use-package compile
   :config
   ;; If there's an error, ensure that it's visible; otherwise, keep scrolling

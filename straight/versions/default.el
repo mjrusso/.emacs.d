@@ -1,4 +1,5 @@
 (("ace-window" . "77115afc1b0b9f633084cf7479c767988106c196")
+ ("aggressive-indent-mode" . "a437a45868f94b77362c6b913c5ee8e67b273c42")
  ("avy" . "955c8dedd68c74f3cf692c1249513f048518c4c9")
  ("cape" . "351d7a65fc8ac76d7d5c737354ed7b2d7750b261")
  ("cargo.el" . "d2720c8dc7ac3b18ce112a886d3b8696797d01cb")
