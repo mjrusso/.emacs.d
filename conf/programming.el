@@ -125,6 +125,7 @@
   :config
   (global-aggressive-indent-mode 1)
   (add-to-list 'aggressive-indent-excluded-modes 'html-mode)
+  (add-to-list 'aggressive-indent-excluded-modes 'elixir-mode)
   (add-to-list 'aggressive-indent-excluded-modes 'terraform-mode))
 
 (use-package compile
