@@ -32,6 +32,7 @@
 (my/load-conf-file "core.el")
 (my/load-conf-file "server.el")
 (my/load-conf-file "frames.el")
+(my/load-conf-file "tramp.el")
 (my/load-conf-file "completion.el")
 (my/load-conf-file "cosmetics.el")
 (my/load-conf-file "fonts.el")
