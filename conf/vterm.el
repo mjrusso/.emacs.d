@@ -10,6 +10,20 @@
   :custom
   (vterm-max-scrollback 10000)
 
+  (vterm-tramp-shells '(
+                        ("ssh" "/opt/homebrew/bin/fish")
+                        ("ssh" "/usr/local/bin/fish")
+                        ("ssh" "/bin/zsh")
+                        ("ssh" "/bin/bash")
+
+                        ("sudo" "/opt/homebrew/bin/fish")
+                        ("sudo" "/usr/local/bin/fish")
+                        ("sudo" "/bin/zsh")
+                        ("sudo" "/bin/bash")
+
+                        ("docker" "/bin/sh")
+                        ))
+
   :hook
   (vterm-mode . (lambda ()
                   (setq-local show-trailing-whitespace nil))))
