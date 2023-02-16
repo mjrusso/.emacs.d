@@ -13,6 +13,7 @@ projectile.cache
 .org-id-locations
 org-persist/
 org-roam.db
+conf-private/
 transient/
 elpa/
 elpa/archives

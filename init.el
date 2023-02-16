@@ -18,9 +18,9 @@
 (use-package straight
   :custom (straight-use-package-by-default t))
 
-(defun my/load-all-conf-files ()
+(defun my/load-all-conf-files (directory-name)
   (interactive)
-  (mapc 'load (directory-files (concat user-emacs-directory "conf") t "^[^#].*el$")))
+  (mapc 'load (directory-files (concat user-emacs-directory directory-name) t "^[^#].*el$")))
 
 (defun my/load-conf-file (conf-file-name)
   (load (concat user-emacs-directory
@@ -59,6 +59,13 @@
 (my/load-conf-file "windows.el")
 (my/load-conf-file "workspaces.el")
 (my/load-conf-file "writing.el")
+
+;; If any private configuration files exist, load them. (Private configuration
+;; files aren't committed to this repository.)
+(let* ((directory-name "conf-private")
+       (private-conf-directory (concat user-emacs-directory directory-name)))
+  (if (file-directory-p private-conf-directory)
+      (my/load-all-conf-files directory-name)))
 
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (when (file-exists-p custom-file)
