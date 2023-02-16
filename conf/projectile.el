@@ -1,10 +1,15 @@
 (use-package projectile
+  :ensure t
   :init
   (setq projectile-use-git-grep t)
   (setq projectile-enable-caching t)
   (setq projectile-indexing-method 'alien)
   (setq projectile-require-project-root nil)
   (setq projectile-completion-system 'default)
+
+  ;; https://github.com/bbatsov/projectile/issues/1649#issuecomment-1234677133
+  (require 'tramp)
+
   (projectile-mode +1)
 
   :bind (
@@ -41,7 +46,7 @@
                   "log"
                   "tmp")
                 projectile-globally-ignored-directories))
-)
+  )
 
 (advice-add
  'projectile-relevant-known-projects
