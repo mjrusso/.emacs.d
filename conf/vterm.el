@@ -1,6 +1,3 @@
-;; - https://github.com/atomontage/xterm-color
-(use-package xterm-color)
-
 ;; Emacs-libvterm: a terminal emulator, based on libvterm.
 ;;
 ;; Details: https://github.com/akermu/emacs-libvterm
@@ -12,6 +9,7 @@
   :commands vterm
   :custom
   (vterm-max-scrollback 10000)
+
   :hook
   (vterm-mode . (lambda ()
                   (setq-local show-trailing-whitespace nil))))

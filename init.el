@@ -54,7 +54,7 @@
 (my/load-conf-file "snippets.el")
 (my/load-conf-file "spelling.el")
 (my/load-conf-file "tabs.el")
-(my/load-conf-file "terminal.el")
+(my/load-conf-file "vterm.el")
 (my/load-conf-file "themes.el")
 (my/load-conf-file "unicode.el")
 (my/load-conf-file "windows.el")

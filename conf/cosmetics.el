@@ -39,7 +39,10 @@
 ;; - https://github.com/purcell/page-break-lines
 (use-package page-break-lines)
 
- ;; https://github.com/tarsius/hl-todo
+;; - https://github.com/atomontage/xterm-color
+(use-package xterm-color)
+
+;; https://github.com/tarsius/hl-todo
 (use-package hl-todo
   :config
   (setq hl-todo-highlight-punctuation ":")
@@ -55,5 +58,5 @@
           ("NOTE"       success bold)
           ("IMPORTANT"  font-lock-constant-face italic)
           ("DEPRECATED" font-lock-doc-face bold)))
- :init
- (global-hl-todo-mode))
+  :init
+  (global-hl-todo-mode))
