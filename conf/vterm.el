@@ -10,6 +10,8 @@
   :custom
   (vterm-max-scrollback 10000)
 
+  (vterm-clear-scrollback-when-clearing nil)
+
   (vterm-tramp-shells '(
                         ("ssh" "/opt/homebrew/bin/fish")
                         ("ssh" "/usr/local/bin/fish")
