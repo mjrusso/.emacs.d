@@ -406,7 +406,10 @@ command to have any effect."
   (elixir-mode . eglot-ensure)
   :config
   ;; Elixir Language Server: https://github.com/elixir-lsp/elixir-ls
-  ;; On MacOS, install with: `brew install elixir-ls'
+  ;;
+  ;; Note that by default, this is made available as `language_server.sh`. I
+  ;; symlink it to (the more descriptively-named) `elixir-ls', and put that in
+  ;; my PATH.
   (add-to-list 'eglot-server-programs
                '(elixir-mode "elixir-ls"))
   :init
