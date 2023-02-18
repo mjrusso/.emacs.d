@@ -52,7 +52,9 @@
   (defun my/dired-mode-hook ()
     (put 'dired-find-alternate-file 'disabled nil)) ; Disables the warning.
   (add-hook 'dired-mode-hook #'my/dired-mode-hook)
-  (setq dired-use-ls-dired nil))
+  (setq dired-use-ls-dired nil)
+  (setq dired-listing-switches "-alh")
+  )
 
 ;; Persist a list of recently-opened files.
 ;; - https://www.emacswiki.org/emacs/RecentFiles
