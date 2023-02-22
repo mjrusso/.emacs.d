@@ -422,20 +422,7 @@ command to have any effect."
   ;;                                     (setq elixir-format-arguments
   ;;                                           (list "--dot-formatter"
   ;;                                                 (concat (locate-dominating-file buffer-file-name ".formatter.exs") ".formatter.exs")))
-  ;;                                   (setq elixir-format-arguments nil))))
-  ;; Configure font ligatures:
-  ;; https://medium.com/@victor.nascimento/elixir-development-on-emacs-9f6776265e4d
-  (add-hook 'elixir-mode-hook
-            (lambda ()
-              (push '(">=" . ?\u2265) prettify-symbols-alist)
-              (push '("<=" . ?\u2264) prettify-symbols-alist)
-              (push '("!=" . ?\u2260) prettify-symbols-alist)
-              (push '("==" . ?\u2A75) prettify-symbols-alist)
-              (push '("=~" . ?\u2245) prettify-symbols-alist)
-              (push '("<-" . ?\u2190) prettify-symbols-alist)
-              (push '("->" . ?\u2192) prettify-symbols-alist)
-              (push '("<-" . ?\u2190) prettify-symbols-alist)
-              (push '("|>" . ?\u25B7) prettify-symbols-alist))))
+  )
 
 
 (use-package clojure-mode
