@@ -413,16 +413,16 @@ command to have any effect."
   (add-to-list 'eglot-server-programs
                '(elixir-mode "elixir-ls"))
   :init
-  ;; Automatically format source code on save.
-  (add-hook 'elixir-mode-hook
-            (lambda () (add-hook 'before-save-hook 'elixir-format nil t)))
-  ;; Use the project's .formatter.exs configuration file.
-  (add-hook 'elixir-format-hook (lambda ()
-                                  (if (projectile-project-p)
-                                      (setq elixir-format-arguments
-                                            (list "--dot-formatter"
-                                                  (concat (locate-dominating-file buffer-file-name ".formatter.exs") ".formatter.exs")))
-                                    (setq elixir-format-arguments nil))))
+  ;; ;; Automatically format source code on save.
+  ;; (add-hook 'elixir-mode-hook
+  ;;           (lambda () (add-hook 'before-save-hook 'elixir-format nil t)))
+  ;; ;; Use the project's .formatter.exs configuration file.
+  ;; (add-hook 'elixir-format-hook (lambda ()
+  ;;                                 (if (projectile-project-p)
+  ;;                                     (setq elixir-format-arguments
+  ;;                                           (list "--dot-formatter"
+  ;;                                                 (concat (locate-dominating-file buffer-file-name ".formatter.exs") ".formatter.exs")))
+  ;;                                   (setq elixir-format-arguments nil))))
   ;; Configure font ligatures:
   ;; https://medium.com/@victor.nascimento/elixir-development-on-emacs-9f6776265e4d
   (add-hook 'elixir-mode-hook
