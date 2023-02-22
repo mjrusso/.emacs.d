@@ -12,6 +12,8 @@
 
   (vterm-clear-scrollback-when-clearing nil)
 
+  ;; TODO this might not be necessary with a newer release of vterm; see:
+  ;; https://github.com/akermu/emacs-libvterm/pull/652
   (vterm-tramp-shells '(
                         ("ssh" "/opt/homebrew/bin/fish")
                         ("ssh" "/usr/local/bin/fish")
