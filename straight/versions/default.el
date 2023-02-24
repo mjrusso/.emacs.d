@@ -18,7 +18,7 @@
  ("eldoc" . "192bcd5571a84e4b4084a840565f40fbec0b0abc")
  ("emacs-async" . "10cedd8ac7173e92a6822317f1782550199d2d6d")
  ("emacs-direnv" . "268536f564b7eba99264a89a9149268eb4bc67ac")
- ("emacs-elixir" . "4974ff9a83daf50f2f03dc0d6d00871296e088b0")
+ ("emacs-elixir" . "3d977d8f05177b654312f7035eea5fc7a18faad6")
  ("emacs-emojify" . "1b726412f19896abf5e4857d4c32220e33400b55")
  ("emacs-fish" . "d04478c0aba018cb789d77d591bfe315cb25132a")
  ("emacs-hcl-mode" . "e4d9eef631e8a386341ae8f94f7c2579586e65b5")

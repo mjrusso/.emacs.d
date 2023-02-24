@@ -402,6 +402,16 @@ command to have any effect."
 ;; https://github.com/elixir-editors/emacs-elixir
 (use-package elixir-mode
   :defer t
+
+  ;; Fork: https://github.com/elixir-editors/emacs-elixir/pull/498
+  ;;
+  ;; Fixes an issue with `-emacs-elixir-format.ex` files sticking around when
+  ;; formatting fails:
+  ;;
+  ;; https://github.com/elixir-editors/emacs-elixir/issues/497
+  :straight (elixir-mode :type git :host github :repo "elixir-editors/emacs-elixir" :branch "master"
+                         :fork (:host github :repo "J3RN/emacs-elixir" :branch "delete-emacs-elixir-format-files"))
+
   :hook
   (elixir-mode . eglot-ensure)
   :config
