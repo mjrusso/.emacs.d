@@ -6,16 +6,25 @@
     (exec-path-from-shell-initialize)))
 
 ;; https://github.com/wbolster/emacs-direnv
-;;
-;; Currently using the following fork, for TRAMP support:
-;;
-;; - https://github.com/wbolster/emacs-direnv/pull/68
-;; - https://github.com/wbolster/emacs-direnv/issues/47
-;;
-;; Also see: https://github.com/purcell/envrc/issues/27
-
 (use-package direnv
-  :straight (direnv :type git :host github :repo "wbolster/emacs-direnv" :branch "main"
-                    :fork (:host github :repo "siddharthverma314/emacs-direnv" :branch "master"))
+
+  ;; This fork adds TRAMP support:
+  ;;
+  ;; - https://github.com/wbolster/emacs-direnv/pull/68
+  ;; - https://github.com/wbolster/emacs-direnv/issues/47
+  ;;
+  ;; However, I'm not using it right now because it seems to be causing issues
+  ;; with the PATH not updating properly on unload:
+  ;;
+  ;; - https://github.com/wbolster/emacs-direnv/pull/68#issuecomment-1441943593
+  ;;
+  ;; Also see: https://github.com/purcell/envrc/issues/27
+
+  ;; :straight (direnv :type git :host github :repo "wbolster/emacs-direnv" :branch "main"
+  ;;                   :fork (:host github :repo "siddharthverma314/emacs-direnv" :branch "master"))
+
   :config
-  (direnv-mode))
+
+  (direnv-mode)
+
+  )
