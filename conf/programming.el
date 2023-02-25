@@ -47,6 +47,29 @@
         ("M-p" . flymake-goto-prev-error))
   )
 
+;; Unofficial plugin for GitHub Copilot.
+;;
+;; Requires Node.js.
+;;
+;; To log in to Copilot: `M-x copilot-login'
+;;
+;; To check status: `M-x copilot-diagnose'
+;;
+;; See: https://github.com/zerolfx/copilot.el
+(use-package copilot
+  :straight (:host github :repo "zerolfx/copilot.el" :files ("dist" "*.el"))
+  :ensure t
+
+  :hook ((prog-mode . copilot-mode))
+
+  :config
+
+  (define-key copilot-mode-map (kbd "s-'") #'copilot-accept-completion)
+  (define-key copilot-mode-map (kbd "s-\"") #'copilot-accept-completion-by-word)
+  (define-key copilot-mode-map (kbd "s-,") #'copilot-clear-overlay)
+  (define-key copilot-mode-map (kbd "s-.") #'copilot-next-completion)
+  )
+
 ;; https://github.com/mohkale/consult-eglot
 ;;
 ;; Currently disabled, because `consult-eglot-symbols' does not seem to work.
@@ -56,7 +79,6 @@
 ;;      (use-package consult-eglot
 ;;        :after (eglot consult)
 ;;        :bind (:map eglot-mode-map ("M-j" . #'consult-eglot-symbols)))
-
 
 ;; https://github.com/magit/magit/issues/3415#issuecomment-378941991
 (use-package git-commit)
