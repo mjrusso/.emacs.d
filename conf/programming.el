@@ -64,6 +64,11 @@
 
   :config
 
+  (set-face-attribute 'copilot-overlay-face nil
+                      :foreground (doom-color 'yellow)
+                      :background (doom-color 'green)
+                      )
+
   (define-key copilot-mode-map (kbd "s-'") #'copilot-accept-completion)
   (define-key copilot-mode-map (kbd "s-\"") #'copilot-accept-completion-by-word)
   (define-key copilot-mode-map (kbd "s-,") #'copilot-clear-overlay)
