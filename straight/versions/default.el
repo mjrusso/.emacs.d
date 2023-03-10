@@ -46,6 +46,7 @@
  ("js2-mode" . "a297ec2c2d9aa50ddc6c06959bb5a054e17b692a")
  ("jsonrpc" . "b5f6171bbcbb16844c8cee60fcb6d9c8dfef72ec")
  ("kind-icon" . "42d2a41874d5a61731556e53ba57547b4ef95342")
+ ("ligature.el" . "3d1460470736777fd8329e4bb4ac359bf4f1460a")
  ("magit" . "bc00937dd78381efa07f39abd5d34c53ee500548")
  ("marginalia" . "58ce23c92072a1274633f7567caa1aeca4c1b550")
  ("markdown-mode" . "d95107f5b77d6c010e89259e05adfcd79a21f26a")
