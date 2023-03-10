@@ -1,7 +1,15 @@
-;; Set default font to Source Code Pro.
+;; Set default font to Berkeley Mono.
+;;
+;; - https://berkeleygraphics.com/typefaces/berkeley-mono/
+;;
+;; Note that, previously, I used Source Code Pro as my default font:
+;;
 ;; - https://github.com/adobe/Source-Code-Pro
 ;; - http://blogs.adobe.com/typblography/2012/09/source-code-pro.html
-(add-to-list 'default-frame-alist '(font . "Source Code Pro Medium"))
+;;
+;; (add-to-list 'default-frame-alist '(font . "Source Code Pro Medium"))
+
+(add-to-list 'default-frame-alist '(font . "Berkeley Mono"))
 
 ;; NOTE: consider using a package like https://github.com/WJCFerguson/textsize
 ;; to automatically adapt the font size based on the currently-active display.
