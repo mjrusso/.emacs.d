@@ -2,8 +2,11 @@
 (setq ring-bell-function
       (lambda ()))
 
-;; Do not scroll dramatically when moving only one line at a time.
-(setq-default scroll-conservatively 1)
+;; Tweak scrolling behaviour: set some margin at the top and bottom of the
+;; window when scrolling, and scroll a single line at a time.
+(setq scroll-margin 5
+      scroll-step 1
+      scroll-conservatively 10000)
 
 ;; Previously, I used cua-mode, but only for rectangular selections. This was
 ;; configured like so:
