@@ -25,7 +25,7 @@
  ("emacs-fish" . "d04478c0aba018cb789d77d591bfe315cb25132a")
  ("emacs-hcl-mode" . "e4d9eef631e8a386341ae8f94f7c2579586e65b5")
  ("emacs-htmlize" . "dd27bc3f26efd728f2b1f01f9e4ac4f61f2ffbf9")
- ("emacs-idle-highlight-mode" . "5a079dc5463ec5ee23c30225ef1913003a1bedfd")
+ ("emacs-idle-highlight-mode" . "f9091c907d41e7b12d99d108a194229b8dbfc5ae")
  ("emacs-libvterm" . "f14d113ee4618f052879509ec378feb9766b871b")
  ("emacsmirror-mirror" . "91e39fcdc6122ce5fd02388872e0dd42bf4a09c1")
  ("emacsql" . "e1baaf2f874df7f9259a8ecca978e03d3ddae5b5")
