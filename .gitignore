@@ -8,6 +8,7 @@ eln-cache/
 straight/repos
 straight/build-cache.el
 straight/build
+straight/modified
 projectile-bookmarks.eld
 projectile.cache
 .org-id-locations
