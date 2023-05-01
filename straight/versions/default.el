@@ -75,7 +75,7 @@
  ("s.el" . "e957dcb0677da18b2bb60ad867db5df5c35b5616")
  ("smartparens" . "0a23136dd6b1f326419c5828f4197ecfd820b204")
  ("spinner" . "634529bb3173e09b37499f636de70abf29d9fa8a")
- ("straight.el" . "3eca39dfc6797243ec7d1c6a7d45142407f73f88")
+ ("straight.el" . "039e5c9a9b5c00749602afb41341e9e77ba09429")
  ("svg-lib" . "da72b81d8589d045731140a836cfbc2891e4ebf3")
  ("swift-mode" . "6d7093fb4a0b81686ffeff7e39f76027d83b7eb2")
  ("terraform-mode" . "e67459fefc871fdbf20e27be8f85b98b10b97b1b")
