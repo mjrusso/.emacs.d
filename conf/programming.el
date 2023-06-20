@@ -69,6 +69,9 @@
                       :background  (modus-themes-get-color-value 'bg-inactive)
                       )
 
+  ;; Note that Corfu uses a transient keymap (corfu-map) which is active while
+  ;; the popup is shown. The copilot-mode-map is always active.
+
   (define-key copilot-mode-map (kbd "s-'") #'copilot-accept-completion)
   (define-key copilot-mode-map (kbd "s-\"") #'copilot-accept-completion-by-word)
   (define-key copilot-mode-map (kbd "s-,") #'copilot-clear-overlay)
