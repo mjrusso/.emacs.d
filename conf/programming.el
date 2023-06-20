@@ -95,8 +95,8 @@
 
 (eval-after-load 'diff-mode
   '(progn
-     (set-face-foreground 'diff-added "green4")
-     (set-face-foreground 'diff-removed "red3")))
+     (set-face-foreground 'diff-added (modus-themes-get-color-value 'green-warmer))
+     (set-face-foreground 'diff-removed (modus-themes-get-color-value 'red-cooler))))
 
 ;; Highlight uncommitted changes in the gutter, using a mix of diff-hl and
 ;; git-gutter/git-gutter-fringe, depending on the context.
