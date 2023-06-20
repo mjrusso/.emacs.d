@@ -22,15 +22,6 @@
   ;; (doom-themes-org-config)
   )
 
-;; When a new terminal frame is created, ensure that we're using a dark theme.
-(add-to-list
- 'after-make-frame-functions
- #'(lambda (frame)
-     (if (display-graphic-p frame)
-         (message "New graphical frame created")
-       (progn
-         (message "New non-graphical (terminal) frame created")
-         (load-theme 'doom-vibrant t)))))
 ;; https://github.com/protesilaos/modus-themes
 (load-theme 'modus-vivendi t)
 
