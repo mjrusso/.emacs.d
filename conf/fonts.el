@@ -54,7 +54,7 @@
   "Called by window-setup-hook to set my initial font height configuration."
   (my/set-font-size 160))
 
-; (add-hook 'window-setup-hook #'my/set-initial-font-size)
+(add-hook 'window-setup-hook #'my/set-initial-font-size)
 
 (defun my/set-font-size (new-height)
   (set-face-attribute 'default nil :height new-height)
