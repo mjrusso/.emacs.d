@@ -65,8 +65,8 @@
   :config
 
   (set-face-attribute 'copilot-overlay-face nil
-                      :foreground (doom-color 'yellow)
-                      :background (doom-color 'green)
+                      :foreground  (modus-themes-get-color-value 'red-warmer)
+                      :background  (modus-themes-get-color-value 'bg-inactive)
                       )
 
   (define-key copilot-mode-map (kbd "s-'") #'copilot-accept-completion)
