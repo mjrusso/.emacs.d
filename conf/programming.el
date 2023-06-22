@@ -72,10 +72,8 @@
   ;; Note that Corfu uses a transient keymap (corfu-map) which is active while
   ;; the popup is shown. The copilot-mode-map is always active.
 
-  (define-key copilot-mode-map (kbd "s-'") #'copilot-accept-completion)
-  (define-key copilot-mode-map (kbd "s-\"") #'copilot-accept-completion-by-word)
-  (define-key copilot-mode-map (kbd "s-,") #'copilot-clear-overlay)
-  (define-key copilot-mode-map (kbd "s-.") #'copilot-next-completion)
+  (define-key copilot-completion-map (kbd "C-e") 'copilot-accept-completion)
+  (define-key copilot-completion-map (kbd "C-f") 'copilot-accept-completion-by-line)
   )
 
 ;; https://github.com/mohkale/consult-eglot
