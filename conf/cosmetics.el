@@ -51,6 +51,7 @@
         `(("TODO"       error bold italic)
           ("FIXME"      warning bold italic)
           ("FUTURE"     font-lock-doc-face bold italic)
+          ("CONSIDER"   font-lock-doc-face bold italic)
           ("HACK"       font-lock-constant-face bold)
           ("BUG"        error bold)
           ("XXX"        font-lock-constant-face bold)
