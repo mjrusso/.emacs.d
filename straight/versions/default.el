@@ -6,6 +6,7 @@
  ("clojure-mode" . "3453cd229b412227aaffd1dc2870fa8fa213c5b1")
  ("compat" . "e07c0f29d45a73cc0bdf9423780979978c1d9d22")
  ("consult" . "0e90f516c8cae705709a24ea8071a0c2400360d8")
+ ("clipetty" . "01b39044b9b65fa4ea7d3166f8b1ffab6f740362")
  ("consult-yasnippet" . "ae0450889484f23dc4ec37518852a2c61b89f184")
  ("copilot.el" . "efd6c1079a0abe989c8645cf1fb1c2e6c5e97c70")
  ("corfu" . "b22cb045d2bffb342e72122c0c8794946dd8c46e")
