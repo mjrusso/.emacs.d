@@ -427,6 +427,24 @@ command to have any effect."
    web-mode-enable-auto-pairing t
    web-mode-enable-auto-indentation t))
 
+
+;; Tree-Sitter
+;;
+;; See https://www.masteringemacs.org/article/how-to-get-started-tree-sitter
+;; for an overview of Tree-Sitter support in Emacs.
+;;
+;; Important: run the following code to compile the language grammars:
+;;
+;; (mapc #'treesit-install-language-grammar
+;;      (mapcar #'car treesit-language-source-alist))
+;;
+;; This only needs to be done once (when the grammars are updated, or new
+;; languages are added).
+
+(setq treesit-language-source-alist
+      '((heex "https://github.com/phoenixframework/tree-sitter-heex")
+        (elixir "https://github.com/elixir-lang/tree-sitter-elixir")))
+
 ;; https://github.com/elixir-editors/emacs-elixir
 (use-package elixir-mode
   :defer t

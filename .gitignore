@@ -5,6 +5,7 @@ projects
 .cache/
 *.elc
 eln-cache/
+tree-sitter/
 straight/repos
 straight/build-cache.el
 straight/build
