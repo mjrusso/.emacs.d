@@ -157,6 +157,7 @@
   (add-to-list 'aggressive-indent-excluded-modes 'elixir-mode)
   (add-to-list 'aggressive-indent-excluded-modes 'elixir-ts-mode)
   (add-to-list 'aggressive-indent-excluded-modes 'heex-ts-mode)
+  (add-to-list 'aggressive-indent-excluded-modes 'swift-mode)
   (add-to-list 'aggressive-indent-excluded-modes 'terraform-mode))
 
 (use-package compile
