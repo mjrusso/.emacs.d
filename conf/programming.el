@@ -155,6 +155,8 @@
   (add-to-list 'aggressive-indent-excluded-modes 'fish-mode)
   (add-to-list 'aggressive-indent-excluded-modes 'html-mode)
   (add-to-list 'aggressive-indent-excluded-modes 'elixir-mode)
+  (add-to-list 'aggressive-indent-excluded-modes 'elixir-ts-mode)
+  (add-to-list 'aggressive-indent-excluded-modes 'heex-ts-mode)
   (add-to-list 'aggressive-indent-excluded-modes 'terraform-mode))
 
 (use-package compile
@@ -445,41 +447,75 @@ command to have any effect."
       '((heex "https://github.com/phoenixframework/tree-sitter-heex")
         (elixir "https://github.com/elixir-lang/tree-sitter-elixir")))
 
+;; Elixir
+;;
+;; Additional reference: https://medium.com/@victor.nascimento/elixir-emacs-development-2023-edition-1a6ccc40629
+;;
+;; Note that there are currently three competing language server options:
+;;
+;; - Next LS: https://github.com/elixir-tools/next-ls
+;; - Lexical: https://github.com/lexical-lsp/lexical
+;; - ElixirLS: https://github.com/elixir-lsp/elixir-ls
+;;
+;; (This configuration is currently using Next LS.)
+
 ;; https://github.com/elixir-editors/emacs-elixir
+;;
+;; (Not currently used; see elixir-ts-mode instead.)
 (use-package elixir-mode
   :defer t
-
-  ;; Fork: https://github.com/elixir-editors/emacs-elixir/pull/498
-  ;;
-  ;; Fixes an issue with `-emacs-elixir-format.ex` files sticking around when
-  ;; formatting fails:
-  ;;
-  ;; https://github.com/elixir-editors/emacs-elixir/issues/497
-  :straight (elixir-mode :type git :host github :repo "elixir-editors/emacs-elixir" :branch "master"
-                         :fork (:host github :repo "J3RN/emacs-elixir" :branch "delete-emacs-elixir-format-files"))
+  :disabled
 
   :hook
   (elixir-mode . eglot-ensure)
+  (before-save . eglot-format)
+
   :config
-  ;; Elixir Language Server: https://github.com/elixir-lsp/elixir-ls
-  ;;
-  ;; Note that by default, this is made available as `language_server.sh`. I
-  ;; symlink it to (the more descriptively-named) `elixir-ls', and put that in
-  ;; my PATH.
   (add-to-list 'eglot-server-programs
-               '(elixir-mode "elixir-ls"))
-  :init
-  ;; Automatically format source code on save.
-  (add-hook 'elixir-mode-hook
-            (lambda () (add-hook 'before-save-hook 'elixir-format nil t)))
-  ;; Use the project's .formatter.exs configuration file.
-  (add-hook 'elixir-format-hook (lambda ()
-                                  (if (projectile-project-p)
-                                      (setq elixir-format-arguments
-                                            (list "--dot-formatter"
-                                                  (concat (locate-dominating-file buffer-file-name ".formatter.exs") ".formatter.exs"))))))
+               '(elixir-mode "elixir-ls")))
+
+
+;; https://github.com/wkirschbaum/elixir-ts-mode
+;;
+;; (Included by default with Emacs 30+)
+;;
+;; Requires installation of the tree-sitter grammars; see the comment above re:
+;; `treesit-language-source-alist'.
+(use-package elixir-ts-mode
+  :defer t
+
+  :mode ("\\.elixir\\'"
+         "\\.ex\\'"
+         "\\.exs\\'"
+         "mix\\.lock")
+
+  :hook
+  (elixir-ts-mode . eglot-ensure)
+  (before-save . eglot-format)
+
+  :config
+  (add-to-list 'eglot-server-programs
+               '(elixir-ts-mode . ("nextls" "--stdio=true")))
   )
 
+;; https://github.com/wkirschbaum/heex-ts-mode
+;;
+;; (Included by default with Emacs 30+)
+;;
+;; Requires installation of the tree-sitter grammars; see the comment above re:
+;; `treesit-language-source-alist'.
+(use-package heex-ts-mode
+  :defer t
+
+  :mode ("\\.[hl]?eex\\'")
+
+  :hook
+  (heex-ts-mode . eglot-ensure)
+  (before-save . eglot-format)
+
+  :config (add-to-list 'eglot-server-programs
+                       '(heex-ts-mode . ("nextls" "--stdio=true")))
+  )
 
 (use-package clojure-mode
   :mode ("\\.clj\\'"
