@@ -473,8 +473,7 @@ command to have any effect."
 
   :config
   (add-to-list 'eglot-server-programs
-               '(elixir-mode "elixir-ls")))
-
+               '(elixir-mode . ("nextls" "--stdio=true"))))
 
 ;; https://github.com/wkirschbaum/elixir-ts-mode
 ;;
