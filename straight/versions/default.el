@@ -20,7 +20,6 @@
  ("eglot" . "84d094802ea23e0b9bee4e62e90ef85cd8d6215d")
  ("el-get" . "05bb836e3dfac8ffe4b8a10ec332aa2f661523ce")
  ("eldoc" . "04bf5cd7dd85511a89b02bdb9658a9d4556d4c62")
- ("elixir-ts-mode" . "411ab0a8594040573a2b6bc30f35fa4eea02ba02")
  ("emacs-async" . "bb0509060ddc9c94bc7db7bddb12995acb3b53e4")
  ("emacs-direnv" . "14f74269af34f8c30ab4a521eff290b74460daed")
  ("emacs-elixir" . "00d6580a040a750e019218f9392cf9a4c2dac23a")

@@ -461,11 +461,8 @@ command to have any effect."
 ;; (This configuration is currently using Next LS.)
 
 ;; https://github.com/elixir-editors/emacs-elixir
-;;
-;; (Not currently used; see elixir-ts-mode instead.)
 (use-package elixir-mode
   :defer t
-  :disabled
 
   :hook
   (elixir-mode . eglot-ensure)
@@ -483,6 +480,7 @@ command to have any effect."
 ;; `treesit-language-source-alist'.
 (use-package elixir-ts-mode
   :defer t
+  :disabled
 
   :mode ("\\.elixir\\'"
          "\\.ex\\'"
