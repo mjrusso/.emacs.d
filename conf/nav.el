@@ -29,4 +29,11 @@
   :custom
   (aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
   (aw-background t)
+  :init
+  ;; Ensure that ace-window's leading char isn't larger than normal text.
+  ;; (Prevents buffer contents from shifting on display.) See:
+  ;; https://oremacs.com/2015/02/27/ace-window-leading-char/
+  (custom-set-faces
+   '(aw-leading-char-face
+     ((t (:inherit aw-leading-char-face :height 1.0)))))
   :bind ("C-x o" . ace-window))
