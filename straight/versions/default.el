@@ -58,6 +58,7 @@
  ("melpa" . "e6f1a5f49b0f69179996708b10b591bb6bcb1f9c")
  ("minions" . "62948a4a2951dab0716977421bfe0a87ea2583c5")
  ("modus-themes" . "284433625ed7cd3b19d2e34589c3041e16dd0deb")
+ ("nix-mode" . "719feb7868fb567ecfe5578f6119892c771ac5e5")
  ("nongnu-elpa" . "547221c2a9b7968fc1313bc9d3fcd2e467d214b5")
  ("ns-auto-titlebar" . "60273e764bf8d95abc40dd2fdc23af87ea9ee33b")
  ("olivetti" . "a644ee9d24c7283435ce42e11498951e100608c9")

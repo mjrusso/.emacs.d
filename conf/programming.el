@@ -557,3 +557,7 @@ command to have any effect."
   :init
   (add-hook 'terraform-mode-hook
             (lambda () (add-hook 'before-save-hook 'terraform-format-buffer nil t))))
+
+;; https://github.com/NixOS/nix-mode
+(use-package nix-mode
+  :mode "\\.nix\\'")
