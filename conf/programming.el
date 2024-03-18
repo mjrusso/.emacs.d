@@ -56,25 +56,27 @@
 ;; To check status: `M-x copilot-diagnose'
 ;;
 ;; See: https://github.com/zerolfx/copilot.el
-(use-package copilot
-  :straight (:host github :repo "zerolfx/copilot.el" :files ("dist" "*.el"))
-  :ensure t
+(if (executable-find "node")
+    (use-package copilot
+      :straight (:host github :repo "zerolfx/copilot.el" :files ("dist" "*.el"))
+      :ensure t
 
-  :hook ((prog-mode . copilot-mode))
+      :hook ((prog-mode . copilot-mode))
 
-  :config
+      :config
 
-  (set-face-attribute 'copilot-overlay-face nil
-                      :foreground  (modus-themes-get-color-value 'red-warmer)
-                      :background  (modus-themes-get-color-value 'bg-inactive)
-                      )
+      (set-face-attribute 'copilot-overlay-face nil
+                          :foreground  (modus-themes-get-color-value 'red-warmer)
+                          :background  (modus-themes-get-color-value 'bg-inactive)
+                          )
 
-  ;; Note that Corfu uses a transient keymap (corfu-map) which is active while
-  ;; the popup is shown. The copilot-mode-map is always active.
+      ;; Note that Corfu uses a transient keymap (corfu-map) which is active while
+      ;; the popup is shown. The copilot-mode-map is always active.
 
-  (define-key copilot-completion-map (kbd "C-e") 'copilot-accept-completion)
-  (define-key copilot-completion-map (kbd "C-f") 'copilot-accept-completion-by-line)
-  )
+      (define-key copilot-completion-map (kbd "C-e") 'copilot-accept-completion)
+      (define-key copilot-completion-map (kbd "C-f") 'copilot-accept-completion-by-line)
+      )
+  (message "Node.js not found; not starting GitHub Copilot"))
 
 ;; https://github.com/mohkale/consult-eglot
 ;;
