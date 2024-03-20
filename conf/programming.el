@@ -65,6 +65,8 @@
 
       :config
 
+      (setq copilot-indent-offset-warning-disable t)
+
       (set-face-attribute 'copilot-overlay-face nil
                           :foreground  (modus-themes-get-color-value 'red-warmer)
                           :background  (modus-themes-get-color-value 'bg-inactive)
