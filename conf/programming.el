@@ -434,6 +434,17 @@ command to have any effect."
    web-mode-enable-auto-pairing t
    web-mode-enable-auto-indentation t))
 
+(use-package python
+  :config
+  :hook
+  (python-mode . eglot-ensure)
+  )
+
+;; https://github.com/wbolster/emacs-python-black
+(use-package python-black
+  :demand t
+  :after python
+  :hook (python-mode . python-black-on-save-mode-enable-dwim))
 
 ;; Tree-Sitter
 ;;
