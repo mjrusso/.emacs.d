@@ -1,8 +1,9 @@
 # mjrusso's .emacs.d
 
-My personalized Emacs configuration. _([other dotfiles](https://github.com/mjrusso/dotfiles/))_
+My personalized Emacs configuration. _(Also see: [my system
+configurations](https://github.com/mjrusso/nixos-config/).)_
 
-## packages
+## Packages
 
 Packages are installed via
 [straight.el](https://github.com/raxod502/straight.el), in conjunction with
@@ -20,7 +21,7 @@ To update the package version lockfile, run `M-x straight-freeze-versions`.
 (Likewise, to revert all packages to the revisions specified in the lockfile,
 run `M-x straight-thaw-versions`.)
 
-## thanks
+## Thanks
 
 This configuration is heavily adapted from
 [@technomancy](https://github.com/technomancy/)'s
