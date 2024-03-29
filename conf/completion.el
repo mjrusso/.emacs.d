@@ -44,19 +44,6 @@
 
   :config
 
-  ;; Enable Corfu more generally for every minibuffer, as long as no other
-  ;; completion UI is active (when Mct or Vertico are used as the main
-  ;; minibuffer completion UI). Implementation copied from:
-  ;; https://github.com/minad/corfu#completing-with-corfu-in-the-minibuffer
-  (defun my/corfu-enable-always-in-minibuffer ()
-    "Enable Corfu in the minibuffer if Vertico/Mct are not active."
-    (unless (or (bound-and-true-p mct--active)
-                (bound-and-true-p vertico--input))
-      (setq-local corfu-auto nil)
-      (corfu-mode 1)))
-
-  (add-hook 'minibuffer-setup-hook #'my/corfu-enable-always-in-minibuffer 1)
-
   )
 
 (use-package emacs
