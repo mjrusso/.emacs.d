@@ -156,6 +156,7 @@
 (use-package aggressive-indent
   :config
   (global-aggressive-indent-mode 1)
+  (add-to-list 'aggressive-indent-excluded-modes 'nix-mode)
   (add-to-list 'aggressive-indent-excluded-modes 'fish-mode)
   (add-to-list 'aggressive-indent-excluded-modes 'html-mode)
   (add-to-list 'aggressive-indent-excluded-modes 'elixir-mode)
