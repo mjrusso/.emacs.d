@@ -35,6 +35,7 @@
  ("embark" . "d3c9d1b4c890cf365846cc2b418f37341999e79f")
  ("exec-path-from-shell" . "d95677ad608c214647b87bc20df1642763e3b400")
  ("external-completion" . "0c660850b272d9f1f01fabd9d17bd22dfa9a0d41")
+ ("exunit.el" . "5e8f6b681d4745ef23bd8f7ddafba80d6285f26e")
  ("f.el" . "1e7020dc0d4c52d3da9bd610d431cab13aa02d8c")
  ("flymake" . "3bd2cad5ce43b2eaaf81529e109460610ff00c66")
  ("fountain-mode" . "d2b6ae089578d94f57aebc810998fdbfd2408b6b")

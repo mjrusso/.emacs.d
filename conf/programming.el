@@ -530,6 +530,28 @@ command to have any effect."
                        '(heex-ts-mode . ("nextls" "--stdio=true")))
   )
 
+;; ExUnit test runner for Elixir.
+;;
+;; To run tests:
+;;
+;; `C-c , v' (`exunit-verify'):        run all tests in the current buffer/file
+;;
+;; `C-c , a' (`exunit-verify-all'):    run all tests in the current project
+;;
+;; `C-c , s' (`exunit-verify-single'): run the test under the point
+;;
+;; `C-c , r' (`exunit-rerun'):         re-run the last test invocation
+;;
+;; Also:
+;;
+;; `C-c , t' (`exunit-toggle-file-and-test'): toggle b/w a file and its tests
+;;
+;; https://github.com/ananthakumaran/exunit.el
+(use-package exunit
+  :custom  (transient-default-level 5)
+  :config  (add-hook 'elixir-mode-hook 'exunit-mode)
+  )
+
 (use-package clojure-mode
   :mode ("\\.clj\\'"
          "\\.cljs\\'"
