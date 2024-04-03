@@ -24,6 +24,7 @@
   ;;                   :fork (:host github :repo "siddharthverma314/emacs-direnv" :branch "master"))
 
   :config
+  (add-to-list 'direnv-non-file-modes 'vterm-mode)
 
   (direnv-mode)
 
