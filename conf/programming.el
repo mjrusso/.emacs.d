@@ -67,6 +67,11 @@
 
       (setq copilot-indent-offset-warning-disable t)
 
+      ;; Disable in direnv-envrc-mode (.envrc files may contain secrets).
+      (add-to-list 'copilot-disable-predicates
+                   #'(lambda ()
+                       (derived-mode-p 'direnv-envrc-mode)))
+
       (set-face-attribute 'copilot-overlay-face nil
                           :foreground  (modus-themes-get-color-value 'red-warmer)
                           :background  (modus-themes-get-color-value 'bg-inactive)
