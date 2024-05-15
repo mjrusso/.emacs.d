@@ -26,7 +26,8 @@
 
 (use-package gptel
   :config
-  (setq gptel-api-key (string-trim (shell-command-to-string "echo $OPENAI_API_KEY")))
+  (setq gptel-api-key (string-trim (shell-command-to-string "echo $OPENAI_API_KEY"))
+        gptel-model "gpt-4o")
 
   :bind
   (("s-g" . #'gptel))
