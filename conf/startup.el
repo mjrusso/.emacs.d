@@ -51,7 +51,8 @@
 
 (defun my/construct-default-workspace-and-window-setup ()
   "Called by emacs-startup-hook to set up my initial window configuration."
-  (my/workspace:dashboard)
+
+  ;; (my/workspace:dashboard)
   (persp-switch persp-initial-frame-name)
   )
 
