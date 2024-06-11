@@ -52,6 +52,9 @@
   ;; Never use completion cycling.
   (setq completion-cycle-threshold nil)
 
+  ;; Disable Ispell completion function. (As an alternative, try `cape-dict'.)
+  (setq text-mode-ispell-word-completion nil)
+
   ;; Works with `indent-for-tab-command', enabling both indentation and
   ;; completion with the TAB key.
   (setq tab-always-indent 'complete))
