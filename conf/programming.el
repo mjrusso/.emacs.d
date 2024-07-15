@@ -177,9 +177,9 @@
 
 (use-package compile
   :config
-  ;; If there's an error, ensure that it's visible; otherwise, keep scrolling
-  ;; the compilation buffer.
-  (setq compilation-scroll-output 'first-error)
+  ;; Keep scrolling the compilation buffer as output appears. (Alternatively,
+  ;; set to 'first-error to stop scrolling at the first error.)
+  (setq compilation-scroll-output t)
 
   ;; Don't stop scrolling when encountering warnings.
   (setq compilation-skip-threshold 2)
