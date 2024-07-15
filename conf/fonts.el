@@ -52,7 +52,7 @@
 
 (defun my/set-initial-font-size ()
   "Called by window-setup-hook to set my initial font height configuration."
-  (my/set-font-size 160))
+  (my/set-font-size 150))
 
 (add-hook 'window-setup-hook #'my/set-initial-font-size)
 
