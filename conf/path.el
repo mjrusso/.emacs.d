@@ -7,6 +7,7 @@
 
 ;; https://github.com/wbolster/emacs-direnv
 (use-package direnv
+  :disabled
 
   ;; This fork adds TRAMP support:
   ;;
@@ -27,5 +28,11 @@
   (add-to-list 'direnv-non-file-modes 'vterm-mode)
 
   (direnv-mode)
-
   )
+
+;; https://github.com/purcell/envrc
+(use-package envrc
+  :init (setq envrc-debug t)
+  :hook (after-init . envrc-global-mode)
+  )
+
