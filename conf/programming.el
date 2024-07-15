@@ -483,8 +483,6 @@ command to have any effect."
 ;; - Next LS: https://github.com/elixir-tools/next-ls
 ;; - Lexical: https://github.com/lexical-lsp/lexical
 ;; - ElixirLS: https://github.com/elixir-lsp/elixir-ls
-;;
-;; (This configuration is currently using Next LS.)
 
 ;; https://github.com/elixir-editors/emacs-elixir
 (use-package elixir-mode
@@ -496,7 +494,9 @@ command to have any effect."
 
   :config
   (add-to-list 'eglot-server-programs
-               '(elixir-mode . ("nextls" "--stdio=true"))))
+               `(elixir-mode . ,(eglot-alternatives
+                                 `(("nextls" "--stdio=true")
+                                   "lexical")))))
 
 ;; https://github.com/wkirschbaum/elixir-ts-mode
 ;;
@@ -519,8 +519,9 @@ command to have any effect."
 
   :config
   (add-to-list 'eglot-server-programs
-               '(elixir-ts-mode . ("nextls" "--stdio=true")))
-  )
+               `(elixir-ts-mode . ,(eglot-alternatives
+                                    `(("nextls" "--stdio=true")
+                                      "lexical")))))
 
 ;; https://github.com/wkirschbaum/heex-ts-mode
 ;;
@@ -537,9 +538,11 @@ command to have any effect."
   (heex-ts-mode . eglot-ensure)
   (before-save . eglot-format)
 
-  :config (add-to-list 'eglot-server-programs
-                       '(heex-ts-mode . ("nextls" "--stdio=true")))
-  )
+  :config
+  (add-to-list 'eglot-server-programs
+               `(heex-ts-mode . ,(eglot-alternatives
+                                  `(("nextls" "--stdio=true")
+                                    "lexical")))))
 
 ;; ExUnit test runner for Elixir.
 ;;
