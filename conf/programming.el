@@ -481,6 +481,7 @@ command to have any effect."
 ;; https://github.com/elixir-editors/emacs-elixir
 (use-package elixir-mode
   :defer t
+  :disabled
 
   :hook
   (elixir-mode . eglot-ensure)
@@ -496,11 +497,9 @@ command to have any effect."
 ;;
 ;; (Included by default with Emacs 30+)
 ;;
-;; Requires installation of the tree-sitter grammars; see the comment above re:
-;; `treesit-language-source-alist'.
+;; Requires installation of the tree-sitter grammars; see comment above.
 (use-package elixir-ts-mode
   :defer t
-  :disabled
 
   :mode ("\\.elixir\\'"
          "\\.ex\\'"
@@ -521,8 +520,7 @@ command to have any effect."
 ;;
 ;; (Included by default with Emacs 30+)
 ;;
-;; Requires installation of the tree-sitter grammars; see the comment above re:
-;; `treesit-language-source-alist'.
+;; Requires installation of the tree-sitter grammars; see comment above.
 (use-package heex-ts-mode
   :defer t
 
@@ -557,7 +555,7 @@ command to have any effect."
 ;; https://github.com/ananthakumaran/exunit.el
 (use-package exunit
   :custom  (transient-default-level 5)
-  :config  (add-hook 'elixir-mode-hook 'exunit-mode)
+  :config  (add-hook 'elixir-ts-mode-hook 'exunit-mode)
   )
 
 (use-package clojure-mode
