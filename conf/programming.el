@@ -459,20 +459,14 @@ command to have any effect."
 
 ;; Tree-Sitter
 ;;
-;; See https://www.masteringemacs.org/article/how-to-get-started-tree-sitter
-;; for an overview of Tree-Sitter support in Emacs.
+;; See [0] for an overview of Tree-Sitter support in Emacs.
 ;;
-;; Important: run the following code to compile the language grammars:
+;; Language grammars are installed on my system [1] via the
+;; `treesit-grammars.with-all-grammars` package [2].
 ;;
-;; (mapc #'treesit-install-language-grammar
-;;      (mapcar #'car treesit-language-source-alist))
-;;
-;; This only needs to be done once (when the grammars are updated, or new
-;; languages are added).
-
-(setq treesit-language-source-alist
-      '((heex "https://github.com/phoenixframework/tree-sitter-heex")
-        (elixir "https://github.com/elixir-lang/tree-sitter-elixir")))
+;; [0]: https://www.masteringemacs.org/article/how-to-get-started-tree-sitter
+;; [1]: https://github.com/mjrusso/nixos-config/blob/main/overlays/emacs.nix
+;; [2]: https://github.com/NixOS/nixpkgs/tree/master/pkgs/applications/editors/emacs/elisp-packages/manual-packages/treesit-grammars
 
 ;; Elixir
 ;;
