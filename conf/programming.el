@@ -499,6 +499,7 @@ command to have any effect."
 ;;
 ;; Requires installation of the tree-sitter grammars; see comment above.
 (use-package elixir-ts-mode
+  :straight nil
   :defer t
 
   :mode ("\\.elixir\\'"

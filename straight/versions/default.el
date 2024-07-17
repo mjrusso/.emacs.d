@@ -21,7 +21,6 @@
  ("el-get" . "c0713e8d8e8ad987fe1283d76b9c637a10f048ef")
  ("eldoc" . "d3d01bc410074e34f1e76e86dd3a1ff901300e42")
  ("emacs-async" . "3623cb328a8d810d3277de6f005cce18fbcd8b1e")
- ("emacs-elixir" . "00d6580a040a750e019218f9392cf9a4c2dac23a")
  ("emacs-emojify" . "1b726412f19896abf5e4857d4c32220e33400b55")
  ("emacs-fish" . "2526b1803b58cf145bc70ff6ce2adb3f6c246f89")
  ("emacs-htmlize" . "ed5e5b05fd260e8f161a488d56f10e7f6e01fb75")
