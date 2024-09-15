@@ -98,6 +98,7 @@
  ("typoel" . "173ebe4fc7ac38f344b16e6eaf41f79e38f20d57")
  ("use-package" . "a6e856418d2ebd053b34e0ab2fda328abeba731c")
  ("vertico" . "67c73b7ae3079e24b5369b54a740d79eb9d2b978")
+ ("vundo" . "5374125dc0aaf1769bb0965344befb90f809ccfc")
  ("web-mode" . "005aa62d6f41fbf9bc045cac3b3b772716ee8ba7")
  ("wgsl-mode" . "003a4e99491fa2a0b777f74658e6ffc70fd3a8c2")
  ("with-editor" . "97dd5dd4b69a040506f4fc104dc0b855e84c1c0f")

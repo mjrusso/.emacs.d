@@ -94,6 +94,10 @@
 
 (use-package imenu-list)
 
+;; Visual undo (undo history navigation).
+;; - https://github.com/casouri/vundo
+(use-package vundo)
+
 ;; The command to use to open a file using its default external program.
 (setq my/open-command
       (pcase system-type
