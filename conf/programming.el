@@ -568,6 +568,9 @@ command to have any effect."
 (use-package yaml-mode
   :mode ("\\.yml\\'" . yaml-mode))
 
+;; https://github.com/leon-barrett/just-mode.el
+(use-package just-mode)
+
 ;; Interactively make HTTP requests, for testing RESTful APIs.
 ;;
 ;; - https://github.com/pashky/restclient.el
