@@ -556,6 +556,9 @@ command to have any effect."
   :config  (add-hook 'elixir-ts-mode-hook 'exunit-mode)
   )
 
+(use-package lua-mode
+  :mode "\\.lua\\'")
+
 (use-package clojure-mode
   :mode ("\\.clj\\'"
          "\\.cljs\\'"

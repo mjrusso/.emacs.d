@@ -57,6 +57,7 @@
  ("just-mode.el" . "4c0df4cc4b8798f1a7e99fb78b79c4bf7eec12c1")
  ("kind-icon" . "3ca69f4005d08bfcb268102d8ae021db352fc924")
  ("ligature.el" . "6ac1634612dbd42f7eb81ecaf022bd239aabb954")
+ ("lua-mode" . "d074e4134b1beae9ed4c9b512af741ca0d852ba3")
  ("magit" . "b9948f9571928bb7f39f4b3a112bd76e52a072ce")
  ("marginalia" . "40534231fd2805aa17ba3c59fd57e6a34b5a526b")
  ("markdown-mode" . "8aab017f4790f7a1e0d8403239cce989c88412f6")
