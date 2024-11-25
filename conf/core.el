@@ -37,6 +37,7 @@
   (add-to-list 'safe-local-variable-values '(whitespace-line-column . 80))
 
   (global-unset-key (kbd "s-s"))
+  (global-unset-key (kbd "s-g"))
   (global-unset-key (kbd "s-f"))
   (global-unset-key (kbd "s-t"))
   (global-unset-key (kbd "s-o"))
