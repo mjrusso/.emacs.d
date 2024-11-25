@@ -105,8 +105,8 @@
   (org-download-screenshot-method "pngpaste %s")
   :bind
   (:map org-mode-map
-        (("s-Y" . org-download-clipboard)
-         ("s-y" . org-download-yank))))
+        (("C-c n d" . org-download-clipboard)
+         ("C-c n y" . org-download-yank))))
 
 ;; Org-roam uses ripgrep (when it's installed) for better performance.
 ;;

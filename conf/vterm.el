@@ -32,17 +32,18 @@
   (vterm-mode . (lambda ()
                   (setq-local show-trailing-whitespace nil))))
 
-(global-set-key [(super t)] #'(lambda ()
-                                (interactive)
-                                (my/named-vterm-for-current-project "primary")))
 
-(global-set-key [(super T)] #'(lambda ()
-                                (interactive)
-                                (my/named-vterm-for-current-project "secondary")))
+(global-set-key (kbd "C-c t") #'(lambda ()
+                                  (interactive)
+                                  (my/named-vterm-for-current-project "primary")))
+
+(global-set-key (kbd "C-c T") #'(lambda ()
+                                  (interactive)
+                                  (my/named-vterm-for-current-project "secondary")))
 
 (global-set-key (kbd "M-t" ) #'(lambda ()
-                                (interactive)
-                                (my/named-vterm-for-current-project "tertiary")))
+                                 (interactive)
+                                 (my/named-vterm-for-current-project "tertiary")))
 
 (global-set-key (kbd "M-T") 'my/new-vterm-for-current-project)
 

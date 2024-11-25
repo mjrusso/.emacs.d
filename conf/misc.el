@@ -25,8 +25,8 @@
   :straight nil
   :init
   (setq winner-dont-bind-my-keys t)
-  :bind (("C-c u" . winner-undo)
-         ("C-c r" . winner-redo))
+  :bind (("C-c w u" . winner-undo)
+         ("C-c w r" . winner-redo))
   :config
   (winner-mode))
 

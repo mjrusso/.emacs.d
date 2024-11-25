@@ -19,4 +19,4 @@
 ;; https://github.com/mohkale/consult-yasnippet
 (use-package consult-yasnippet
   :after (yasnippet consult)
-  :bind (("s-s" . consult-yasnippet)))
+  :bind (("C-c s" . consult-yasnippet)))

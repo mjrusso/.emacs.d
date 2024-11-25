@@ -13,8 +13,8 @@
   (projectile-mode +1)
 
   :bind (
-         ("s-f" . projectile-find-file)
-         ("s-d" . projectile-find-dir)
+         ("C-c f" . projectile-find-file)
+         ("C-c d" . projectile-find-dir)
 
          ;; M-R: search entire project
          ;; C-u M-R (or M-1 M-R): allows user to specify search directory

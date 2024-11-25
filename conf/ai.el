@@ -30,5 +30,5 @@
         gptel-model "gpt-4o"
         gptel-display-buffer-action '(pop-to-buffer-same-window))
   :bind
-  (("s-g" . #'gptel))
+  (("C-c a i" . #'gptel))
   )

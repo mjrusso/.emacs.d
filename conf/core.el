@@ -37,6 +37,11 @@
   (add-to-list 'safe-local-variable-values '(whitespace-line-column . 80))
 
   (global-unset-key (kbd "s-s"))
+  (global-unset-key (kbd "s-f"))
+  (global-unset-key (kbd "s-t"))
+  (global-unset-key (kbd "s-o"))
+  (global-unset-key (kbd "s-l"))
+  (global-unset-key (kbd "s-w"))
 
   ;; These tweaks are based on the recommendations by lsp-doctor.
   (setq read-process-output-max (* 1024 1024)) ;; 1 MB

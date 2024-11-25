@@ -6,22 +6,21 @@
 
   :bind
   (("C-x k" . persp-kill-buffer*)
-   ;; Mimic shortcuts for tab-based navigation.
-   ("s-}" . (lambda () (interactive) (my/call-func-if-minibuffer-not-open 'persp-next)))
-   ("s-{" . (lambda () (interactive) (my/call-func-if-minibuffer-not-open 'persp-prev)))
-   ("s-=" . persp-switch)
-   ("s-_" . 'my/open-project)
-   ("s-+" . 'my/open-project-in-new-perspective)
-   ("s-0" . persp-kill))
+   ("C-c [" . (lambda () (interactive) (my/call-func-if-minibuffer-not-open 'persp-next)))
+   ("C-c ]" . (lambda () (interactive) (my/call-func-if-minibuffer-not-open 'persp-prev)))
+   ("C-c =" . persp-switch)
+   ("C-c _" . 'my/open-project)
+   ("C-c +" . 'my/open-project-in-new-perspective)
+   ("C-c 0" . persp-kill))
 
- :config
- ;; Bind s-1 through s-9 to specific perspectives.
- (dotimes (i 9)
-   (let ((d (+ i 1)))
-     (global-set-key (kbd (format "s-%d" d))
-                     `(lambda ()
-                        (interactive)
-                        (persp-switch-by-number ,d)))))
+  :config
+  ;; Bind C-c 1 through C-c 9 to specific perspectives.
+  (dotimes (i 9)
+    (let ((d (+ i 1)))
+      (global-set-key (kbd (format "C-c %d" d))
+                      `(lambda ()
+                         (interactive)
+                         (persp-switch-by-number ,d)))))
 
  :init
  (setq persp-initial-frame-name "scratch")

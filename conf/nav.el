@@ -3,7 +3,7 @@
 ;; https://github.com/abo-abo/avy
 
 (use-package avy
-  :bind (("s-j" . avy-goto-char-timer)
+  :bind (("C-c j" . avy-goto-char-timer)
          ("C-'" . avy-goto-line)))
 
 ;; Switch to the last active window. (Repeatedly calling this function cycles

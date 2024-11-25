@@ -86,19 +86,20 @@
 (use-package consult
   :after (perspective projectile)
   :bind (
-         ;; s- bindings (custom)
+         ;; Custom C-c bindings
          ;;
-         ;; s-r: search entire project
-         ;; C-u s-r (or M-1 s-r): allows user to specify search directory
+         ;; C-c r: search entire project
+         ;; C-u C-c r (or M-1 C-c r): allows user to specify search directory
          ;;
          ;; To display search results in a separate buffer, invoke
          ;; `M-x projectile-ripgrep` directly, or, better yet, use Embark to
          ;; collect `consult-ripgrep` completion candidates in a collect buffer.
-         ("s-r" . consult-ripgrep)
-         ("s-F" . consult-find)
-         ("s-D" . my/consult-find-dir)
-         ("s-o" . consult-outline)
-         ("s-i" . consult-imenu)
+         ("C-c r" . consult-ripgrep)
+         ("C-c F" . consult-find)
+         ("C-c D" . my/consult-find-dir)
+         ("C-c a o" . consult-outline)
+         ("C-c a m" . consult-imenu)
+         ("C-c a l" . consult-goto-line)
          ;; Note that `consult-line' is *not* intended as a replacement for
          ;; isearch; see: https://github.com/minad/consult/issues/417
          ("M-l" . consult-line)
@@ -130,7 +131,6 @@
          ("M-g e" . consult-compile-error)
          ("M-g f" . consult-flymake)
          ("M-g g" . consult-goto-line)
-         ("M-g M-g" . consult-goto-line)
          ("M-g o" . consult-outline)
          ("M-g m" . consult-mark)
          ("M-g k" . consult-global-mark)

@@ -39,13 +39,13 @@
 
   :bind (
          ;; Toggle visibility of the last-opened popup window.
-         ("s-p"   . popper-toggle-latest) ;
+         ("C-c q v"   . popper-toggle-latest) ;
                                         ;
          ;; Cycle through visibility of popup windows (one at a time).
-         ("s-P"   . popper-cycle)
+         ("C-c q c"   . popper-cycle)
 
          ;; Turn any buffer into a popup (or vice versa).
-         ("C-s-p"   . popper-toggle-type)
+         ("C-c q t"   . popper-toggle-type)
          )
   :init
   (setq popper-reference-buffers

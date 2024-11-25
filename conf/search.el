@@ -19,7 +19,7 @@
 (use-package deadgrep
   :commands deadgrep
   :bind
-  (("s-R" . deadgrep)))
+  (("C-c R" . deadgrep)))
 
 ;; https://github.com/jacktasia/dumb-jump
 ;;
