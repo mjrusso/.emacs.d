@@ -29,11 +29,19 @@
 ;; https://github.com/d12frosted/homebrew-emacs-plus#system-appearance-change
 (defun my/apply-theme-after-system-appearance-change (appearance)
   "Load theme, taking current system APPEARANCE into consideration."
-  (mapc #'disable-theme custom-enabled-themes)
-  (when (display-graphic-p)
+  (when (window-system)
+    (mapc #'disable-theme custom-enabled-themes)
     (pcase appearance
       ('light (load-theme 'modus-operandi t))
       ('dark (load-theme 'modus-vivendi t)))))
+
+
+;; (defun on-after-init ()
+;;   (unless (display-graphic-p (selected-frame))
+;;     (set-face-background 'default "unspecified-bg" (selected-frame))))
+;;
+;; (add-hook 'window-setup-hook 'on-after-init)
+
 
 (add-hook 'ns-system-appearance-change-functions #'my/apply-theme-after-system-appearance-change)
 

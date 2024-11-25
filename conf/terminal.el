@@ -114,6 +114,11 @@ is bound to `set-mark-command', not the prefix 'C-u 2'.
   :config
   (setq xterm-extra-capabilities '(modifyOtherKeys))
   (setq xterm-set-window-title t)
+  (when (not (window-system))
+    (if (not (eq (tty-display-color-cells) 16777216))
+        ;; https://chadaustin.me/2024/01/truecolor-terminal-emacs/
+        (warn "TTY does not appear to support 24 bit colour")
+      ))
   :hook
   (tty-setup . my/handle-more-terminal-escapes)
   )

@@ -29,10 +29,9 @@
  (setq persp-modestring-short nil)
  (setq persp-sort 'created)
  (setq persp-suppress-no-prefix-key-warning t)
- (when (display-graphic-p)
-   ;; Set the text corresponding to the perspective mode line as the frame title.
-   (setq frame-title-format
-         (list '(:eval (my/perspective-names)))))
+ ;; Set the text corresponding to the perspective mode line as the frame title.
+ (setq frame-title-format
+       (list '(:eval (my/perspective-names))))
  (persp-mode))
 
 (defun my/call-func-if-minibuffer-not-open (persp-change-func)
