@@ -83,7 +83,7 @@
   :straight nil
   :after org
   :bind
-  ("C-c a" . org-agenda)
+  ("C-c i a" . org-agenda)
   :custom
   (org-agenda-files (list my/primary-org-directory))
   (org-agenda-include-diary t)
