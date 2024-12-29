@@ -42,7 +42,6 @@
   (global-unset-key (kbd "s-t"))
   (global-unset-key (kbd "s-o"))
   (global-unset-key (kbd "s-l"))
-  (global-unset-key (kbd "s-w"))
 
   ;; These tweaks are based on the recommendations by lsp-doctor.
   (setq read-process-output-max (* 1024 1024)) ;; 1 MB
