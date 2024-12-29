@@ -6,9 +6,7 @@
 
   :bind
   (("C-x k" . persp-kill-buffer*)
-   ("M-]" . (lambda () (interactive) (my/call-func-if-minibuffer-not-open 'persp-next)))
    ("M-}" . (lambda () (interactive) (my/call-func-if-minibuffer-not-open 'persp-next)))
-   ("M-[" . (lambda () (interactive) (my/call-func-if-minibuffer-not-open 'persp-prev)))
    ("M-{" . (lambda () (interactive) (my/call-func-if-minibuffer-not-open 'persp-prev)))
    ("C-c =" . persp-switch)
    ("C-c _" . 'my/open-project)
