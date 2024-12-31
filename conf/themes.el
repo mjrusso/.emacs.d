@@ -24,6 +24,22 @@
 
 ;; https://github.com/protesilaos/modus-themes
 (load-theme 'modus-vivendi t)
+(defun my/light-theme ()
+  "Switch to default light theme (modus-operandi)."
+  (interactive)
+  (load-theme 'modus-operandi t))
+
+(defun my/dark-theme ()
+  "Switch to default dark theme (modus-vivendi)."
+  (interactive)
+  (load-theme 'modus-vivendi t))
+
+(defun my/toggle-theme ()
+  "Toggle between default light and dark themes."
+  (interactive)
+  (if (eq (car custom-enabled-themes) 'modus-operandi)
+      (my/dark-theme)
+    (my/light-theme)))
 
 ;; Synchronize the theme with system appearance changes. See:
 ;; https://github.com/d12frosted/homebrew-emacs-plus#system-appearance-change
