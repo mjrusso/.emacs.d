@@ -31,7 +31,6 @@
 (my/load-conf-file "path.el")
 (my/load-conf-file "core.el")
 (my/load-conf-file "themes.el")
-(my/load-conf-file "server.el")
 (my/load-conf-file "frames.el")
 (my/load-conf-file "tramp.el")
 (my/load-conf-file "completion.el")
@@ -73,3 +72,5 @@
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (when (file-exists-p custom-file)
   (load custom-file))
+
+(server-start)
