@@ -22,8 +22,6 @@
   ;; (doom-themes-org-config)
   )
 
-;; https://github.com/protesilaos/modus-themes
-(load-theme 'modus-vivendi t)
 (defun my/light-theme ()
   "Switch to default light theme (modus-operandi)."
   (interactive)
@@ -46,18 +44,38 @@
 (defun my/apply-theme-after-system-appearance-change (appearance)
   "Load theme, taking current system APPEARANCE into consideration."
   (when (window-system)
+    (message "System appearance changed to %s" appearance)
     (mapc #'disable-theme custom-enabled-themes)
     (pcase appearance
       ('light (load-theme 'modus-operandi t))
       ('dark (load-theme 'modus-vivendi t)))))
 
+(defun system-dark-mode-enabled-p ()
+  "Return non-nil if system dark mode is enabled on macOS."
+  (when (eq system-type 'darwin)
+    (string-equal
+     "Dark"
+     (string-trim
+      (shell-command-to-string
+       "defaults read -g AppleInterfaceStyle 2>/dev/null")))))
+
+;; If running on MacOS, load the theme based on system appearance. Otherwise,
+;; default to the dark theme.
+(if (eq system-type 'darwin)
+    (if (system-dark-mode-enabled-p)
+        (progn
+          (my/dark-theme)
+          (message "System dark mode enabled; using dark theme"))
+      (progn
+        (my/light-theme)
+        (message "System light mode is enabled; using light theme")))
+  (my/dark-theme))
 
 ;; (defun on-after-init ()
 ;;   (unless (display-graphic-p (selected-frame))
 ;;     (set-face-background 'default "unspecified-bg" (selected-frame))))
 ;;
 ;; (add-hook 'window-setup-hook 'on-after-init)
-
 
 (add-hook 'ns-system-appearance-change-functions #'my/apply-theme-after-system-appearance-change)
 
