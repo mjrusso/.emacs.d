@@ -57,22 +57,3 @@
   :hook
   (tty-setup . my/tty-setup-hook)
   )
-
-;; (set 'xterm-standard-colors
-;;   '(("black"          0 (  0   0   0))
-;;     ("red"            1 (255   0   0))
-;;     ("green"          2 (  0 255   0))
-;;     ("yellow"         3 (255 255   0))
-;;     ("blue"           4 (  0   0 255))
-;;     ("magenta"        5 (255   0 255))
-;;     ("cyan"           6 (  0 255 255))
-;;     ("white"          7 (255 255 255))
-;;     ("brightblack"    8 (127 127 127))
-;;     ("brightred"      9 (255   0   0))
-;;     ("brightgreen"   10 (  0 255   0))
-;;     ("brightyellow"  11 (255 255   0))
-;;     ("brightblue"    12 (92   92 255))
-;;     ("brightmagenta" 13 (255   0 255))
-;;     ("brightcyan"    14 (  0 255 255))
-;;     ("brightwhite"   15 (255 255 255)))
-;;   )
