@@ -56,6 +56,7 @@
  ("jsonrpc" . "2b9be7d65a3fde25e6234870f87a61dd13de9a8b")
  ("just-mode.el" . "4c0df4cc4b8798f1a7e99fb78b79c4bf7eec12c1")
  ("kind-icon" . "3ca69f4005d08bfcb268102d8ae021db352fc924")
+ ("kkp" . "ed9214329f11b095fc7bad06feb329b9f232258d")
  ("ligature.el" . "6ac1634612dbd42f7eb81ecaf022bd239aabb954")
  ("lua-mode" . "d074e4134b1beae9ed4c9b512af741ca0d852ba3")
  ("magit" . "b9948f9571928bb7f39f4b3a112bd76e52a072ce")
