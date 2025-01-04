@@ -73,4 +73,5 @@
 (when (file-exists-p custom-file)
   (load custom-file))
 
-(server-start)
+(unless (server-running-p)
+  (server-start))
