@@ -1,4 +1,4 @@
-;; WIP support for improving Emacs in the terminal.
+;; TTY Emacs: improve how Emacs behaves when run in the terminal.
 ;;
 ;;(With thanks to @drusso for sharing his config.)
 
@@ -33,15 +33,14 @@
         )))
 
 
-;; Add support for the Kitty Keyboard protocol.
+;; Add support for the Kitty Keyboard protocol (via kkp.el).
 ;;
-;; Protocol: https://sw.kovidgoyal.net/kitty/keyboard-protocol/
-;; kkp.el: https://github.com/benjaminor/kkp
+;; - protocol: https://sw.kovidgoyal.net/kitty/keyboard-protocol/
+;; - kkp.el: https://github.com/benjaminor/kkp
 (use-package kkp
   :ensure t
   :config
-  (global-kkp-mode +1)
-  )
+  (global-kkp-mode +1))
 
 ;; Zellij supports the "disambiguate escape codes" component of the Kitty
 ;; Keyboard protocol, but **not** "report alternate keys". (See
@@ -96,5 +95,4 @@
         (warn "TTY does not appear to support 24 bit colour")
       ))
   :hook
-  (tty-setup . my/tty-setup-hook)
-  )
+  (tty-setup . my/tty-setup-hook))
