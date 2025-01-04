@@ -43,6 +43,47 @@
   (global-kkp-mode +1)
   )
 
+;; Zellij supports the "disambiguate escape codes" component of the Kitty
+;; Keyboard protocol, but **not** "report alternate keys". (See
+;; <https://github.com/zellij-org/zellij/issues/3789> for more details and
+;; discussion.)
+;;
+;; An implication is explained in the kpp.el README:
+;;
+;; > Note that when you activate only `disambiguate-escape-codes`, the terminal
+;; > reports shifted keypresses which involve another modifier by sending the
+;; > modifiers with the base layout of the key.
+;; >
+;; > This means "M-S-." (Meta-Shift-.) is not translated to "M-:" (on a German
+;; > keyboard) and Emacs will probably not find the proper keybinding.
+;;
+;; As a workaround to Zellij's lack of support for `disambiguate-escape-codes`,
+;; we simply add relevant entries to the key translation map. For example, for
+;; an English layout, we map "M-S-." to "M-->".
+(use-package emacs
+  :config
+  (define-key key-translation-map (kbd "M-S-`") (kbd "M-~"))
+  (define-key key-translation-map (kbd "M-S-1") (kbd "M-!"))
+  (define-key key-translation-map (kbd "M-S-2") (kbd "M-@"))
+  (define-key key-translation-map (kbd "M-S-3") (kbd "M-#"))
+  (define-key key-translation-map (kbd "M-S-4") (kbd "M-$"))
+  (define-key key-translation-map (kbd "M-S-5") (kbd "M-%"))
+  (define-key key-translation-map (kbd "M-S-6") (kbd "M-^"))
+  (define-key key-translation-map (kbd "M-S-7") (kbd "M-&"))
+  (define-key key-translation-map (kbd "M-S-8") (kbd "M-*"))
+  (define-key key-translation-map (kbd "M-S-9") (kbd "M-("))
+  (define-key key-translation-map (kbd "M-S-0") (kbd "M-)"))
+  (define-key key-translation-map (kbd "M-S--") (kbd "M-_"))
+  (define-key key-translation-map (kbd "M-S-=") (kbd "M-+"))
+  (define-key key-translation-map (kbd "M-S-[") (kbd "M-{"))
+  (define-key key-translation-map (kbd "M-S-]") (kbd "M-}"))
+  (define-key key-translation-map (kbd "M-S-\\") (kbd "M-|"))
+  (define-key key-translation-map (kbd "M-S-;") (kbd "M-:"))
+  (define-key key-translation-map (kbd "M-S-'") (kbd "M-\""))
+  (define-key key-translation-map (kbd "M-S-,") (kbd "M-<"))
+  (define-key key-translation-map (kbd "M-S-.") (kbd "M->"))
+  (define-key key-translation-map (kbd "M-S-/") (kbd "M-?")))
+
 (defun my/tty-setup-hook ()
   (message "Running tty-setup hook..."))
 
