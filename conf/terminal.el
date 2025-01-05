@@ -32,7 +32,6 @@
         :hook (after-init . global-clipetty-mode)
         )))
 
-
 ;; Add support for the Kitty Keyboard protocol (via kkp.el).
 ;;
 ;; - protocol: https://sw.kovidgoyal.net/kitty/keyboard-protocol/
@@ -82,6 +81,11 @@
   (define-key key-translation-map (kbd "M-S-,") (kbd "M-<"))
   (define-key key-translation-map (kbd "M-S-.") (kbd "M->"))
   (define-key key-translation-map (kbd "M-S-/") (kbd "M-?")))
+
+;; Smooth over any remaining keybinding differences between TTY and GUI Emacs.
+(use-package emacs
+  :config
+  (define-key key-translation-map (kbd "M-<backspace>") (kbd "M-DEL")))
 
 (defun my/tty-setup-hook ()
   (message "Running tty-setup hook..."))
