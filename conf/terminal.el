@@ -90,13 +90,18 @@
 (defun my/tty-setup-hook ()
   (message "Running tty-setup hook..."))
 
+;; Note that previously, we checked `tty-display-color-cells' on startup and
+;; warned the user if their TTY does not support 24 bit color. However, this is
+;; expected when the server/daemon process is booting, so we skip the check.
+(defun my/tty-supports-truecolor ()
+  (interactive)
+  (if (not (window-system))
+      ;; https://chadaustin.me/2024/01/truecolor-terminal-emacs/
+      (message "TTY supports 24 bit colour: %s" (if (eq (tty-display-color-cells) 16777216) "yes" "no"))
+    (warn "Not running as TTY; skipping colour check")))
+
 (use-package emacs
   :config
   (setq xterm-set-window-title t)
-  (when (not (window-system))
-    (if (not (eq (tty-display-color-cells) 16777216))
-        ;; https://chadaustin.me/2024/01/truecolor-terminal-emacs/
-        (warn "TTY does not appear to support 24 bit colour")
-      ))
   :hook
   (tty-setup . my/tty-setup-hook))
