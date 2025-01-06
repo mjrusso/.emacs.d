@@ -114,7 +114,9 @@
      (set-face-foreground 'diff-removed (modus-themes-get-color-value 'red-cooler))))
 
 ;; Highlight uncommitted changes in the gutter, using a mix of diff-hl and
-;; git-gutter/git-gutter-fringe, depending on the context.
+;; git-gutter/git-gutter-fringe, depending on the context. (Update:
+;; git-gutter-fringe is disabled for now, because it breaks rendering to the
+;; margin in terminal Emacs.)
 ;;
 ;; - https://github.com/dgutov/diff-hl
 ;; - https://github.com/emacsorphanage/git-gutter
@@ -132,16 +134,29 @@
 ;;  (add-hook 'vc-dir-mode-hook 'turn-on-diff-hl-mode)
   )
 
+;; In TTY (terminal) environments, rendering in the fringe is not supported,
+;; and git-gutter will automatically use the left margin. (Unfortunately
+;; flymake also uses the left margin; there doesn't appear to be a way to make
+;; them "share" the space, so only one indicator can be displayed at a time.)
 (use-package git-gutter
   :hook (prog-mode . git-gutter-mode)
   :config
-  (setq git-gutter:update-interval 0.02))
+  (setq git-gutter:update-interval 0.02)
+  ;; Rely exclusively on the color (green, yellow, red) indicate the type of
+  ;; change, instead of also using symbols.
+  (setq git-gutter:added-sign " ")
+  (setq git-gutter:modified-sign " ")
+  (setq git-gutter:deleted-sign " ")
+  )
 
-(use-package git-gutter-fringe
-  :config
-  (define-fringe-bitmap 'git-gutter-fr:added [224] nil nil '(center repeated))
-  (define-fringe-bitmap 'git-gutter-fr:modified [224] nil nil '(center repeated))
-  (define-fringe-bitmap 'git-gutter-fr:deleted [128 192 224 240] nil nil 'bottom))
+;; git-gutter-fringe is disabled for now, because this assumes you are
+;; rendering in the fringe (which is not supported in TTY Emacs).
+;;
+;;   (use-package git-gutter-fringe
+;;     :config
+;;     (define-fringe-bitmap 'git-gutter-fr:added [224] nil nil '(center repeated))
+;;     (define-fringe-bitmap 'git-gutter-fr:modified [224] nil nil '(center repeated))
+;;     (define-fringe-bitmap 'git-gutter-fr:deleted [128 192 224 240] nil nil 'bottom))
 
 ;; Highlight indentation levels.
 ;; - https://github.com/DarthFennec/highlight-indent-guides
