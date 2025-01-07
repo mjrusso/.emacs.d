@@ -2,6 +2,13 @@
 
   :init
 
+  ;; Create the necessary directories (for backups, auto-saves, etc.), unless
+  ;; they already exist.
+  (dolist (dir (list "backups" "auto-saves" "locks"))
+    (let ((full-path (concat user-emacs-directory dir)))
+      (unless (file-directory-p full-path)
+        (make-directory full-path t))))
+
   (setq visible-bell t
         inhibit-startup-message t
         color-theme-is-global t
