@@ -61,7 +61,7 @@
        ;; "^\\*vterm.*\\*$"  vterm-mode
           compilation-mode
           help-mode))
-  (setq popper-group-function #'popper-group-by-perspective)
+;;  (setq popper-group-function #'popper-group-by-perspective)
   (setq popper-mode-line "Popup — ")
   (popper-mode +1)
   (popper-echo-mode +1))

@@ -47,7 +47,7 @@
 (my/load-conf-file "perspective.el")
 (my/load-conf-file "presentations.el")
 (my/load-conf-file "programming.el")
-(my/load-conf-file "projectile.el")
+(my/load-conf-file "project.el")
 (my/load-conf-file "scratch.el")
 (my/load-conf-file "screenwriting.el")
 (my/load-conf-file "search.el")

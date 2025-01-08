@@ -84,15 +84,13 @@
 ;;
 ;; Config adapted from: https://github.com/minad/consult#use-package-example
 (use-package consult
-  :after (perspective projectile)
   :bind (
          ;; Custom C-c bindings
          ;;
          ;; C-c r: search entire project
          ;; C-u C-c r (or M-1 C-c r): allows user to specify search directory
          ;;
-         ;; To display search results in a separate buffer, invoke
-         ;; `M-x projectile-ripgrep` directly, or, better yet, use Embark to
+         ;; To display search results in a separate buffer, use Embark to
          ;; collect `consult-ripgrep` completion candidates in a collect buffer.
          ("C-c r" . consult-ripgrep)
          ("C-c F" . consult-find)
@@ -188,13 +186,6 @@
   ;; Configure other variables and modes in the :config section,
   ;; after lazily loading the package.
   :config
-
-  (setq consult-project-function (lambda (_) (projectile-project-root)))
-
-  ;; Wire up the list of perspective-filtered buffers as a candidate source.
-  ;; (These will show up first when calling `consult-buffer'.) See
-  ;; https://github.com/minad/consult#multiple-sources for more details.
-  (my/add-perspective-virtual-buffer-source-to-consult)
 
   ;; Find folders only (excluding files).
   ;;

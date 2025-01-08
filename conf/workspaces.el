@@ -1,7 +1,7 @@
 (defun my/workspace:emacs-config ()
   "Get or create a workspace for editing my Emacs configuration."
   (interactive)
-  (my/open-project-by-name-in-new-perspective "~/.emacs.d/")
+  (my/open-project-by-name "~/.emacs.d/")
   (if (= 1 (count-windows))
       (progn (split-window-right)
              (other-window 1)
@@ -25,7 +25,6 @@ side windows. The third top-level heading is also displayed in an
 indirect buffer, narrowed to its subtree, but displayed in a
 normal window."
   (interactive)
-  (persp-switch "dashboard")
   (if (= 1 (count-windows))
       (let ((dashboard-file-path (concat my/primary-org-directory "dashboard.org")))
         (when (file-exists-p dashboard-file-path)
