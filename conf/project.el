@@ -19,6 +19,20 @@
             (magit-status)
           (project-dired)))))
 
+  (defun my/is-project-directory-p (directory)
+    "Check if DIRECTORY is a project directory using project.el.
+Returns t if directory is recognized as a project, nil otherwise."
+    (when (and directory (file-directory-p directory))
+      (let ((default-directory (expand-file-name directory)))
+	(when-let ((project (project-current nil)))
+          t))))
+
+  (defun my/maybe-open-project (directory)
+    "Switch to a project at DIRECTORY if it is a project, otherwise do nothing."
+    (interactive)
+    (if (my/is-project-directory-p directory)
+        (my/project-switch-project directory)))
+
   (defun my/open-project ()
     (interactive)
     (my/project-switch-project))
