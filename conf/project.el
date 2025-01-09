@@ -34,7 +34,7 @@
 Returns t if directory is recognized as a project, nil otherwise."
     (when (and directory (file-directory-p directory))
       (let ((default-directory (expand-file-name directory)))
-	(when-let ((project (project-current nil)))
+	(when-let* ((project (project-current nil)))
           t))))
 
   (defun my/maybe-open-project (directory)
