@@ -95,7 +95,7 @@
 ;; expected when the server/daemon process is booting, so we skip the check.
 (defun my/tty-supports-truecolor ()
   (interactive)
-  (if (not (window-system))
+  (if (not (display-graphic-p))
       ;; https://chadaustin.me/2024/01/truecolor-terminal-emacs/
       (message "TTY supports 24 bit colour: %s" (if (eq (tty-display-color-cells) 16777216) "yes" "no"))
     (warn "Not running as TTY; skipping colour check")))

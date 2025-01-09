@@ -139,7 +139,7 @@
           (unknown . " ")
           (ignored . " ")))
   (global-diff-hl-mode)
-  (if (not (window-system))
+  (if (not (display-graphic-p))
       (diff-hl-margin-mode)))
 
 (use-package diff-hl

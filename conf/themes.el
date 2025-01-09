@@ -43,7 +43,7 @@
 ;; https://github.com/d12frosted/homebrew-emacs-plus#system-appearance-change
 (defun my/apply-theme-after-system-appearance-change (appearance)
   "Load theme, taking current system APPEARANCE into consideration."
-  (when (window-system)
+  (when (display-graphic-p)
     (message "System appearance changed to %s" appearance)
     (mapc #'disable-theme custom-enabled-themes)
     (pcase appearance
