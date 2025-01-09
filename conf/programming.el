@@ -39,13 +39,23 @@
 (use-package eldoc
   :custom (eldoc-echo-area-prefer-doc-buffer t))
 
-(use-package flymake
-  :hook ((prog-mode . flymake-mode))
+;;https://www.flycheck.org/
+(use-package flycheck
+  :init
+  (setq flycheck-indication-mode 'left-margin)
+  (setq flycheck-highlighting-mode 'sexp)
+  :hook (emacs-lisp-mode . flycheck-mode)
   :bind
-  (:map flymake-mode-map
-        ("M-n" . flymake-goto-next-error)
-        ("M-p" . flymake-goto-prev-error))
+  (:map flycheck-mode-map
+        ("M-n" . flycheck-next-error)
+        ("M-p" . flycheck-previous-error))
   )
+
+;; https://github.com/flycheck/flycheck-eglot
+(use-package flycheck-eglot
+  :defer t
+  :after (eglot flycheck)
+  :hook ((eglot-managed-mode . flycheck-eglot-mode)))
 
 ;; Unofficial plugin for GitHub Copilot.
 ;;
@@ -113,50 +123,32 @@
      (set-face-foreground 'diff-added (modus-themes-get-color-value 'green-warmer))
      (set-face-foreground 'diff-removed (modus-themes-get-color-value 'red-cooler))))
 
-;; Highlight uncommitted changes in the gutter, using a mix of diff-hl and
-;; git-gutter/git-gutter-fringe, depending on the context. (Update:
-;; git-gutter-fringe is disabled for now, because it breaks rendering to the
-;; margin in terminal Emacs.)
+;; Highlight uncommitted changes in the gutter (renders to the fringe when in
+;; the GUI app, and the margin when in the terminal).
 ;;
 ;; - https://github.com/dgutov/diff-hl
-;; - https://github.com/emacsorphanage/git-gutter
-;; - https://github.com/emacsorphanage/git-gutter-fringe
 ;;
-;; Also see:
-;;
-;; - https://ianyepan.github.io/posts/emacs-git-gutter/
+;; See discussion about sharing the margin for diff-hl and flycheck indicators in TTY Emacs here:
+;; https://github.com/mjrusso/.emacs.d/commit/5e19fc072124a1b5e65fb3d4aad969031d53a626#r151027896
 (use-package diff-hl
   :config
-  (add-hook 'dired-mode-hook 'diff-hl-dired-mode)
-  (add-hook 'magit-pre-refresh-hook 'diff-hl-magit-pre-refresh)
-  (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
-;;  (add-hook 'prog-mode-hook 'turn-on-diff-hl-mode)
-;;  (add-hook 'vc-dir-mode-hook 'turn-on-diff-hl-mode)
-  )
+  (setq diff-hl-margin-symbols-alist
+        '((insert . " ")
+          (delete . " ")
+          (change . " ")
+          (unknown . " ")
+          (ignored . " ")))
+  (global-diff-hl-mode)
+  (if (not (window-system))
+      (diff-hl-margin-mode)))
 
-;; In TTY (terminal) environments, rendering in the fringe is not supported,
-;; and git-gutter will automatically use the left margin. (Unfortunately
-;; flymake also uses the left margin; there doesn't appear to be a way to make
-;; them "share" the space, so only one indicator can be displayed at a time.)
-(use-package git-gutter
-  :hook (prog-mode . git-gutter-mode)
-  :config
-  (setq git-gutter:update-interval 0.02)
-  ;; Rely exclusively on the color (green, yellow, red) indicate the type of
-  ;; change, instead of also using symbols.
-  (setq git-gutter:added-sign " ")
-  (setq git-gutter:modified-sign " ")
-  (setq git-gutter:deleted-sign " ")
-  )
-
-;; git-gutter-fringe is disabled for now, because this assumes you are
-;; rendering in the fringe (which is not supported in TTY Emacs).
-;;
-;;   (use-package git-gutter-fringe
-;;     :config
-;;     (define-fringe-bitmap 'git-gutter-fr:added [224] nil nil '(center repeated))
-;;     (define-fringe-bitmap 'git-gutter-fr:modified [224] nil nil '(center repeated))
-;;     (define-fringe-bitmap 'git-gutter-fr:deleted [128 192 224 240] nil nil 'bottom))
+(use-package diff-hl
+  :defer t
+  :after (magit)
+  :hook
+  ((dired-mode . diff-hl-dired-mode)
+   (magit-pre-refresh . diff-hl-magit-pre-refresh)
+   (magit-post-refresh . diff-hl-magit-post-refresh)))
 
 ;; Highlight indentation levels.
 ;; - https://github.com/DarthFennec/highlight-indent-guides

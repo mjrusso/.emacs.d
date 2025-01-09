@@ -101,7 +101,7 @@
          ;; Note that `consult-line' is *not* intended as a replacement for
          ;; isearch; see: https://github.com/minad/consult/issues/417
          ("M-l" . consult-line)
-         ("M-m" . consult-flymake)
+         ("M-m" . consult-flycheck)
 
          ;; C-c bindings (mode-specific-map)
          ("C-c h" . consult-history)
@@ -221,3 +221,6 @@
   (setq consult-narrow-key "<")
 
   )
+
+(use-package consult-flycheck
+  :after (flycheck consult))
