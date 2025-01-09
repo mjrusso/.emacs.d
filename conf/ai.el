@@ -1,5 +1,7 @@
-;; Rundown of options for integrating ChatGPT into Emacs:
+;; Rundown of options for integrating LLMs into Emacs:
 ;; https://www.reddit.com/r/emacs/comments/11k1q0s/comment/jb64sgc/?context=3
+;;
+;; Also see: https://github.com/s-kostyaev/ellama
 
 ;; GPTel: https://github.com/karthink/gptel
 ;;
@@ -21,14 +23,18 @@
 ;;   conversation, select both the original prompt and the response, and call
 ;;   `M-x gptel-send'.
 
-
-
-
 (use-package gptel
   :config
   (setq gptel-api-key (string-trim (shell-command-to-string "echo $OPENAI_API_KEY"))
-        gptel-model "gpt-4o"
-        gptel-display-buffer-action '(pop-to-buffer-same-window))
+        ;; gptel-model "gpt-4o"
+        gptel-model 'claude-3-5-sonnet-20241022
+        gptel-backend (gptel-make-anthropic "Claude"
+                        :stream t
+                        :key (string-trim
+                              (shell-command-to-string "echo $ANTHROPIC_API_KEY")))
+        gptel-display-buffer-action '(pop-to-buffer-same-window)
+
+        )
   :bind
   (("C-c a i" . #'gptel))
   )
