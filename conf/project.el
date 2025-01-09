@@ -12,6 +12,7 @@
            (default-directory project)
            (proj (project-current)))
       (when project
+        (delete-other-windows)
         (if (eq (car proj) 'vc)
             (magit-status)
           (project-dired)))))
