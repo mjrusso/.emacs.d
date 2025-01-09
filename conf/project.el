@@ -10,9 +10,11 @@
     (interactive)
     (let* ((project (or project-root (project-prompt-project-dir)))
            (default-directory project)
-           (proj (project-current)))
+           (proj (project-current))
+           (project-name (file-name-nondirectory (directory-file-name project))))
       (when project
         (delete-other-windows)
+        (set-frame-name project-name)
         (if (eq (car proj) 'vc)
             (magit-status)
           (project-dired)))))
