@@ -110,9 +110,6 @@
 ;;        :after (eglot consult)
 ;;        :bind (:map eglot-mode-map ("M-j" . #'consult-eglot-symbols)))
 
-;; https://github.com/magit/magit/issues/3415#issuecomment-378941991
-(use-package git-commit)
-
 (use-package idle-highlight-mode
   :config
   (setq idle-highlight-exclude-point t)
