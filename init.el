@@ -44,7 +44,7 @@
 (my/load-conf-file "mouse.el")
 (my/load-conf-file "nav.el")
 (my/load-conf-file "notes.el")
-(my/load-conf-file "perspective.el")
+(my/load-conf-file "isolation.el")
 (my/load-conf-file "presentations.el")
 (my/load-conf-file "programming.el")
 (my/load-conf-file "project.el")
