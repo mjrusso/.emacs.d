@@ -2,6 +2,11 @@
 ;;
 ;;(With thanks to @drusso for sharing his config.)
 
+;; Integrate with the system clipboard.
+;;
+;; Uses the `xclip` package when possible (i.e., when the pbcopy or xclip
+;; binaries available), and falls back to `clipetty` (which uses OSC 52 escape
+;; sequences) otherwise.
 (use-package xclip :ensure t)
 (use-package clipetty :ensure t)
 
