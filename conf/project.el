@@ -28,10 +28,11 @@ Returns t if directory is recognized as a project, nil otherwise."
           t))))
 
   (defun my/maybe-open-project (directory)
-    "Switch to a project at DIRECTORY if it is a project, otherwise do nothing."
+    "Switch to a project at DIRECTORY if it is a project, otherwise open the scratch buffer."
     (interactive)
     (if (my/is-project-directory-p directory)
-        (my/project-switch-project directory)))
+        (my/project-switch-project directory)
+      (switch-to-buffer "*scratch*")))
 
   (defun my/open-project ()
     (interactive)
