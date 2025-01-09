@@ -2,15 +2,6 @@
 ;;
 ;;(With thanks to @drusso for sharing his config.)
 
-;; (use-package emacs
-;;   :config
-;;   (setq
-;;    select-enable-clipboard nil
-;;    select-enable-primary nil))
-
-;; (use-package emacs
-;;   :bind (("M-W" . clipboard-kill-ring-save)))
-
 (use-package xclip :ensure t)
 (use-package clipetty :ensure t)
 
