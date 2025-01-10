@@ -100,15 +100,14 @@
       )
   (message "Node.js not found; not starting GitHub Copilot"))
 
-;; https://github.com/mohkale/consult-eglot
+
+;; Enable a `consulting-read' interface for eglot (specifically, the
+;; `workspace/symbols` LSP procedure call).
 ;;
-;; Currently disabled, because `consult-eglot-symbols' does not seem to work.
-;; Not sure if it's an issue with the package, or eglot, or consult, or the
-;; specific language servers I've been testing with...
-;;
-;;      (use-package consult-eglot
-;;        :after (eglot consult)
-;;        :bind (:map eglot-mode-map ("M-j" . #'consult-eglot-symbols)))
+;; - https://github.com/mohkale/consult-eglot
+(use-package consult-eglot
+  :after (eglot consult)
+  :bind (:map eglot-mode-map ("C-c a s" . #'consult-eglot-symbols)))
 
 (use-package idle-highlight-mode
   :config
