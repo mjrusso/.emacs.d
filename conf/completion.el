@@ -71,10 +71,10 @@
   :custom
   (kind-icon-default-face 'corfu-default)
   :config
-  (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter)
-
-  ;; Ensure that the background colour is updated to match the active theme.
-  (add-hook 'my/after-load-theme-hook #'kind-icon-reset-cache)
+  (when (display-graphic-p)
+    (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter)
+    ;; Ensure that the background colour is updated to match the active theme.
+    (add-hook 'my/after-load-theme-hook #'kind-icon-reset-cache))
   )
 
 ;; https://github.com/minad/cape
