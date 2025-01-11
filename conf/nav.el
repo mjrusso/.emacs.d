@@ -36,4 +36,4 @@
   (custom-set-faces
    '(aw-leading-char-face
      ((t (:inherit aw-leading-char-face :height 1.0)))))
-  :bind ("C-x o" . ace-window))
+  :bind ("C-c a a" . ace-window))
