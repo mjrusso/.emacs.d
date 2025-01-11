@@ -77,15 +77,14 @@
 
       (setq copilot-indent-offset-warning-disable t)
 
-      ;; Disable in envrc-file-mode (.envrc files may contain secrets).
+      ;; Disable in buffers that may contain secrets.
       (add-to-list 'copilot-disable-predicates
                    #'(lambda ()
-                       (derived-mode-p 'envrc-file-mode)))
-
-      ;; Disable in direnv-envrc-mode (.envrc files may contain secrets).
-      (add-to-list 'copilot-disable-predicates
-                   #'(lambda ()
-                       (derived-mode-p 'direnv-envrc-mode)))
+                       (or (derived-mode-p 'envrc-file-mode)
+                           (derived-mode-p 'direnv-envrc-mode)
+                           (string-equal ".env" (file-name-nondirectory buffer-file-name))
+                           (string-equal ".envrc" (file-name-nondirectory buffer-file-name))
+                           (string-prefix-p ".localrc" (file-name-nondirectory buffer-file-name)))))
 
       (set-face-attribute 'copilot-overlay-face nil
                           :foreground  (modus-themes-get-color-value 'red-warmer)
