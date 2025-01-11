@@ -13,21 +13,22 @@
            (proj (project-current))
            (project-name (file-name-nondirectory (directory-file-name project))))
       (when project
-        ;; Set the frame name as the project name (because the frame name is
-        ;; displayed in the modeline), but do *not* create a new frame.
-        ;;
         ;; This setup is optimized for TTY Emacs, where we simply start new
         ;; emacsclient instances for each project/context. (Each emacsclient
         ;; instance automatically gets a new frame, so `beframe' will
-        ;; automatically provide frame-level isolation.)
+        ;; automatically provide frame-level isolation. As a hack, we also
+        ;; create a new frame when switching projects, because this prevents
+        ;; `beframe' from assuming the most-recently visible buffer, which may
+        ;; not be part of the new project.)
         ;;
         ;; See additional discussion in the comments on this commit:
         ;; https://github.com/mjrusso/.emacs.d/commit/2399bdbfb166a96e46d0bd8854eac2d7e562957e
-        (set-frame-name project-name)
+        ;;        (set-frame-name project-name)
         (delete-other-windows)
         (if (eq (car proj) 'vc)
             (magit-status)
-          (project-dired)))))
+          (project-dired))
+        (make-frame `((name . ,(format "%s" project-name)))))))
 
   (defun my/is-project-directory-p (directory)
     "Check if DIRECTORY is a project directory using project.el.
