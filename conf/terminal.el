@@ -51,9 +51,8 @@
 ;; > This means "M-S-." (Meta-Shift-.) is not translated to "M-:" (on a German
 ;; > keyboard) and Emacs will probably not find the proper keybinding.
 ;;
-;; As a workaround to Zellij's lack of support for `disambiguate-escape-codes`,
-;; we simply add relevant entries to the key translation map. For example, for
-;; an English layout, we map "M-S-." to "M-->".
+;; As a workaround, we simply add relevant entries to the key translation map.
+;; For example, for an English layout, we map "M-S-." to "M-->".
 (use-package emacs
   :config
   (define-key key-translation-map (kbd "M-S-`") (kbd "M-~"))
