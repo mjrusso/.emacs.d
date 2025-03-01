@@ -483,7 +483,6 @@ command to have any effect."
 ;; https://github.com/elixir-editors/emacs-elixir
 (use-package elixir-mode
   :defer t
-  :disabled
 
   :hook
   (elixir-mode . eglot-ensure)
@@ -502,6 +501,8 @@ command to have any effect."
 (use-package elixir-ts-mode
   :straight nil
   :defer t
+
+  :disabled
 
   :mode ("\\.elixir\\'"
          "\\.ex\\'"
