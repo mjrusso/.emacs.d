@@ -492,7 +492,7 @@ command to have any effect."
   :config
   (add-to-list 'eglot-server-programs
                `(elixir-mode . ,(eglot-alternatives
-                                 `(("nextls" "--stdio=true") "lexical" "elixir-ls")))))
+                                 `("elixir-ls" ("nextls" "--stdio=true") "lexical")))))
 
 ;; https://github.com/wkirschbaum/elixir-ts-mode
 ;;
@@ -515,7 +515,7 @@ command to have any effect."
   :config
   (add-to-list 'eglot-server-programs
                `(elixir-ts-mode . ,(eglot-alternatives
-                                    `(("nextls" "--stdio=true") "lexical" "elixir-ls")))))
+                                    `("elixir-ls" ("nextls" "--stdio=true") "lexical")))))
 
 ;; https://github.com/wkirschbaum/heex-ts-mode
 ;;
@@ -534,7 +534,7 @@ command to have any effect."
   :config
   (add-to-list 'eglot-server-programs
                `(heex-ts-mode . ,(eglot-alternatives
-                                  `(("nextls" "--stdio=true") "lexical" "elixir-ls")))))
+                                  `("elixir-ls" ("nextls" "--stdio=true") "lexical")))))
 
 ;; ExUnit test runner for Elixir.
 ;;
