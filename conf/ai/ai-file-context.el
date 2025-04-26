@@ -114,4 +114,6 @@ or if it matches the pattern for a context list buffer."
 
             )))))))
 
+(global-set-key (kbd "C-c a c") #'my/file-context-list-add-file)
+
 ;;; ai-file-context.el ends here
