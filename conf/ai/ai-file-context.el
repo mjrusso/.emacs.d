@@ -8,6 +8,8 @@
 
 ;;; Code:
 
+(require 'project)
+
 (defun my/file-context-list-buffer-name ()
   "Return the project-specific file list buffer name.
 Returns the name based on the current project's root directory name.
@@ -66,8 +68,7 @@ or if it matches the pattern for a context list buffer."
            (my/file-context-list-buffer-name))))
 
 
-  (let ((current-buffer-obj (current-buffer))
-        (current-buffer-name (buffer-name (current-buffer)))
+  (let ((current-buffer-name (buffer-name (current-buffer)))
         (absolute-file-name (buffer-file-name (current-buffer))))
 
     (cond
@@ -90,8 +91,7 @@ or if it matches the pattern for a context list buffer."
                                    absolute-file-name))
                  (path-type (if project-root "relative" "absolute"))
                  (buffer-existed (get-buffer list-buffer-name))
-                 (target-buffer (get-buffer-create list-buffer-name))
-                 (added nil))
+                 (target-buffer (get-buffer-create list-buffer-name)))
 
             (with-current-buffer target-buffer
               (save-excursion
@@ -105,7 +105,6 @@ or if it matches the pattern for a context list buffer."
                   (insert name-to-insert)
                   (unless (eq (char-before (point-max)) ?\n)
                     (insert "\n"))
-                  (setq added t)
                   (message "Added %s path '%s' to '%s'" path-type name-to-insert list-buffer-name)
                   )))
 
