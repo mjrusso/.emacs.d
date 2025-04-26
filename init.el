@@ -60,8 +60,8 @@
 (my/load-conf-file "windows.el")
 (my/load-conf-file "workspaces.el")
 (my/load-conf-file "writing.el")
-(my/load-conf-file "ai-context.el")
-(my/load-conf-file "ai.el")
+(my/load-conf-file "ai/ai-file-context.el")
+(my/load-conf-file "ai/gptel.el")
 (my/load-conf-file "ai/aider.el")
 
 ;; If any private configuration files exist, load them. (Private configuration

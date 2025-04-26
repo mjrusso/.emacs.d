@@ -1,8 +1,3 @@
-;; Rundown of options for integrating LLMs into Emacs:
-;; https://www.reddit.com/r/emacs/comments/11k1q0s/comment/jb64sgc/?context=3
-;;
-;; Also see: https://github.com/s-kostyaev/ellama
-
 ;; GPTel: https://github.com/karthink/gptel
 ;;
 ;; Usage notes:

@@ -1,10 +1,10 @@
-;;; ai-context.el --- Helper functions to maintain context for AI tooling -*- lexical-binding: t -*-
+;;; ai-file-context.el --- Helper functions to maintain context for AI tooling -*- lexical-binding: t -*-
 
 ;;; Commentary:
 ;;
-;; `ai-context' provides functionality for maintaining a list of files (via
-;; special buffers). This is helpful when used in conjunction with AI tooling,
-;; such as Aider.
+;; `ai-file-context' provides functionality for maintaining a list of files
+;; (via special buffers). This is helpful when used in conjunction with AI
+;; tooling, such as Aider.
 
 ;;; Code:
 
@@ -104,4 +104,4 @@ or if it matches the pattern for a context list buffer."
 
             )))))))
 
-;;; ai-context.el ends here
+;;; ai-file-context.el ends here
