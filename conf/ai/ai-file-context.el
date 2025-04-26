@@ -113,7 +113,6 @@ or if it matches the pattern for a context list buffer."
 
             )))))))
 
-(global-set-key (kbd "C-c a c") #'my/file-context-list-add-file)
 (defun my/file-context-list-add-all-files ()
   "Add relative paths of all project files to the context list, sorted.
 
@@ -149,5 +148,11 @@ recognized project."
 
       (message "Wrote %d project files to '%s'" file-count list-buffer-name)
       (pop-to-buffer target-buffer))))
+
+
+(global-set-key (kbd "C-c a c o") #'my/file-context-list-open-buffer)
+(global-set-key (kbd "C-c a c c") #'my/file-context-list-clear-buffer)
+(global-set-key (kbd "C-c a c a") #'my/file-context-list-add-file)
+(global-set-key (kbd "C-c a c A") #'my/file-context-list-add-all-files)
 
 ;;; ai-file-context.el ends here
