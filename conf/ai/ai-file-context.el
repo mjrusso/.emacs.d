@@ -114,5 +114,40 @@ or if it matches the pattern for a context list buffer."
             )))))))
 
 (global-set-key (kbd "C-c a c") #'my/file-context-list-add-file)
+(defun my/file-context-list-add-all-files ()
+  "Add relative paths of all project files to the context list, sorted.
+
+Fetches all files belonging to the current project (respecting
+ignore files via `project-files`), calculates their paths
+relative to the project root, sorts them alphabetically, clears
+the project-specific context list buffer, and inserts the sorted
+relative paths into it.
+
+The target buffer is determined by `my/file-context-list-buffer-name`.
+Signals an error if the current buffer is not part of a
+recognized project."
+  (interactive)
+  (let* ((current-project (project-current t)))
+    (unless current-project
+      (user-error "Not inside a recognized project; cannot add all project files"))
+
+    (let* ((project-root (project-root current-project))
+           (list-buffer-name (my/file-context-list-buffer-name))
+           (absolute-files (project-files current-project))
+           (relative-files (mapcar (lambda (abs)
+                                     (file-relative-name abs project-root))
+                                   absolute-files))
+           (sorted-relative-files (sort relative-files #'string<))
+           (file-count (length sorted-relative-files))
+           (target-buffer (get-buffer-create list-buffer-name)))
+
+      (with-current-buffer target-buffer
+        (let ((buffer-read-only nil))
+          (erase-buffer)
+          (dolist (rel-file sorted-relative-files)
+            (insert rel-file "\n"))))
+
+      (message "Wrote %d project files to '%s'" file-count list-buffer-name)
+      (pop-to-buffer target-buffer))))
 
 ;;; ai-file-context.el ends here
