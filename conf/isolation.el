@@ -15,7 +15,7 @@
       '((t :inherit font-lock-string-face))
       "Face for `consult' framed buffers.")
 
-    (defun my-beframe-buffer-names-sorted (&optional frame)
+    (defun my/beframe-buffer-names-sorted (&optional frame)
       "Return the list of buffers from `beframe-buffer-names' sorted by visibility.
 With optional argument FRAME, return the list of buffers of FRAME."
       (beframe-buffer-names frame :sort #'beframe-buffer-sort-visibility))
@@ -26,7 +26,7 @@ With optional argument FRAME, return the list of buffers of FRAME."
          :category buffer
          :face     beframe-buffer
          :history  beframe-history
-         :items    ,#'my-beframe-buffer-names-sorted
+         :items    ,#'my/beframe-buffer-names-sorted
          :action   ,#'switch-to-buffer
          :state    ,#'consult--buffer-state))
 
