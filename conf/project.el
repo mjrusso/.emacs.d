@@ -11,7 +11,9 @@
     (let* ((project (or project-root (project-prompt-project-dir)))
            (default-directory project)
            (proj (project-current))
-           (project-name (file-name-nondirectory (directory-file-name project))))
+           (project-name (file-name-nondirectory (directory-file-name project)))
+           (file-context-list-buffer-name (my/get-file-context-list-buffer-name))
+           (file-context-list-buffer (get-buffer-create file-context-list-buffer-name)))
       (when project
         ;; This setup is optimized for TTY Emacs, where we simply start new
         ;; emacsclient instances for each project/context. (Each emacsclient
@@ -28,7 +30,8 @@
         (if (eq (car proj) 'vc)
             (magit-status)
           (project-dired))
-        (make-frame `((name . ,(format "%s" project-name)))))))
+        (make-frame `((name . ,(format "%s" project-name))))
+        (my/beframe-assume-buffer file-context-list-buffer))))
 
   (defun my/is-project-directory-p (directory)
     "Check if DIRECTORY is a project directory using project.el.

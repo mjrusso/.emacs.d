@@ -3,6 +3,14 @@
   :init
   (beframe-mode)
 
+  (defun my/beframe-assume-buffer (buffer)
+    "Assume BUFFER into the current frame's list using beframe.
+BUFFER must be a valid buffer object.
+Signals an error if BUFFER is not a buffer object."
+    (unless (bufferp buffer)
+      (error "Argument BUFFER must be a buffer object, but got %S" buffer))
+    (beframe--modify-buffer-list :assume (list buffer) t))
+
   ;; Wire up the list of beframe-filtered buffers as a candidate source. (These
   ;; will show up first when calling `consult-buffer'.) See
   ;; https://github.com/minad/consult#multiple-sources for more details on how
