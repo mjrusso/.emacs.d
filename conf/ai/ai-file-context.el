@@ -8,7 +8,7 @@
 
 ;;; Code:
 
-(defun my/get-file-context-list-buffer-name ()
+(defun my/file-context-list-buffer-name ()
   "Return the project-specific file list buffer name.
 Returns the name based on the current project's root directory name.
 If not inside a project, returns the default (fallback) value."
@@ -19,7 +19,7 @@ If not inside a project, returns the default (fallback) value."
                 (file-name-nondirectory (directory-file-name project-root)))
       "*file-context-list*")))
 
-(defun my/open-file-context-list (list-buffer-name)
+(defun my/file-context-list-open-buffer (list-buffer-name)
   "Display the file context list buffer with name LIST-BUFFER-NAME.
 
 Uses the project-specific or default buffer name unless called with a prefix argument,
@@ -27,20 +27,20 @@ in which case it prompts for the buffer name, defaulting to the current project'
 list buffer or the global default. Creates the buffer if it doesn't exist."
   (interactive
    (list (if current-prefix-arg
-             (read-buffer "Buffer to display file context list: " (my/get-file-context-list-buffer-name))
-           (my/get-file-context-list-buffer-name))))
+             (read-buffer "Buffer to display file context list: " (my/file-context-list-buffer-name))
+           (my/file-context-list-buffer-name))))
   (pop-to-buffer list-buffer-name)
   (message "Displayed file list buffer: %s" list-buffer-name))
 
-(defun my/clear-file-context-list (list-buffer-name)
-  "Clear the file context list buffer with name LIST-BUFFER-NAME.
+(defun my/file-context-list-clear-buffer (list-buffer-name)
+  "Clear the file context list buffer LIST-BUFFER-NAME.
 
 Uses the project-specific or default buffer name unless called with a prefix argument,
 in which case it prompts for the buffer name."
   (interactive
    (list (if current-prefix-arg
-             (read-buffer "File context list buffer to clear: " (my/get-file-context-list-buffer-name))
-           (my/get-file-context-list-buffer-name))))
+             (read-buffer "File context list buffer to clear: " (my/file-context-list-buffer-name))
+           (my/file-context-list-buffer-name))))
   (let ((buffer (get-buffer list-buffer-name)))
     (if buffer
         (with-current-buffer buffer
@@ -48,7 +48,7 @@ in which case it prompts for the buffer name."
           (message "Cleared buffer: %s" list-buffer-name))
       (message "Buffer '%s' does not exist." list-buffer-name))))
 
-(defun my/add-to-file-context-list (list-buffer-name)
+(defun my/file-context-list-add-file (list-buffer-name)
   "Add current buffer's file name to LIST-BUFFER-NAME.
 
 Uses the project-specific or default buffer name unless called with a prefix argument,
@@ -62,8 +62,8 @@ An error is signaled if the current buffer is not visiting a file,
 or if it matches the pattern for a context list buffer."
   (interactive
    (list (if current-prefix-arg
-             (read-buffer "Add file to context list buffer: " (my/get-file-context-list-buffer-name))
-           (my/get-file-context-list-buffer-name))))
+             (read-buffer "Add file to context list buffer: " (my/file-context-list-buffer-name))
+           (my/file-context-list-buffer-name))))
 
 
   (let ((current-buffer-obj (current-buffer))

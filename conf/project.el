@@ -12,7 +12,7 @@
            (default-directory project)
            (proj (project-current))
            (project-name (file-name-nondirectory (directory-file-name project)))
-           (file-context-list-buffer-name (my/get-file-context-list-buffer-name))
+           (file-context-list-buffer-name (my/file-context-list-buffer-name))
            (file-context-list-buffer (get-buffer-create file-context-list-buffer-name)))
       (when project
         ;; This setup is optimized for TTY Emacs, where we simply start new

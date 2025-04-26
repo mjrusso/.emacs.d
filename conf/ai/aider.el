@@ -9,7 +9,7 @@ context if the list buffer contains relative paths."
 
   (interactive
    (list (read-buffer "Buffer containing file context list: "
-                      (my/get-file-context-list-buffer-name))))
+                      (my/file-context-list-buffer-name))))
 
   (let ((buffer (get-buffer list-buffer-name)))
     (unless buffer
