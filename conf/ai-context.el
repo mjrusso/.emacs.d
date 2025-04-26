@@ -1,0 +1,107 @@
+;;; ai-context.el --- Helper functions to maintain context for AI tooling -*- lexical-binding: t -*-
+
+;;; Commentary:
+;;
+;; `ai-context' provides functionality for maintaining a list of files (via
+;; special buffers). This is helpful when used in conjunction with AI tooling,
+;; such as Aider.
+
+;;; Code:
+
+(defun my/get-file-context-list-buffer-name ()
+  "Return the project-specific file list buffer name.
+Returns the name based on the current project's root directory name.
+If not inside a project, returns the default (fallback) value."
+  (let* ((current-project (project-current))
+         (project-root (and current-project (project-root current-project))))
+    (if project-root
+        (format "*%s-file-context-list*"
+                (file-name-nondirectory (directory-file-name project-root)))
+      "*file-context-list*")))
+
+(defun my/open-file-context-list (list-buffer-name)
+  "Display the specified file context list buffer with name LIST-BUFFER-NAME.
+
+Prompts for the buffer name, defaulting to the current project's
+list buffer or the global default. Creates the buffer if it doesn't exist."
+  (interactive
+   (list (read-buffer "Buffer to display file context list: "
+                      (my/get-file-context-list-buffer-name))))
+  (pop-to-buffer list-buffer-name)
+  (message "Displayed file list buffer: %s" list-buffer-name))
+
+(defun my/clear-file-context-list (list-buffer-name)
+  "Clear the specified file context list buffer with name LIST-BUFFER-NAME."
+  (interactive
+   (list (read-buffer "File context list buffer to clear: "
+                      (my/get-file-context-list-buffer-name))))
+  (let ((buffer (get-buffer list-buffer-name)))
+    (if buffer
+        (with-current-buffer buffer
+          (erase-buffer)
+          (message "Cleared buffer: %s" list-buffer-name))
+      (message "Buffer '%s' does not exist." list-buffer-name))))
+
+(defun my/add-to-file-context-list (list-buffer-name)
+  "Add current buffer's file name to LIST-BUFFER-NAME.
+
+If the file is within the project, adds the relative path.
+Otherwise, adds the absolute path.
+If LIST-BUFFER-NAME does not exist, it is created and **always** displayed.
+Prevents adding the list buffer itself or other context list buffers.
+An error is signaled if the current buffer is not visiting a file,
+or if it matches the pattern for a context list buffer."
+  (interactive
+   (list (read-buffer "Add file to context list buffer: "
+                      (my/get-file-context-list-buffer-name))))
+
+
+  (let ((current-buffer-obj (current-buffer))
+        (current-buffer-name (buffer-name (current-buffer)))
+        (absolute-file-name (buffer-file-name (current-buffer))))
+
+    (cond
+     ((string= current-buffer-name list-buffer-name)
+      (user-error "Cannot add the target list buffer '%s' to itself" list-buffer-name))
+
+     ((string-match-p "-file-context-list\\*$\\|\\*file-context-list\\*" current-buffer-name)
+      (user-error "Cannot add buffer '%s' as it looks like a context list buffer" current-buffer-name))
+
+     ((null absolute-file-name)
+      (user-error "Current buffer '%s' has no associated file" current-buffer-name))
+
+     (t
+      (save-current-buffer
+        (save-excursion
+          (let* ((current-project (project-current))
+                 (project-root (and current-project (project-root current-project)))
+                 (name-to-insert (if project-root
+                                     (file-relative-name absolute-file-name project-root)
+                                   absolute-file-name))
+                 (path-type (if project-root "relative" "absolute"))
+                 (buffer-existed (get-buffer list-buffer-name))
+                 (target-buffer (get-buffer-create list-buffer-name))
+                 (added nil))
+
+            (with-current-buffer target-buffer
+              (save-excursion
+                (goto-char (point-min))
+                (if (re-search-forward (concat "^" (regexp-quote name-to-insert) "$") nil t)
+                    (message "'%s' already exists in '%s'" name-to-insert list-buffer-name)
+                  (goto-char (point-max))
+                  (unless (or (bobp) ; Buffer is empty
+                              (eq (char-before (point-max)) ?\n))
+                    (insert "\n"))
+                  (insert name-to-insert)
+                  (unless (eq (char-before (point-max)) ?\n)
+                    (insert "\n"))
+                  (setq added t)
+                  (message "Added %s path '%s' to '%s'" path-type name-to-insert list-buffer-name)
+                  )))
+
+            (when (not buffer-existed)
+              (pop-to-buffer target-buffer))
+
+            )))))))
+
+;;; ai-context.el ends here
