@@ -29,6 +29,7 @@
  ("emacs-fish" . "2526b1803b58cf145bc70ff6ce2adb3f6c246f89")
  ("emacs-htmlize" . "8e3841c837b4b78bd72ad7f0436e919f39315a46")
  ("emacs-idle-highlight-mode" . "531be0c2d6dc13c525138c1c9a0f59ac42268f58")
+ ("emacs-kotlin-ts-mode" . "a25d56cecac9160ba7c140f982ec16ca7b2fe97f")
  ("emacs-libvterm" . "99c1f5e76ac927825775c887c93e46036fac7327")
  ("emacs-python-black" . "4da1519345b3d5c513d82ef0d39536dd9c626d42")
  ("emacs-reformatter" . "f2cb59466b1c3f85a8c960f7d4b7b7ead015bedc")

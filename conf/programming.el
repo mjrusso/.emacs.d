@@ -569,6 +569,9 @@ command to have any effect."
          "\\.cljs\\'"
          "\\.edn\\'"))
 
+(use-package kotlin-ts-mode
+  :mode "\\.kt\\'")
+
 ;; https://github.com/yoshiki/yaml-mode
 (use-package yaml-mode
   :mode ("\\.yml\\'" . yaml-mode))
