@@ -144,3 +144,16 @@ With a prefix ARG always prompt for command to use."
   (message "Shell: %s\nPath: %s"
            (getenv "SHELL")
            (getenv "PATH")))
+
+(defun my/clipboard-to-buffer ()
+  "Create a new buffer with the contents of the clipboard."
+  (interactive)
+  (let ((buffer (generate-new-buffer "*Clipboard*"))
+        (clipboard-content (current-kill 0)))
+    (with-current-buffer buffer
+      (insert clipboard-content)
+      (goto-char (point-min)))
+    (pop-to-buffer buffer)
+    (message "Clipboard content inserted into new buffer.")))
+
+(global-set-key (kbd "C-c a b") 'my/clipboard-to-buffer)
