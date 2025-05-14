@@ -113,26 +113,28 @@ or if it matches the pattern for a context list buffer."
 
             )))))))
 
-(defun my/file-context-list-add-all-files ()
-  "Add relative paths of all project files to the context list, sorted.
+(defun my/file-context-list-add-directory-files ()
+  "Add paths of all files from a directory to the context list, sorted.
 
-Fetches all files belonging to the current project (respecting
-ignore files via `project-files`), calculates their paths
-relative to the project root, sorts them alphabetically, clears
-the project-specific context list buffer, and inserts the sorted
-relative paths into it.
+Prompts for a directory to add files from, defaulting to the project root.
+Fetches all files belonging to the selected directory (respecting
+ignore files via `project-files`), calculates their paths relative
+to the project root, sorts them alphabetically, and inserts the sorted
+relative paths into the context list buffer.
 
 The target buffer is determined by `my/file-context-list-buffer-name`.
 Signals an error if the current buffer is not part of a
 recognized project."
   (interactive)
-  (let* ((current-project (project-current t)))
-    (unless current-project
-      (user-error "Not inside a recognized project; cannot add all project files"))
+  (let* ((current-project (project-current t))
+         (project-root (project-root current-project))
+         (selected-dir (read-directory-name "Add files from directory: " project-root nil t))
+         (list-buffer-name (my/file-context-list-buffer-name)))
 
-    (let* ((project-root (project-root current-project))
-           (list-buffer-name (my/file-context-list-buffer-name))
-           (absolute-files (project-files current-project))
+    (unless (file-directory-p selected-dir)
+      (user-error "Not a valid directory: %s" selected-dir))
+
+    (let* ((absolute-files (directory-files-recursively selected-dir ".*" nil t))
            (relative-files (mapcar (lambda (abs)
                                      (file-relative-name abs project-root))
                                    absolute-files))
@@ -146,13 +148,15 @@ recognized project."
           (dolist (rel-file sorted-relative-files)
             (insert rel-file "\n"))))
 
-      (message "Wrote %d project files to '%s'" file-count list-buffer-name)
+      (message "Wrote %d files from '%s' to '%s'"
+               file-count
+               (file-relative-name selected-dir project-root)
+               list-buffer-name)
       (pop-to-buffer target-buffer))))
-
 
 (global-set-key (kbd "C-c a c o") #'my/file-context-list-open-buffer)
 (global-set-key (kbd "C-c a c c") #'my/file-context-list-clear-buffer)
 (global-set-key (kbd "C-c a c a") #'my/file-context-list-add-file)
-(global-set-key (kbd "C-c a c A") #'my/file-context-list-add-all-files)
+(global-set-key (kbd "C-c a c A") #'my/file-context-list-add-directory-files)
 
 ;;; ai-file-context.el ends here
