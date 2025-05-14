@@ -556,7 +556,9 @@ command to have any effect."
 ;; https://github.com/ananthakumaran/exunit.el
 (use-package exunit
   :custom  (transient-default-level 5)
-  :config  (add-hook 'elixir-ts-mode-hook 'exunit-mode)
+  :config
+  (add-hook 'elixir-mode-hook 'exunit-mode)
+  (add-hook 'elixir-ts-mode-hook 'exunit-mode)
   )
 
 (use-package lua-mode
