@@ -113,8 +113,11 @@ or if it matches the pattern for a context list buffer."
 
             )))))))
 
-(defun my/file-context-list-add-directory-files ()
-  "Add paths of all files from a directory to the context list, sorted.
+(defun my/file-context-list-add-directory-files (list-buffer-name)
+  "Add paths of all files from a directory to LIST-BUFFER-NAME.
+
+Uses the project-specific or default buffer name unless called with a prefix argument,
+ in which case it prompts for the buffer name.
 
 Prompts for a directory to add files from, defaulting to the project root.
 Fetches all files belonging to the selected directory (respecting
@@ -122,14 +125,16 @@ ignore files via `project-files`), calculates their paths relative
 to the project root, sorts them alphabetically, and inserts the sorted
 relative paths into the context list buffer.
 
-The target buffer is determined by `my/file-context-list-buffer-name`.
 Signals an error if the current buffer is not part of a
 recognized project."
-  (interactive)
+  (interactive
+   (list (if current-prefix-arg
+             (read-buffer "Add files to context list buffer: " (my/file-context-list-buffer-name))
+           (my/file-context-list-buffer-name))))
+
   (let* ((current-project (project-current t))
          (project-root (project-root current-project))
-         (selected-dir (read-directory-name "Add files from directory: " project-root nil t))
-         (list-buffer-name (my/file-context-list-buffer-name)))
+         (selected-dir (read-directory-name "Add files from directory: " project-root nil t)))
 
     (unless (file-directory-p selected-dir)
       (user-error "Not a valid directory: %s" selected-dir))
@@ -140,6 +145,7 @@ recognized project."
                                    absolute-files))
            (sorted-relative-files (sort relative-files #'string<))
            (file-count (length sorted-relative-files))
+           (buffer-existed (get-buffer list-buffer-name))
            (target-buffer (get-buffer-create list-buffer-name)))
 
       (with-current-buffer target-buffer
@@ -152,7 +158,9 @@ recognized project."
                file-count
                (file-relative-name selected-dir project-root)
                list-buffer-name)
-      (pop-to-buffer target-buffer))))
+
+      (when (not buffer-existed)
+        (pop-to-buffer target-buffer)))))
 
 (global-set-key (kbd "C-c a c o") #'my/file-context-list-open-buffer)
 (global-set-key (kbd "C-c a c c") #'my/file-context-list-clear-buffer)
