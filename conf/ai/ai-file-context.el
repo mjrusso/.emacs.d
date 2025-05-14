@@ -139,7 +139,12 @@ recognized project."
     (unless (file-directory-p selected-dir)
       (user-error "Not a valid directory: %s" selected-dir))
 
-    (let* ((absolute-files (directory-files-recursively selected-dir ".*" nil t))
+    (let* ((all-project-files (project-files current-project))
+           (selected-dir-abs (expand-file-name selected-dir))
+           (absolute-files (seq-filter
+                            (lambda (file)
+                              (string-prefix-p selected-dir-abs file))
+                            all-project-files))
            (relative-files (mapcar (lambda (abs)
                                      (file-relative-name abs project-root))
                                    absolute-files))
