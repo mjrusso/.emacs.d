@@ -94,11 +94,9 @@
       ;; Note that Corfu uses a transient keymap (corfu-map) which is active while
       ;; the popup is shown. The copilot-mode-map is always active.
 
-      (define-key copilot-completion-map (kbd "C-e") 'copilot-accept-completion)
-      (define-key copilot-completion-map (kbd "C-f") 'copilot-accept-completion-by-line)
+      (define-key copilot-completion-map (kbd "TAB") 'copilot-accept-completion)
       )
   (message "Node.js not found; not starting GitHub Copilot"))
-
 
 ;; Enable a `consulting-read' interface for eglot (specifically, the
 ;; `workspace/symbols` LSP procedure call).
