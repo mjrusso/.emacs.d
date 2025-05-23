@@ -75,7 +75,6 @@
  ("ns-auto-titlebar" . "1205ac67b76b58e9eb53d2115b85775533653a80")
  ("olivetti" . "845eb7a95a3ca3325f1120c654d761b91683f598")
  ("orderless" . "411051c3257d60f0492cf88065193bb443b6ca0d")
- ("org" . "d6b6b41cbdb71d6103d8f0f2eeade0cc572cf9bc")
  ("org-download" . "c8be2611786d1d8d666b7b4f73582de1093f25ac")
  ("org-reveal" . "f55c851bf6aeb1bb2a7f6cf0f2b7bd0e79c4a5a0")
  ("org-roam" . "cad3518788991623aa5621341471aef67108937d")

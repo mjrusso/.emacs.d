@@ -1,6 +1,7 @@
 (setq my/primary-org-directory (file-truename "~/Dropbox/org/"))
 
 (use-package org
+  :straight (:type built-in)
 
   :bind
 
