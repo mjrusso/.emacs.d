@@ -12,7 +12,7 @@
  ("consult-eglot" . "34eab339ae412b98c160ad1cbd4f443dd70f9202")
  ("consult-flycheck" . "3bc2141daf8cfad7e4d2e2f78b15d45033f707a5")
  ("consult-yasnippet" . "834d39acfe8a7d2c304afbe4d649b9372118c756")
- ("copilot.el" . "be6c274562e150e4acf5253968d1b434c40d368b")
+ ("copilot.el" . "fe3f51b636dea1c9ac55a0d5dc5d7df02dcbaa48")
  ("corfu" . "c7626a699b55c53a389916ef1816c59e1b853b9b")
  ("dash.el" . "1de9dcb83eacfb162b6d9a118a4770b1281bcd84")
  ("deadgrep" . "bb555790c6f404572d537e1e4adec8b4ff0515f5")
