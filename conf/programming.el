@@ -407,13 +407,26 @@ command to have any effect."
 
 (use-package typescript-mode
   :defer t
+  :mode (("\\.ts\\'" . typescript-mode)
+         ("\\.tsx\\'" . typescript-mode))
   :init
-  (add-to-list 'auto-mode-alist '("\\.ts$" . typescript-mode))
   (setq-default typescript-indent-level 2)
   :hook
   (typescript-mode . prettier-js-mode)
   (typescript-mode . eglot-ensure)
-  )
+  (typescript-mode . (lambda () (indent-tabs-mode -1)))
+  (typescript-mode . (lambda ()
+                       ;; Don't apply formatting; we use Prettier instead.
+                       (setq-local eglot-ignored-server-capabilities
+                                   '(:documentFormattingProvider
+                                     :documentRangeFormattingProvider))))
+  :custom
+  (js-indent-level 2)
+  (js-jsx-indent-level 2)
+  :config
+  (with-eval-after-load 'eglot
+    (add-to-list 'eglot-server-programs
+                 `(typescript-mode . ("typescript-language-server" "--stdio")))))
 
 (use-package js2-mode
   :defer t
