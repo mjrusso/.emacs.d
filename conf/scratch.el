@@ -17,4 +17,19 @@ location `my/scratch-files-dir'."
          (path (format "%s%s" initial-path name)))
     (find-file path)))
 
+
+(defun my/daily-scratch-file ()
+  "Create or open today's daily scratch file in org format."
+  (interactive)
+  (let* ((today (format-time-string "%Y-%m-%d"))
+         (filename (format "%s.org" today))
+         (filepath (expand-file-name filename my/persistent-scratch-files-dir))
+         (file-exists (file-exists-p filepath)))
+    (find-file filepath)
+    (unless file-exists
+      (insert (format "#+TITLE: Daily Notes - %s\n\n" today))
+      (goto-char (point-max)))))
+
+
 (global-set-key (kbd "C-c n s") 'my/persistent-scratch-file)
+(global-set-key (kbd "C-c n d") 'my/daily-scratch-file)
