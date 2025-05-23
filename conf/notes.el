@@ -1,4 +1,5 @@
-(setq my/primary-org-directory (file-truename "~/Dropbox/org/"))
+(setq my/primary-org-directory (file-truename "~/Dropbox/Notes/"))
+
 
 (use-package org
   :straight (:type built-in)

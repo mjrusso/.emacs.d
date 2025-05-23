@@ -1,4 +1,4 @@
-(defvar my/persistent-scratch-files-dir (file-truename "~/Dropbox/scratch/")
+(defvar my/persistent-scratch-files-dir (file-truename "~/Dropbox/Notes/scratch/")
   "Default location of persistent scratch files")
 
 (defun my/persistent-scratch-file ()
