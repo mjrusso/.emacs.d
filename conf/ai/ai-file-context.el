@@ -122,9 +122,11 @@ Uses the project-specific or default buffer name unless called with a prefix arg
 Prompts for a directory to add files from, defaulting to the project root.
 Fetches all files belonging to the selected directory (respecting
 ignore files via `project-files`), calculates their paths relative
-to the project root, sorts them alphabetically, and inserts the sorted
-relative paths into the context list buffer.
+to the project root. The list of files to add is sorted alphabetically.
+Each unique file path is then appended to the context list buffer if not
+already present.
 
+If LIST-BUFFER-NAME does not exist, it is created and **always** displayed.
 Signals an error if the current buffer is not part of a
 recognized project."
   (interactive
@@ -145,27 +147,51 @@ recognized project."
                             (lambda (file)
                               (string-prefix-p selected-dir-abs file))
                             all-project-files))
-           (relative-files (mapcar (lambda (abs)
-                                     (file-relative-name abs project-root))
+           (relative-files (mapcar (lambda (abs-file)
+                                     (file-relative-name abs-file project-root))
                                    absolute-files))
            (sorted-relative-files (sort relative-files #'string<))
-           (file-count (length sorted-relative-files))
            (buffer-existed (get-buffer list-buffer-name))
-           (target-buffer (get-buffer-create list-buffer-name)))
+           (total-to-process (length sorted-relative-files))
+           (added-count 0)
+           (skipped-count 0))
 
-      (with-current-buffer target-buffer
-        (let ((buffer-read-only nil))
-          (erase-buffer)
-          (dolist (rel-file sorted-relative-files)
-            (insert rel-file "\n"))))
+      (if (or (> total-to-process 0) buffer-existed)
+          (let ((target-buffer (get-buffer-create list-buffer-name)))
+            (with-current-buffer target-buffer
+              (dolist (rel-file sorted-relative-files)
+                (save-excursion
+                  (goto-char (point-min))
+                  (if (re-search-forward (concat "^" (regexp-quote rel-file) "$") nil t)
+                      (setq skipped-count (1+ skipped-count))
+                    (progn ; File not found, add it
+                      (goto-char (point-max))
+                      ;; Ensure a newline before inserting, if buffer is not empty and doesn't end with one
+                      (unless (or (bobp) (eq (char-before (point-max)) ?\n))
+                        (insert "\n"))
+                      (insert rel-file)
+                      ;; Ensure a newline after inserting the file name
+                      (unless (eq (char-before (point-max)) ?\n)
+                        (insert "\n"))
+                      (setq added-count (1+ added-count)))))))
 
-      (message "Wrote %d files from '%s' to '%s'"
-               file-count
-               (file-relative-name selected-dir project-root)
-               list-buffer-name)
+            (when (not buffer-existed)
+              (pop-to-buffer target-buffer))))
 
-      (when (not buffer-existed)
-        (pop-to-buffer target-buffer)))))
+      (let ((relative-selected-dir (file-relative-name selected-dir project-root)))
+        (cond
+         ((= total-to-process 0)
+          (message "No files found in directory '%s' to add to '%s'"
+                   relative-selected-dir list-buffer-name))
+         ((= added-count 0)
+          (message "No new files added from '%s' to '%s'. All %d files already present."
+                   relative-selected-dir list-buffer-name skipped-count))
+         (t
+          (message "Added %d relative file paths (skipped %d already present) from '%s' to '%s'"
+                   added-count
+                   skipped-count
+                   relative-selected-dir
+                   list-buffer-name)))))))
 
 (global-set-key (kbd "C-c a c o") #'my/file-context-list-open-buffer)
 (global-set-key (kbd "C-c a c c") #'my/file-context-list-clear-buffer)
