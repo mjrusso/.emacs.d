@@ -57,46 +57,45 @@
   :after (eglot flycheck)
   :hook ((eglot-managed-mode . flycheck-eglot-mode)))
 
-;; Unofficial plugin for GitHub Copilot.
+;; Wingman: LLM-assisted text completion
 ;;
-;; Requires Node.js.
+;; Requires running llama.cpp server running a model that supports FIM
+;; (fill-in-the-middle) completion.
 ;;
-;; To log in to Copilot: `M-x copilot-login'
-;;
-;; To check status: `M-x copilot-diagnose'
-;;
-;; See: https://github.com/zerolfx/copilot.el
-(if (executable-find "node")
-    (use-package copilot
-      :straight (:host github :repo "zerolfx/copilot.el" :files ("dist" "*.el"))
-      :ensure t
+;; https://github.com/mjrusso/wingman
+(use-package wingman
+  :straight (:type git :host github :repo "mjrusso/wingman")
+  :ensure t
+  :defer t
 
-      :hook ((prog-mode . copilot-mode))
+  :init
 
-      :config
+  (setq wingman-key-trigger (kbd "C-c a z"))
 
-      (setq copilot-indent-offset-warning-disable t)
+  :hook (prog-mode . wingman-mode)
 
-      ;; Disable in buffers that may contain secrets.
-      (add-to-list 'copilot-disable-predicates
-                   #'(lambda ()
-                       (or (derived-mode-p 'envrc-file-mode)
-                           (derived-mode-p 'direnv-envrc-mode)
-                           (string-equal ".env" (file-name-nondirectory buffer-file-name))
-                           (string-equal ".envrc" (file-name-nondirectory buffer-file-name))
-                           (string-prefix-p ".localrc" (file-name-nondirectory buffer-file-name)))))
+  :config
 
-      (set-face-attribute 'copilot-overlay-face nil
-                          :foreground  (modus-themes-get-color-value 'red-warmer)
-                          :background  (modus-themes-get-color-value 'bg-inactive)
-                          )
+  (setq wingman-log-level 4)
+  (setq wingman-key-accept-full (kbd "TAB"))
+  (setq wingman-llama-endpoint "http://127.0.0.1:8012/infill")
+  (setq wingman-ring-n-chunks 16)
 
-      ;; Note that Corfu uses a transient keymap (corfu-map) which is active while
-      ;; the popup is shown. The copilot-mode-map is always active.
+  ;; assumes use of Modus Themes; substitute with preferred color scheme
+  (set-face-attribute 'wingman-overlay-face nil
+                      :foreground  (modus-themes-get-color-value 'red-warmer)
+                      :background  (modus-themes-get-color-value 'bg-inactive))
 
-      (define-key copilot-completion-map (kbd "TAB") 'copilot-accept-completion)
-      )
-  (message "Node.js not found; not starting GitHub Copilot"))
+  ;; don't provide completions in files that typically contain secrets
+  (add-to-list 'wingman-disable-predicates
+               (lambda ()
+                 (or (derived-mode-p 'envrc-file-mode)
+                     (derived-mode-p 'direnv-envrc-mode)
+                     (when buffer-file-name
+                       (let ((fname (file-name-nondirectory buffer-file-name)))
+                         (or (string-equal ".env" fname)
+                             (string-equal ".envrc" fname)
+                             (string-prefix-p ".localrc" fname))))))))
 
 ;; Enable a `consulting-read' interface for eglot (specifically, the
 ;; `workspace/symbols` LSP procedure call).
