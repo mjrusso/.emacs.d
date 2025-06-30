@@ -70,9 +70,16 @@
 
   :init
 
-  (setq wingman-key-trigger (kbd "C-c a z"))
+  (setq wingman-prefix-key (kbd "C-c a"))
 
   :hook (prog-mode . wingman-mode)
+
+  :bind
+
+  (:map wingman-mode-prefix-map
+        ("z" . wingman-fim-inline)
+        :map wingman-mode-completion-transient-map
+        ("TAB" . wingman-accept-full))
 
   :config
 
