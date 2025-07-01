@@ -78,6 +78,7 @@
 
   (:map wingman-mode-prefix-map
         ("z" . wingman-fim-inline)
+        ("x" . wingman-debug-completion)
         :map wingman-mode-completion-transient-map
         ("TAB" . wingman-accept-full))
 
