@@ -5,7 +5,7 @@
 ;;
 ;; https://github.com/mjrusso/wingman
 (use-package wingman
-  :straight (:type git :host github :repo "mjrusso/wingman")
+  :straight (:type git :local-repo "~/git/github.com/mjrusso/wingman")
   :ensure t
   :defer t
 
