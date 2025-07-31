@@ -18,8 +18,9 @@
   :bind
 
   (:map wingman-mode-prefix-map
-        ("z" . wingman-fim-inline)
-        ("x" . wingman-debug-completion)
+        ("z" . wingman-fim)
+        ("Z" . wingman-fim-debug)
+        ("x" . wingman-fim-emulated)
         :map wingman-mode-completion-transient-map
         ("TAB" . wingman-accept-full))
 
