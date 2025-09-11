@@ -423,11 +423,15 @@ command to have any effect."
   (python-mode . eglot-ensure)
   )
 
-;; https://github.com/wbolster/emacs-python-black
-(use-package python-black
-  :demand t
-  :after python
-  :hook (python-mode . python-black-on-save-mode-enable-dwim))
+;; https://github.com/purcell/emacs-reformatter
+(use-package reformatter
+  :hook
+  (python-mode . ruff-format-on-save-mode)
+  (python-ts-mode . ruff-format-on-save-mode)
+  :config
+  (reformatter-define ruff-format
+    :program "ruff"
+    :args `("format" "--stdin-filename" ,buffer-file-name "-")))
 
 ;; Tree-Sitter
 ;;
