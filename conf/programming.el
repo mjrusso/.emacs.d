@@ -447,12 +447,6 @@ command to have any effect."
 ;; Elixir
 ;;
 ;; Additional reference: https://medium.com/@victor.nascimento/elixir-emacs-development-2023-edition-1a6ccc40629
-;;
-;; Note that there are currently three competing language server options:
-;;
-;; - Next LS: https://github.com/elixir-tools/next-ls
-;; - Lexical: https://github.com/lexical-lsp/lexical
-;; - ElixirLS: https://github.com/elixir-lsp/elixir-ls
 
 ;; https://github.com/elixir-editors/emacs-elixir
 (use-package elixir-mode
@@ -465,7 +459,7 @@ command to have any effect."
   :config
   (add-to-list 'eglot-server-programs
                `(elixir-mode . ,(eglot-alternatives
-                                 `("elixir-ls" ("nextls" "--stdio=true") "lexical")))))
+                                 `("expert" "elixir-ls" ("nextls" "--stdio=true") "lexical")))))
 
 ;; https://github.com/wkirschbaum/elixir-ts-mode
 ;;
@@ -490,7 +484,7 @@ command to have any effect."
   :config
   (add-to-list 'eglot-server-programs
                `(elixir-ts-mode . ,(eglot-alternatives
-                                    `("elixir-ls" ("nextls" "--stdio=true") "lexical")))))
+                                    `("expert" "elixir-ls" ("nextls" "--stdio=true") "lexical")))))
 
 ;; https://github.com/wkirschbaum/heex-ts-mode
 ;;
@@ -509,7 +503,7 @@ command to have any effect."
   :config
   (add-to-list 'eglot-server-programs
                `(heex-ts-mode . ,(eglot-alternatives
-                                  `("elixir-ls" ("nextls" "--stdio=true") "lexical")))))
+                                  `("expert" "elixir-ls" ("nextls" "--stdio=true") "lexical")))))
 
 ;; ExUnit test runner for Elixir.
 ;;
