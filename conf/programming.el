@@ -448,18 +448,22 @@ command to have any effect."
 ;;
 ;; Additional reference: https://medium.com/@victor.nascimento/elixir-emacs-development-2023-edition-1a6ccc40629
 
+(defvar my/elixir-lsp-servers
+  (eglot-alternatives
+   '("expert" "elixir-ls" ("nextls" "--stdio=true") "lexical")))
+
+(add-to-list 'eglot-server-programs
+             `((elixir-mode elixir-ts-mode heex-ts-mode) . ,my/elixir-lsp-servers))
+
+(defun my/elixir-setup ()
+  "Start eglot and enable buffer-local format-on-save."
+  (eglot-ensure)
+  (add-hook 'before-save-hook #'eglot-format nil t))
+
 ;; https://github.com/elixir-editors/emacs-elixir
 (use-package elixir-mode
   :defer t
-
-  :hook
-  (elixir-mode . eglot-ensure)
-  (before-save . eglot-format)
-
-  :config
-  (add-to-list 'eglot-server-programs
-               `(elixir-mode . ,(eglot-alternatives
-                                 `("expert" "elixir-ls" ("nextls" "--stdio=true") "lexical")))))
+  :hook (elixir-mode . my/elixir-setup))
 
 ;; https://github.com/wkirschbaum/elixir-ts-mode
 ;;
@@ -476,15 +480,7 @@ command to have any effect."
          "\\.ex\\'"
          "\\.exs\\'"
          "mix\\.lock")
-
-  :hook
-  (elixir-ts-mode . eglot-ensure)
-  (before-save . eglot-format)
-
-  :config
-  (add-to-list 'eglot-server-programs
-               `(elixir-ts-mode . ,(eglot-alternatives
-                                    `("expert" "elixir-ls" ("nextls" "--stdio=true") "lexical")))))
+  :hook (elixir-ts-mode . my/elixir-setup))
 
 ;; https://github.com/wkirschbaum/heex-ts-mode
 ;;
@@ -493,17 +489,8 @@ command to have any effect."
 ;; Requires installation of the tree-sitter grammars; see comment above.
 (use-package heex-ts-mode
   :defer t
-
-  :mode ("\\.[hl]?eex\\'")
-
-  :hook
-  (heex-ts-mode . eglot-ensure)
-  (before-save . eglot-format)
-
-  :config
-  (add-to-list 'eglot-server-programs
-               `(heex-ts-mode . ,(eglot-alternatives
-                                  `("expert" "elixir-ls" ("nextls" "--stdio=true") "lexical")))))
+  :mode "\\.[hl]?eex\\'"
+  :hook (heex-ts-mode . my/elixir-setup))
 
 ;; ExUnit test runner for Elixir.
 ;;
