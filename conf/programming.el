@@ -450,7 +450,7 @@ command to have any effect."
 
 (defvar my/elixir-lsp-servers
   (eglot-alternatives
-   '("expert" "elixir-ls" ("nextls" "--stdio=true") "lexical")))
+   '("elixir-ls" "expert" ("nextls" "--stdio=true") "lexical")))
 
 (add-to-list 'eglot-server-programs
              `((elixir-mode elixir-ts-mode heex-ts-mode) . ,my/elixir-lsp-servers))
