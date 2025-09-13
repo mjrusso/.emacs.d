@@ -1,8 +1,57 @@
+(require 'cl-lib)
+(require 'subr-x)
+
+(defvar my/project-sentinels
+  '("mix.exs"          ; Elixir
+    "package.json"     ; Node/JS/TS
+    "Cargo.toml"       ; Rust
+    "go.mod"           ; Go
+    "pyproject.toml"   ; Python
+    "Gemfile"          ; Ruby
+    "deps.edn"         ; Clojure
+    "project.clj"      ; Clojure
+    "shadow-cljs.edn"  ; ClojureScript
+    "build.gradle"     ; Java/Kotlin
+    "build.gradle.kts" ; Kotlin
+    "pom.xml"          ; Java/Maven
+    "composer.json"    ; PHP
+    "stack.yaml"       ; Haskell
+    "cabal.project"    ; Haskell
+    )
+  "File names that mark sub-project roots in a monorepo.")
+
+;; Properly support monorepos when using eglot.
+;;
+;; By default, eglot assumes that the project root is the repository root.
+;; However, in a monorepo, this is generally not correct: the language server
+;; will typically need (or want) to be started in a specific subfolder.
+;;
+;; An alternative approach is to customize the `project-vc-extra-root-markers'
+;; variable, but that change affects all project-related commands. (Instead,
+;; `eglot-lsp-context' only affects how an LSP server is started by eglot.)
+
+;; For additional background, see:
+;; https://gist.github.com/pesterhazy/e8e445e6715f5d8bae3c62bc9db32469
+(defun my/eglot-monorepo-project-finder (dir)
+  (when (bound-and-true-p eglot-lsp-context)
+    (when-let ((project-dir
+                (locate-dominating-file
+                 dir
+                 (lambda (directory)
+                   (cl-some (lambda (sentinel)
+                              (file-exists-p (expand-file-name sentinel directory)))
+                            my/project-sentinels)))))
+      (condition-case nil
+          (list 'vc (vc-responsible-backend project-dir) project-dir)
+        (error (cons 'transient project-dir))))))
+
 ;; https://github.com/emacs-mirror/emacs/blob/master/lisp/progmodes/project.el
 (use-package project
+  :ensure nil
 
   :config
   (define-key global-map (kbd "C-c p") project-prefix-map)
+  (add-hook 'project-find-functions #'my/eglot-monorepo-project-finder)
 
   :init
   (defun my/project-switch-project (&optional project-root)
