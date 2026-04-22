@@ -31,6 +31,13 @@
   :config
   (setq base16-theme-256-color-source 'terminal))
 
+(defun my/use-terminal-colors ()
+  "Disable all active themes to inherit colors from the terminal."
+  (interactive)
+  (dolist (theme custom-enabled-themes)
+    (disable-theme theme))
+  (message "Using terminal-defined colors."))
+
 (defun my/light-theme ()
   "Switch to default light theme (modus-operandi)."
   (interactive)
