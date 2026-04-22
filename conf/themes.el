@@ -1,6 +1,10 @@
 ;; https://github.com/protesilaos/modus-themes
 (use-package modus-themes
   :config
+  ;; Restore bold rendering for faces like `error', `warning', `success',
+  ;; `magit-diff-file-heading-highlight', etc. In modus-themes 5.0.0+ these
+  ;; inherit from `modus-themes-bold', which is only bold when this is non-nil.
+  (setq modus-themes-bold-constructs t)
   ;; Remove the border around the mode line, for all Modus themes.
   (setq modus-themes-common-palette-overrides
         '((border-mode-line-active unspecified)
