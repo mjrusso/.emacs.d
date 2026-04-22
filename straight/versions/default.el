@@ -88,6 +88,7 @@
  ("smartparens" . "b0d935c11813bcd40f8d35bae8800e0741334c29")
  ("spinner" . "fa117f0893788f3fe24673715a6b83bb34d238dd")
  ("straight.el" . "33fb4695066781c634ff1c3c81ba96e880deccf7")
+ ("svelte-mode" . "ac8fba901dc790976f9893e338c8ad1241b897c6")
  ("svg-lib" . "341b6d13f313ae8fb1a3f6d0a3fb27c02f3925d8")
  ("swift-mode" . "ab189d6e89ac4c0f776d691a41ddeaf9730260d1")
  ("terraform-mode" . "5bdd734a87f67f6574664f63eb4d02a0bc74c0d0")

@@ -516,6 +516,28 @@ command to have any effect."
   (add-hook 'elixir-ts-mode-hook 'exunit-mode)
   )
 
+;; https://github.com/leafOfTree/svelte-mode
+(use-package svelte-mode
+  :defer t
+  :mode ("\\.svelte\\'")
+  :hook
+  (svelte-mode . eglot-ensure)
+  (svelte-mode . prettier-js-mode)
+  :config
+  (add-to-list 'eglot-server-programs '(svelte-mode . ("svelteserver" "--stdio"))))
+
+;; https://github.com/leafOfTree/svelte-ts-mode
+(use-package svelte-ts-mode
+  :disabled
+  :defer t
+  :straight (svelte-ts-mode :type git :host github :repo "leafOfTree/svelte-ts-mode")
+  :mode ("\\.svelte\\'")
+  :hook
+  (svelte-ts-mode . eglot-ensure)
+  (svelte-ts-mode . prettier-js-mode)
+  :config
+  (add-to-list 'eglot-server-programs '(svelte-ts-mode . ("svelteserver" "--stdio"))))
+
 (use-package lua-mode
   :mode "\\.lua\\'")
 
