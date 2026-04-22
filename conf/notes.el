@@ -28,7 +28,7 @@
    org-use-fast-todo-selection 'expert ; https://emacs.stackexchange.com/a/69927
    )
 
-  ;;(setq org-todo-keywords '((sequence "TODO(t)" "HOLD(h)" "NOTE(n)" "|" "DONE(d)" "DEAD(x)")))
+  (setq org-todo-keywords '((sequence "TODO(t)" "HOLD(h)" "NOTE(n)" "|" "DONE(d)" "DEAD(x)")))
 
   (setq org-startup-with-inline-images t)
 
