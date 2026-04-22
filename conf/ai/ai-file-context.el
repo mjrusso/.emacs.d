@@ -193,9 +193,82 @@ recognized project."
                    relative-selected-dir
                    list-buffer-name)))))))
 
+(defun my/file-context-safe-fence (contents)
+  "Return a markdown fence string that does not appear in CONTENTS.
+Starts with ``` and adds backticks as needed to ensure uniqueness."
+  (let ((fence "```"))
+    (while (string-match-p (regexp-quote fence) contents)
+      (setq fence (concat fence "`")))
+    fence))
+
+(defun my/file-context-copy-to-clipboard (list-buffer-name)
+  "Copy contents of files listed in LIST-BUFFER-NAME to the system clipboard."
+  (interactive
+   (list (read-buffer "Buffer containing file context list: "
+                      (my/file-context-list-buffer-name))))
+
+  (let ((src (get-buffer list-buffer-name)))
+    (unless src
+      (error "Buffer '%s' does not exist" list-buffer-name))
+
+    (let* ((current-project (project-current))
+           (project-root (and current-project (project-root current-project)))
+           (base-name (if project-root
+                          (format "*%s-file-context-output*"
+                                  (file-name-nondirectory (directory-file-name project-root)))
+                        "*file-context-output*"))
+           (processed 0)
+           out)
+
+      (with-current-buffer src
+        (let* ((lines (split-string (buffer-string) "\n+" t "[ \t]+"))
+               (files (seq-filter (lambda (line)
+                                    (not (string-match-p "^[ \t]*\\(//\\|#\\)" line)))
+                                  lines)))
+          (if (null files)
+              (message "No files found in buffer '%s'." list-buffer-name)
+            (setq out (generate-new-buffer base-name))
+            (with-current-buffer out
+              (dolist (f files)
+                (let* ((abs (cond
+                             ((file-name-absolute-p f) f)
+                             (project-root (expand-file-name f project-root))
+                             (t (error "Relative path '%s' needs a project context" f))))
+                       (display (if project-root
+                                    (file-relative-name abs project-root)
+                                  abs)))
+                  (if (not (file-readable-p abs))
+                      (message "Skipping unreadable file: %s" abs)
+                    (condition-case err
+                        (let* ((contents (with-temp-buffer
+                                           (insert-file-contents abs)
+                                           (buffer-string)))
+                               (fence (my/file-context-safe-fence contents)))
+                          (goto-char (point-max))
+                          (insert (format "%s:\n" display))
+                          (insert fence "\n")
+                          (insert contents)
+                          (unless (string-suffix-p "\n" contents)
+                            (insert "\n"))
+                          (insert fence "\n\n")
+                          (setq processed (1+ processed)))
+                      (error
+                       (message "Error processing %s: %s" abs (error-message-string err))))))))
+            (when out
+              (with-current-buffer out
+                (goto-char (point-min))
+                (when (> processed 0)
+                  (clipboard-kill-ring-save (point-min) (point-max))))
+              (pop-to-buffer out)
+              (if (> processed 0)
+                  (message "Copied context for %d file(s) to clipboard (Output -> %s)"
+                           processed (buffer-name out))
+                (message "No readable files; nothing copied. Open buffer is empty.")))))))))
+
 (global-set-key (kbd "C-c a c o") #'my/file-context-list-open-buffer)
 (global-set-key (kbd "C-c a c c") #'my/file-context-list-clear-buffer)
 (global-set-key (kbd "C-c a c a") #'my/file-context-list-add-file)
 (global-set-key (kbd "C-c a c A") #'my/file-context-list-add-directory-files)
+(global-set-key (kbd "C-c a c e") #'my/file-context-copy-to-clipboard)
 
 ;;; ai-file-context.el ends here
