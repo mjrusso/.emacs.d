@@ -26,6 +26,11 @@
   ;; (doom-themes-org-config)
   )
 
+;; https://github.com/tinted-theming/base16-emacs
+(use-package base16-theme
+  :config
+  (setq base16-theme-256-color-source 'terminal))
+
 (defun my/light-theme ()
   "Switch to default light theme (modus-operandi)."
   (interactive)
