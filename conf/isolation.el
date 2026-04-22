@@ -1,7 +1,25 @@
 ;; https://protesilaos.com/emacs/beframe
 (use-package beframe
-  :init
-  (beframe-mode)
+  :demand t
+
+  :config
+
+  ;; The original `beframe-read-buffer' ignores the predicate. However,
+  ;; `tags.el' uses the predicate, so we have to correct this function to use
+  ;; the predicate.
+  (defun beframe-read-buffer (prompt &optional def require-match predicate)
+    "The `read-buffer-function' that limits buffers to frames.
+PROMPT, DEF, REQUIRE-MATCH, and PREDICATE are the same as `read-buffer'."
+    (completing-read
+     (format "%s%s" (beframe--propertize-prompt-prefix) prompt)
+     (beframe-completion-table)
+     #'(lambda (name)
+         (and (beframe--read-buffer-p name)
+              (if predicate (funcall predicate name) t)))
+     require-match
+     nil
+     'beframe-history
+     def))
 
   (defun my/beframe-assume-buffer (buffer)
     "Assume BUFFER into the current frame's list using beframe.
@@ -40,4 +58,4 @@ With optional argument FRAME, return the list of buffers of FRAME."
 
     (add-to-list 'consult-buffer-sources 'beframe-consult-source))
 
-  )
+  (beframe-mode))
