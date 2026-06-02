@@ -19,6 +19,19 @@
 
   :preface
 
+  (defun my/ghostel-pin-buffer-name (buffer)
+    "Stop BUFFER from auto-renaming itself to follow terminal titles.
+Returns BUFFER. The named-terminal commands below choose deliberate
+buffer names; without this, the first title the shell reports (OSC 2)
+would clobber that name via `ghostel-set-title-function'. Set
+buffer-locally and synchronously, before the async output filter that
+processes the title runs. (`my/ghostel-exec' deliberately does the
+opposite: it wants title-following.)"
+    (when (buffer-live-p buffer)
+      (with-current-buffer buffer
+        (setq-local ghostel-set-title-function nil)))
+    buffer)
+
   (defun my/named-ghostel-for-current-project (name)
     "Switch to the project-specific ghostel terminal buffer identified
 by NAME if it already exists, or create a new ghostel terminal
@@ -28,7 +41,7 @@ buffer named after the current project and the provided NAME."
            (project-name (file-name-nondirectory (directory-file-name project-root)))
            (ghostel-buffer-name (format "*ghostel-%s[%s]*" name project-name))
            (default-directory project-root))
-      (ghostel)))
+      (my/ghostel-pin-buffer-name (ghostel))))
 
   (defun my/new-ghostel-for-current-project ()
     "Open a new ghostel terminal named after the current project.
@@ -41,13 +54,13 @@ specific term buffer if it already exists)."
            (project-name (file-name-nondirectory (directory-file-name project-root)))
            (ghostel-buffer-name (format "*ghostel %s*" project-name))
            (default-directory project-root))
-      (ghostel '(4))))
+      (my/ghostel-pin-buffer-name (ghostel '(4)))))
 
   (defun my/new-named-ghostel (term-name)
     "Open a ghostel terminal with buffer name TERM-NAME."
     (interactive "sTerminal name: ")
     (let ((ghostel-buffer-name (format "*ghostel %s*" term-name)))
-      (ghostel '(4))))
+      (my/ghostel-pin-buffer-name (ghostel '(4)))))
 
   (defun my/new-named-ghostel-other-window (term-name)
     "Open a ghostel terminal with buffer name TERM-NAME in the other
@@ -55,7 +68,7 @@ window."
     (interactive "sTerminal name: ")
     (let ((ghostel-buffer-name (format "*ghostel %s*" term-name))
           (display-buffer-overriding-action '((display-buffer-pop-up-window))))
-      (ghostel '(4))))
+      (my/ghostel-pin-buffer-name (ghostel '(4)))))
 
   (defun my/ghostel-exec (program &optional args)
     "Run PROGRAM with ARGS in a fresh ghostel buffer named after PROGRAM.
