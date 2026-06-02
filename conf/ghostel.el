@@ -89,7 +89,7 @@ plain \\[shell-command] / \\[async-shell-command]."
            (ghostel-buffer-name (concat "*" program "*"))
            (buffer (ghostel t)))
       (with-current-buffer buffer
-        (setq-local ghostel-kill-buffer-on-exit nil)
+        (setq-local ghostel-kill-buffer-on-exit t)
         (setq-local ghostel-set-title-function
                     (lambda (title)
                       (setq ghostel--managed-buffer-name nil)
