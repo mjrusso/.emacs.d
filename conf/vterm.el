@@ -12,22 +12,6 @@
 
   (vterm-clear-scrollback-when-clearing nil)
 
-  ;; TODO this might not be necessary with a newer release of vterm; see:
-  ;; https://github.com/akermu/emacs-libvterm/pull/652
-  (vterm-tramp-shells '(
-                        ("ssh" "/opt/homebrew/bin/fish")
-                        ("ssh" "/usr/local/bin/fish")
-                        ("ssh" "/bin/zsh")
-                        ("ssh" "/bin/bash")
-
-                        ("sudo" "/opt/homebrew/bin/fish")
-                        ("sudo" "/usr/local/bin/fish")
-                        ("sudo" "/bin/zsh")
-                        ("sudo" "/bin/bash")
-
-                        ("docker" "/bin/sh")
-                        ))
-
   :hook
   (vterm-mode . (lambda ()
                   (setq-local show-trailing-whitespace nil))))
@@ -62,14 +46,6 @@ buffer named after the current project and the provided NAME."
     ;; buffer in the current window.
     (cond ((get-buffer-window buffer-name 0) (pop-to-buffer buffer-name nil))
           (t (pop-to-buffer-same-window buffer-name nil)))))
-
-(defun my/new-vterm-for-current-project ()
-  "Open a new vterm terminal named after the current project.
-Unlike `my/vterm-for-current-project`, this command always opens
-a brand-new terminal (i.e., it does not switch to the project
-specific term buffer if it already exists)."
-  (interactive)
-  (vterm (concat "*vterm " (projectile-project-name) "*")))
 
 (defun my/new-vterm-for-current-project ()
   "Open a new vterm terminal named after the current project.
