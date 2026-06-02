@@ -17,19 +17,19 @@
                   (setq-local show-trailing-whitespace nil))))
 
 
-(global-set-key (kbd "C-c t") #'(lambda ()
-                                  (interactive)
-                                  (my/named-vterm-for-current-project "primary")))
+;; (global-set-key (kbd "C-c t") #'(lambda ()
+;;                                   (interactive)
+;;                                   (my/named-vterm-for-current-project "primary")))
 
-(global-set-key (kbd "C-c T") #'(lambda ()
-                                  (interactive)
-                                  (my/named-vterm-for-current-project "secondary")))
+;; (global-set-key (kbd "C-c T") #'(lambda ()
+;;                                   (interactive)
+;;                                   (my/named-vterm-for-current-project "secondary")))
 
-(global-set-key (kbd "M-t" ) #'(lambda ()
-                                 (interactive)
-                                 (my/named-vterm-for-current-project "tertiary")))
+;; (global-set-key (kbd "M-t" ) #'(lambda ()
+;;                                  (interactive)
+;;                                  (my/named-vterm-for-current-project "tertiary")))
 
-(global-set-key (kbd "M-T") 'my/new-vterm-for-current-project)
+;; (global-set-key (kbd "M-T") 'my/new-vterm-for-current-project)
 
 (defun my/named-vterm-for-current-project (name)
   "Switch to the project-specific vterm terminal buffer identified
