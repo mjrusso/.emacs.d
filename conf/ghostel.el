@@ -157,4 +157,5 @@ PROGRAM and ARGS."
                ("c" . ghostel-compile))          ; short-lived commands, with output
 
   :hook
-  (ghostel-pre-spawn . my/ghostel-pre-spawn-with-editor))
+  (ghostel-pre-spawn . my/ghostel-pre-spawn-with-editor)
+  (ghostel-mode . (lambda () (setq-local show-trailing-whitespace nil))))
