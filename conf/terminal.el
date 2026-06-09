@@ -2,31 +2,23 @@
 ;;
 ;;(With thanks to @drusso for sharing his config.)
 
-;; Integrate with the system clipboard.
+;; Integrate terminal Emacs with the system clipboard.
 ;;
-;; Uses the `xclip` package when possible (i.e., when the pbcopy or xclip
-;; binaries available), and falls back to `clipetty` (which uses OSC 52 escape
-;; sequences) otherwise.
+;; - https://github.com/emacsorphanage/xclip
+;; - https://github.com/spudlyo/clipetty
 (use-package xclip :ensure t)
 (use-package clipetty :ensure t)
 
-(if (not (display-graphic-p))
-    (if (or (executable-find "pbcopy")
-            (executable-find "xclip"))
-        ;; xclip uses external programs such as xclip and pbcopy.
-        ;;
-        (use-package xclip
-          :init
-          (xclip-mode 1))
+(if (and (not (display-graphic-p))
+         (eq system-type 'darwin)
+         (executable-find "pbcopy"))
+    ;; On macOS, `xclip.el' uses pbcopy/pbpaste.
+    (xclip-mode 1)
 
-      ;; https://github.com/spudlyo/clipetty
-      ;;
-      ;; `clipetty' uses OSC 52 escape sequences to send text killed in Emacs
-      ;; to the system clipboard.
-      (use-package clipetty
-        :ensure t
-        :hook (after-init . global-clipetty-mode)
-        )))
+  ;; On other systems, use OSC 52 escape sequences for terminal clients.
+  ;; `clipetty' checks the selected frame at copy time, so it works correctly
+  ;; with a shared daemon that has both GUI and terminal clients.
+  (global-clipetty-mode 1))
 
 ;; Add support for the Kitty Keyboard protocol (via kkp.el).
 ;;
