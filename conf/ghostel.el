@@ -81,6 +81,10 @@ functions, is available."
                    (list ghostel-shell))))
       (append shell (list "-lc" command))))
 
+  (defun my/ghostel-command-name (program args)
+    "Return a display name for PROGRAM and ARGS."
+    (mapconcat #'identity (cons program args) " "))
+
   (defun my/ghostel-exec (program &optional args)
     "Run PROGRAM with ARGS in a fresh ghostel buffer named after PROGRAM.
 
@@ -103,20 +107,21 @@ plain \\[shell-command] / \\[async-shell-command]."
     ;; Ensure the package is loaded, otherwise let-binding `ghostel-shell'
     ;; before the package is loaded is an error.
     (require 'ghostel)
-    (let* ((cmd (concat "printf '\\033[H\\033[2J';" ; move cursor home, clear screen
+    (let* ((command-name (my/ghostel-command-name program args))
+           (cmd (concat "printf '\\033[H\\033[2J';" ; move cursor home, clear screen
                         " "
                         (shell-quote-argument program)
                         " "
                         (mapconcat #'shell-quote-argument args " ")))
            (ghostel-shell (my/ghostel-command-shell cmd))
-           (ghostel-buffer-name (concat "*" program "*"))
+           (ghostel-buffer-name (format "*%s*" command-name))
            (buffer (ghostel t)))
       (with-current-buffer buffer
         (setq-local ghostel-kill-buffer-on-exit t)
         (setq-local ghostel-set-title-function
                     (lambda (title)
                       (setq ghostel--managed-buffer-name nil)
-                      (rename-buffer (format "*%s: %s*" program title) t))))
+                      (rename-buffer (format "*%s: %s*" command-name title) t))))
       buffer))
 
   (defun my/ghostel-exec-project (program &optional args)
