@@ -55,16 +55,39 @@
       (my/dark-theme)
     (my/light-theme)))
 
+(defun my/apply-theme-appearance (appearance)
+  "Load the default theme for APPEARANCE.
+APPEARANCE must be either `light' or `dark'."
+  (mapc #'disable-theme custom-enabled-themes)
+  (pcase appearance
+    ('light (my/light-theme))
+    ('dark (my/dark-theme))))
+
+(defun my/theme-appearance-from-env ()
+  "Return `light' or `dark' from SYSTEM_APPEARANCE, or nil if unset.
+Set SYSTEM_APPEARANCE=light or SYSTEM_APPEARANCE=dark in the
+environment to pass system appearance through terminal sessions
+and SSH."
+  (let ((appearance (getenv "SYSTEM_APPEARANCE")))
+    (when appearance
+      (pcase (downcase (string-trim appearance))
+        ("light" 'light)
+        ("dark" 'dark)))))
+
+(defun my/system-theme-appearance ()
+  "Return the preferred theme appearance, either `light' or `dark'."
+  (or (my/theme-appearance-from-env)
+      (when (eq system-type 'darwin)
+        (if (system-dark-mode-enabled-p) 'dark 'light))
+      'dark))
+
 ;; Synchronize the theme with system appearance changes. See:
 ;; https://github.com/d12frosted/homebrew-emacs-plus#system-appearance-change
 (defun my/apply-theme-after-system-appearance-change (appearance)
   "Load theme, taking current system APPEARANCE into consideration."
   (when (display-graphic-p)
     (message "System appearance changed to %s" appearance)
-    (mapc #'disable-theme custom-enabled-themes)
-    (pcase appearance
-      ('light (load-theme 'modus-operandi t))
-      ('dark (load-theme 'modus-vivendi t)))))
+    (my/apply-theme-appearance appearance)))
 
 (defun system-dark-mode-enabled-p ()
   "Return non-nil if system dark mode is enabled on macOS."
@@ -75,17 +98,10 @@
       (shell-command-to-string
        "defaults read -g AppleInterfaceStyle 2>/dev/null")))))
 
-;; If running on MacOS, load the theme based on system appearance. Otherwise,
-;; default to the dark theme.
-(if (eq system-type 'darwin)
-    (if (system-dark-mode-enabled-p)
-        (progn
-          (my/dark-theme)
-          (message "System dark mode enabled; using dark theme"))
-      (progn
-        (my/light-theme)
-        (message "System light mode is enabled; using light theme")))
-  (my/dark-theme))
+;; Prefer explicit terminal/SSH environment, then macOS appearance, then dark.
+(let ((appearance (my/system-theme-appearance)))
+  (my/apply-theme-appearance appearance)
+  (message "Using %s theme" appearance))
 
 ;; (defun on-after-init ()
 ;;   (unless (display-graphic-p (selected-frame))
