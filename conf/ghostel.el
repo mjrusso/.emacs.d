@@ -72,6 +72,15 @@ window."
           (display-buffer-overriding-action '((display-buffer-pop-up-window))))
       (my/ghostel-pin-buffer-name (ghostel '(4)))))
 
+  (defun my/ghostel-command-shell (command)
+    "Return a `ghostel-shell' value that runs COMMAND through `ghostel-shell'.
+Use a login command shell so shell-local setup, including autoloaded
+functions, is available."
+    (let ((shell (if (listp ghostel-shell)
+                     ghostel-shell
+                   (list ghostel-shell))))
+      (append shell (list "-lc" command))))
+
   (defun my/ghostel-exec (program &optional args)
     "Run PROGRAM with ARGS in a fresh ghostel buffer named after PROGRAM.
 
@@ -94,13 +103,12 @@ plain \\[shell-command] / \\[async-shell-command]."
     ;; Ensure the package is loaded, otherwise let-binding `ghostel-shell'
     ;; before the package is loaded is an error.
     (require 'ghostel)
-    (let* ((cmd (concat "printf '\\033[H\\033[2J'; exec" ; move cursor home and
-                                        ; clear the screen
+    (let* ((cmd (concat "printf '\\033[H\\033[2J';" ; move cursor home, clear screen
                         " "
                         (shell-quote-argument program)
                         " "
                         (mapconcat #'shell-quote-argument args " ")))
-           (ghostel-shell (list "/bin/sh" "-c" cmd))
+           (ghostel-shell (my/ghostel-command-shell cmd))
            (ghostel-buffer-name (concat "*" program "*"))
            (buffer (ghostel t)))
       (with-current-buffer buffer
