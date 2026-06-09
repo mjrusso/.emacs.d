@@ -15,7 +15,9 @@
   :straight (ghostel
              :type git
              :host github
-             :repo "dakra/ghostel")
+             :repo "dakra/ghostel"
+             :files (:defaults "etc" "src" "vendor"
+                      "build.zig" "build.zig.zon" "symbols.map"))
 
   :preface
 
