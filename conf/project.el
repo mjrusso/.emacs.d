@@ -20,6 +20,35 @@
     )
   "File names that mark sub-project roots in a monorepo.")
 
+(defun my/project--sentinel-directory-p (directory)
+  "Return non-nil when DIRECTORY contains a project sentinel file."
+  (cl-some (lambda (sentinel)
+             (file-exists-p (expand-file-name sentinel directory)))
+           my/project-sentinels))
+
+(defun my/project-monorepo-root (&optional dir limit-dir)
+  "Return the nearest monorepo sub-project root above DIR, if any.
+
+Sub-project roots are detected with `my/project-sentinels'. If
+LIMIT-DIR is non-nil, stop searching once the walk would leave it."
+  (let ((directory (file-name-as-directory
+                    (expand-file-name (or dir default-directory))))
+        (limit-directory (and limit-dir
+                              (file-name-as-directory
+                               (expand-file-name limit-dir))))
+        found)
+    (while (and directory
+                (not found)
+                (or (not limit-directory)
+                    (file-in-directory-p directory limit-directory)))
+      (when (my/project--sentinel-directory-p directory)
+        (setq found directory))
+      (let ((parent (file-name-directory (directory-file-name directory))))
+        (setq directory
+              (unless (or (null parent) (string= parent directory))
+                parent))))
+    found))
+
 ;; Properly support monorepos when using eglot.
 ;;
 ;; By default, eglot assumes that the project root is the repository root.
@@ -34,13 +63,7 @@
 ;; https://gist.github.com/pesterhazy/e8e445e6715f5d8bae3c62bc9db32469
 (defun my/eglot-monorepo-project-finder (dir)
   (when (bound-and-true-p eglot-lsp-context)
-    (when-let ((project-dir
-                (locate-dominating-file
-                 dir
-                 (lambda (directory)
-                   (cl-some (lambda (sentinel)
-                              (file-exists-p (expand-file-name sentinel directory)))
-                            my/project-sentinels)))))
+    (when-let ((project-dir (my/project-monorepo-root dir)))
       (condition-case nil
           (list 'vc (vc-responsible-backend project-dir) project-dir)
         (error (cons 'transient project-dir))))))

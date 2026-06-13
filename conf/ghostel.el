@@ -126,6 +126,10 @@ plain \\[shell-command] / \\[async-shell-command]."
 
   (defun my/ghostel-exec-project (program &optional args)
     "Run PROGRAM with ARGS via `my/ghostel-exec' from the project root.
+
+In monorepos, prefer the nearest sub-project root detected by
+`my/project-monorepo-root'.
+
 Interactively, prompt for a shell command line and split it into
 PROGRAM and ARGS."
     (declare (indent 1))
@@ -134,7 +138,15 @@ PROGRAM and ARGS."
                    (read-shell-command "Run in project ghostel: "))))
        (list (car parts) (cdr parts))))
     (let* ((project (project-current t))
-           (default-directory (project-root project)))
+           (project-root (project-root project))
+           ;; This uses the caller's original `default-directory': `let*'
+           ;; evaluates the RHS before rebinding it, so a buffer in a monorepo
+           ;; subdir passes `my/project-monorepo-root' that subdir as its
+           ;; search starting point.
+           (default-directory (or (and (fboundp 'my/project-monorepo-root)
+                                       (my/project-monorepo-root default-directory
+                                                                 project-root))
+                                  project-root)))
       (my/ghostel-exec program args)))
 
   ;; Route programs spawned in a ghostel terminal that need an editor
