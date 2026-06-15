@@ -20,6 +20,29 @@
   ;; with a shared daemon that has both GUI and terminal clients.
   (global-clipetty-mode 1))
 
+;; Make clipetty write the OSC 52 escape to the frame's *own* terminal rather
+;; than to SSH_TTY.
+;;
+;; `clipetty--tty' normally writes to the SSH_TTY of the selected frame. Inside
+;; a long-lived tmux server, SSH_TTY is cached in tmux's global environment and
+;; is *not* refreshed by `update-environment', so after you detach and
+;; reconnect over a new pty the cached value points at a dead device. Every
+;; shell (and every `emacsclient -t' frame) then inherits the stale value, and
+;; clipetty fails with an error like the following:
+;;
+;;     clipetty-cut: Opening output file: Permission denied, /dev/pts/2
+;;
+;; Writing to a single fixed outer pty also breaks when the same tmux server is
+;; attached from several machines at once.
+;;
+;; The frame's own terminal (`terminal-name') is always live and writable, so we
+;; write the OSC 52 escape there. Inside tmux this means tmux receives the escape
+;; instead of a fixed outer pty; with `set-clipboard on' (and the terminal's
+;; `clipboard' feature) tmux forwards it to the attached client(s), so the copy
+;; reaches the machine you are currently on.
+(advice-add 'clipetty--tty :override
+            (lambda (&rest _) (terminal-name)))
+
 ;; Add support for the Kitty Keyboard protocol (via kkp.el).
 ;;
 ;; - protocol: https://sw.kovidgoyal.net/kitty/keyboard-protocol/
