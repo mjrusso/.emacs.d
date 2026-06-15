@@ -10,6 +10,7 @@
 (defvar ghostel-buffer-name)
 (defvar ghostel-shell)
 (defvar ghostel--managed-buffer-name)
+(declare-function ghostel-compile "ghostel-compile")
 
 (use-package ghostel
   :straight (ghostel
@@ -85,8 +86,30 @@ functions, is available."
     "Return a display name for PROGRAM and ARGS."
     (mapconcat #'identity (cons program args) " "))
 
-  (defun my/ghostel-exec (program &optional args)
+  (defun my/ghostel-project-root-or-default ()
+    "Return the directory ghostel project commands should default to.
+In a monorepo, prefer the nearest sub-project root at or above the
+current `default-directory' (via `my/project-monorepo-root'); otherwise
+use the current project root, falling back to `default-directory' when
+there is no project."
+    (if-let* ((project (project-current)))
+        (let ((project-root (project-root project)))
+          (or (and (fboundp 'my/project-monorepo-root)
+                   (my/project-monorepo-root default-directory project-root))
+              project-root))
+      default-directory))
+
+  (defun my/ghostel-read-directory (default-dir)
+    "Read an existing working directory, defaulting to DEFAULT-DIR.
+The minibuffer can be used to navigate up or down a level."
+    (read-directory-name "Working directory: " default-dir default-dir t))
+
+  (defun my/ghostel-exec (program &optional args directory)
     "Run PROGRAM with ARGS in a fresh ghostel buffer named after PROGRAM.
+
+When DIRECTORY is non-nil, run from there; otherwise use the current
+`default-directory'.  Interactively, a prefix argument (\\[universal-argument])
+prompts for the working directory.
 
 Intended for long-running, full-screen programs (TUIs, REPLs, AI
 agents): the program is launched via a shell that first clears the
@@ -100,14 +123,19 @@ plain \\[shell-command] / \\[async-shell-command]."
     (declare (indent 1))
     (interactive
      (let ((parts (split-string-and-unquote
-                   (read-shell-command "Run in ghostel: "))))
-       (list (car parts) (cdr parts))))
+                   (read-shell-command "Run in ghostel: ")))
+           (directory (when current-prefix-arg
+                        (my/ghostel-read-directory default-directory))))
+       (list (car parts) (cdr parts) directory)))
     (unless (and program (not (string-empty-p program)))
       (user-error "No program given"))
     ;; Ensure the package is loaded, otherwise let-binding `ghostel-shell'
     ;; before the package is loaded is an error.
     (require 'ghostel)
-    (let* ((command-name (my/ghostel-command-name program args))
+    (let* ((default-directory (if directory
+                                  (expand-file-name directory)
+                                default-directory))
+           (command-name (my/ghostel-command-name program args))
            (cmd (concat "printf '\\033[H\\033[2J';" ; move cursor home, clear screen
                         " "
                         (shell-quote-argument program)
@@ -124,30 +152,85 @@ plain \\[shell-command] / \\[async-shell-command]."
                       (rename-buffer (format "*%s: %s*" command-name title) t))))
       buffer))
 
-  (defun my/ghostel-exec-project (program &optional args)
-    "Run PROGRAM with ARGS via `my/ghostel-exec' from the project root.
-
-In monorepos, prefer the nearest sub-project root detected by
-`my/project-monorepo-root'.
-
+  (defun my/ghostel-exec-project (program &optional args directory)
+    "Run PROGRAM with ARGS via `my/ghostel-exec' from DIRECTORY.
 Interactively, prompt for a shell command line and split it into
-PROGRAM and ARGS."
+PROGRAM and ARGS.  DIRECTORY defaults to the current project root (as
+found by the monorepo-aware project finder); with a prefix argument
+(\\[universal-argument]), prompt for it instead, using the minibuffer to
+navigate up or down a level."
     (declare (indent 1))
     (interactive
      (let ((parts (split-string-and-unquote
-                   (read-shell-command "Run in project ghostel: "))))
-       (list (car parts) (cdr parts))))
-    (let* ((project (project-current t))
-           (project-root (project-root project))
-           ;; This uses the caller's original `default-directory': `let*'
-           ;; evaluates the RHS before rebinding it, so a buffer in a monorepo
-           ;; subdir passes `my/project-monorepo-root' that subdir as its
-           ;; search starting point.
-           (default-directory (or (and (fboundp 'my/project-monorepo-root)
-                                       (my/project-monorepo-root default-directory
-                                                                 project-root))
-                                  project-root)))
-      (my/ghostel-exec program args)))
+                   (read-shell-command "Run in project ghostel: ")))
+           (directory (when current-prefix-arg
+                        (my/ghostel-read-directory
+                         (my/ghostel-project-root-or-default)))))
+       (list (car parts) (cdr parts) directory)))
+    (my/ghostel-exec program args
+      (or directory (my/ghostel-project-root-or-default))))
+
+  (defvar my/ghostel-exec-program-options
+    '("llm-agents codex"
+      "llm-agents codex --yolo"
+      "llm-agents claude-code"
+      "llm-agents claude-code --dangerously-skip-permissions")
+    "Preset command lines offered by `my/ghostel-exec-select'.")
+
+  (defun my/ghostel-exec-program-table (string predicate action)
+    "Completion table over `my/ghostel-exec-program-options'.
+Advertises an `identity' `display-sort-function' so the completion UI
+(e.g. Vertico) presents the presets in `defvar' order rather than
+re-sorting them."
+    (if (eq action 'metadata)
+        '(metadata (display-sort-function . identity))
+      (complete-with-action action my/ghostel-exec-program-options
+                            string predicate)))
+
+  (defun my/ghostel-exec-select (command directory)
+    "Run COMMAND via `my/ghostel-exec' from DIRECTORY.
+
+Interactively, offer the preset command lines in
+`my/ghostel-exec-program-options' to select from (or type a custom
+command line), then prompt for the working directory.  The directory
+defaults to the current project root (as found by the monorepo-aware
+project finder); use the minibuffer to navigate up or down a level."
+    (declare (indent 1))
+    (interactive
+     (let* ((command (completing-read
+                      "Run in ghostel: "
+                      #'my/ghostel-exec-program-table
+                      nil nil nil nil
+                      (car my/ghostel-exec-program-options)))
+            (directory (my/ghostel-read-directory
+                        (my/ghostel-project-root-or-default))))
+       (list command directory)))
+    (let ((parts (split-string-and-unquote command)))
+      (my/ghostel-exec (car parts) (cdr parts) directory)))
+
+  (defun my/ghostel-compile-project (command &optional directory)
+    "Run COMMAND via `ghostel-compile' from DIRECTORY.
+Use this for short-lived commands whose output you want to read: output
+appears in a `compilation-mode'-style buffer that scrolls as it arrives
+and supports `next-error', rather than the screen-clearing,
+title-following terminal that `my/ghostel-exec' sets up for full-screen
+TUIs (where short output ends up scrolled off the top of a tall grid).
+
+Interactively, prompt for a shell command.  DIRECTORY defaults to the
+current project root (as found by the monorepo-aware project finder);
+with a prefix argument (\\[universal-argument]), prompt for it instead,
+using the minibuffer to navigate up or down a level."
+    (declare (indent 1))
+    (interactive
+     (let ((command (read-shell-command "Ghostel compile: "))
+           (directory (when current-prefix-arg
+                        (my/ghostel-read-directory
+                         (my/ghostel-project-root-or-default)))))
+       (list command directory)))
+    (let ((default-directory (expand-file-name
+                              (or directory
+                                  (my/ghostel-project-root-or-default)))))
+      (ghostel-compile command)))
 
   ;; Route programs spawned in a ghostel terminal that need an editor
   ;; (e.g. `git commit', `git rebase -i', anything using $EDITOR) to the
@@ -180,8 +263,9 @@ PROGRAM and ARGS."
                ("d" . (lambda () (interactive) (my/named-ghostel-for-current-project "tertiary")))
                ("f" . (lambda () (interactive) (my/named-ghostel-for-current-project "quaternary")))
                ("g" . my/new-ghostel-for-current-project)
-               ("r" . my/ghostel-exec-project)   ; long-running / TUI programs
-               ("c" . ghostel-compile))          ; short-lived commands, with output
+               ("r" . my/ghostel-exec-project)      ; long-running / TUI programs
+               ("e" . my/ghostel-exec-select)       ; pick a preset program + working dir
+               ("c" . my/ghostel-compile-project))  ; short-lived commands, with output
 
   :hook
   (ghostel-pre-spawn . my/ghostel-pre-spawn-with-editor)
