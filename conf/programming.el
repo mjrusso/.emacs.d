@@ -207,8 +207,8 @@
   (setq magit-commit-show-diff nil)
   (remove-hook 'server-switch-hook 'magit-commit-diff)
 
-  ;; Display 40 commits, for example, in the recent commits section.
-  (setq magit-log-section-commit-count 40)
+  ;; Display 100 commits, for example, in the recent commits section.
+  (setq magit-log-section-commit-count 100)
 
   ;; The magit status buffer sections are controlled by
   ;; `magit-status-sections-hook'. By default, it includes
