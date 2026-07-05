@@ -207,6 +207,20 @@
   (setq magit-commit-show-diff nil)
   (remove-hook 'server-switch-hook 'magit-commit-diff)
 
+  ;; When rewording an older commit (which goes through a rebase), keep the
+  ;; author and committer dates in sync rather than stamping a fresh committer
+  ;; date (which makes the two visibly diverge). Default the rebase transient's
+  ;; `--committer-date-is-author-date' (`-d') flag to on.
+  ;;
+  ;; Set via the transient (not `git config') so it only affects magit's rebase
+  ;; workflow, leaving command-line git and `git log --since' untouched.
+  (with-eval-after-load 'transient
+    (setf (alist-get 'magit-rebase transient-values)
+          '("--committer-date-is-author-date")))
+
+  ;; When rewording HEAD, always stamp a new committer date.
+  (setq magit-commit-reword-override-date t)
+
   ;; Display 100 commits, for example, in the recent commits section.
   (setq magit-log-section-commit-count 100)
 
