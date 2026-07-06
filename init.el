@@ -47,6 +47,7 @@
 (my/load-conf-file "notes.el")
 (my/load-conf-file "presentations.el")
 (my/load-conf-file "programming.el")
+(my/load-conf-file "code-review.el")
 (my/load-conf-file "project.el")
 (my/load-conf-file "scratch.el")
 (my/load-conf-file "screenwriting.el")

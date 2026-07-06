@@ -76,6 +76,8 @@
  ("orderless" . "411051c3257d60f0492cf88065193bb443b6ca0d")
  ("org-download" . "c8be2611786d1d8d666b7b4f73582de1093f25ac")
  ("org-reveal" . "f55c851bf6aeb1bb2a7f6cf0f2b7bd0e79c4a5a0")
+ ("orgit" . "59d21fdb21f84238c3172d37fdd2446b753e98dc")
+ ("ox-gfm" . "4f774f13d34b3db9ea4ddb0b1edc070b1526ccbb")
  ("page-break-lines" . "247854f6a82b5c7ab5ae493eb5390c5079cd032d")
  ("popper" . "faf155059e519fb036324af579c342365795dbbb")
  ("popup-el" . "7a05700a37aae66d2b24f0cd8851f65383a5cf96")
