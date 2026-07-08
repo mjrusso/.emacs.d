@@ -114,16 +114,19 @@ allows the note to be anchored to the commit."
     range))
 
 (defun my/magit-review-notes--blame (tip file line)
-  "Return the full hash of the commit that last touched FILE:LINE.
+  "Return the hash of the commit that last touched FILE:LINE.
 Blame at revision TIP, or the working tree when TIP is nil. Return nil
 when blame cannot resolve the line or the line is not yet committed (the
-all-zero hash Git reports for uncommitted lines)."
+all-zero hash Git reports for uncommitted lines). A leading `^' marks a
+boundary commit, for which Git drops the final hash digit to keep the
+column width; that prefix is resolved to a full hash by the caller, so
+accept fewer than 40 digits here."
   (let* ((loc (format "%d,%d" line line))
          (out (apply #'magit-git-string
                      `("blame" "-l" "-L" ,loc ,@(and tip (list tip))
                        "--" ,file))))
     (and out
-         (string-match "\\`\\^?\\([0-9a-f]\\{40\\}\\)" out)
+         (string-match "\\`\\^?\\([0-9a-f]\\{7,40\\}\\)" out)
          (let ((hash (match-string 1 out)))
            (unless (string-match-p "\\`0+\\'" hash)
              hash)))))
@@ -133,7 +136,10 @@ all-zero hash Git reports for uncommitted lines)."
 Return a plist containing repository, file, line, surrounding context,
 and commit attribution.  Single-commit buffers use that commit directly.
 Range diffs blame the touched line to recover a commit when possible.
-Line numbers refer to the new side of the diff."
+A working-tree diff (e.g. the unstaged or staged changes in the status
+buffer) has neither a commit nor a range, so it is anchored to file:line
+and the working-tree line is blamed for attribution.  Line numbers refer
+to the new side of the diff."
   (let ((region (and (use-region-p)
                      (cons (region-beginning) (region-end)))))
     (save-excursion
@@ -141,16 +147,22 @@ Line numbers refer to the new side of the diff."
         (goto-char (car region)))
       (let* ((section (magit-current-section))
              (in-hunk (and section (magit-section-match 'hunk section)))
-             (file (and in-hunk (magit-file-at-point)))
-             (line (and file (my/magit-review-notes--hunk-line section)))
+             (file (magit-file-at-point))
+             (line (and in-hunk (my/magit-review-notes--hunk-line section)))
              (explicit (or magit-buffer-revision (magit-commit-at-point)))
              ;; Revision buffers also set `magit-buffer-range' for the
              ;; commit's own diff.  Only treat it as a range when there is no
              ;; explicit commit to use.
              (range (and (not explicit) magit-buffer-range))
-             (blamed (and range file line
-                          (my/magit-review-notes--blame
-                           (my/magit-review-notes--range-tip range) file line)))
+             ;; No commit and no range, but a file at point: a working-tree
+             ;; diff (unstaged/staged changes).  Anchor to the file, blaming
+             ;; the working-tree line for a commit as `--file-context' does.
+             (worktree (and (not explicit) (not range) file))
+             (blamed (cond ((and range file line)
+                            (my/magit-review-notes--blame
+                             (my/magit-review-notes--range-tip range) file line))
+                           ((and worktree line)
+                            (my/magit-review-notes--blame nil file line))))
              (rev (or explicit blamed))
              (hash (and rev (magit-rev-parse rev)))
              (context (cond (region
@@ -160,15 +172,16 @@ Line numbers refer to the new side of the diff."
                              (buffer-substring-no-properties
                               (line-beginning-position)
                               (line-end-position))))))
-        (unless (or hash range)
-          (user-error "No commit or diff range at point"))
+        (unless (or hash range file)
+          (user-error "No commit, diff range, or file at point"))
         (list :hash hash
               :abbrev (and hash (or (magit-rev-abbrev hash) hash))
               :summary (and hash (or (magit-rev-format "%s" hash) ""))
               :range range
               :tip (and range (magit-rev-parse
                                (my/magit-review-notes--range-tip range)))
-              :blamed (and blamed t)
+              :blamed (and blamed range t)
+              :source (and worktree t)
               :file file
               :line line
               :lang "diff"
@@ -268,8 +281,10 @@ accumulate in the repository's unsaved review-notes buffer; save it with
       (insert (format ":MAGIT: [[orgit-rev:%s::%s][%s in magit]]\n"
                       (plist-get ctx :repo) link-hash
                       (or (magit-rev-abbrev link-hash) link-hash))))
-    (when (plist-get ctx :source)
-      (insert (format ":SOURCE: [[file:%s::%s][%s:%s]]\n" file line file line)))
+    (when (and (plist-get ctx :source) file)
+      (insert (if line
+                  (format ":SOURCE: [[file:%s::%s][%s:%s]]\n" file line file line)
+                (format ":SOURCE: [[file:%s][%s]]\n" file file))))
     (insert ":END:\n\n")
     (when (plist-get ctx :context)
       (insert (format "#+begin_src %s\n" (or (plist-get ctx :lang) "diff"))
