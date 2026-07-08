@@ -1,14 +1,16 @@
-;;; code-review.el --- Capture Magit review notes in Org  -*- lexical-binding: t; -*-
+;;; code-review.el --- Capture code-review notes in Org  -*- lexical-binding: t; -*-
 
 ;;; Commentary:
 
 ;; Notes are anchored to a commit, and when captured from a diff line, to
 ;; file:line.  Each note includes an orgit link back to Magit.  In a range diff
 ;; there is no single commit at point, so the touched line is blamed for
-;; attribution.  Notes accumulate in a project-specific Org buffer and can be
-;; exported to Markdown.
+;; attribution.  Notes can also be captured from an ordinary source buffer,
+;; anchoring to the file:line at point and blaming that line to attribute a
+;; commit (with an Org link back to the source).  Notes accumulate in a
+;; project-specific Org buffer and can be exported to Markdown.
 ;;
-;; `C-c r'     -- capture a note (in a magit buffer)
+;; `C-c a n'   -- capture a note (in a magit or source buffer)
 ;; `C-c a r o' -- open the repo's notes buffer
 ;; `C-c a r e' -- export to Markdown
 
@@ -98,7 +100,7 @@ This is a fallback for `my/magit-review-notes--hunk-line'."
 (defun my/magit-review-notes--hunk-line (section)
   "Return the new-side line number for the diff position at point.
 Use Magit's own helper when available, falling back to hunk-header
-parsing because `magit-diff-hunk-line' is internal.  A nil result still
+parsing because `magit-diff-hunk-line' is internal. A nil result still
 allows the note to be anchored to the commit."
   (or (and (fboundp 'magit-diff-hunk-line)
            (ignore-errors (magit-diff-hunk-line section nil)))
@@ -112,13 +114,19 @@ allows the note to be anchored to the commit."
     range))
 
 (defun my/magit-review-notes--blame (tip file line)
-  "Return the full hash of the commit that last touched FILE:LINE at TIP.
-Return nil when blame cannot resolve the line."
-  (let ((out (magit-git-string "blame" "-l" "-L" (format "%d,%d" line line)
-                               tip "--" file)))
+  "Return the full hash of the commit that last touched FILE:LINE.
+Blame at revision TIP, or the working tree when TIP is nil. Return nil
+when blame cannot resolve the line or the line is not yet committed (the
+all-zero hash Git reports for uncommitted lines)."
+  (let* ((loc (format "%d,%d" line line))
+         (out (apply #'magit-git-string
+                     `("blame" "-l" "-L" ,loc ,@(and tip (list tip))
+                       "--" ,file))))
     (and out
          (string-match "\\`\\^?\\([0-9a-f]\\{40\\}\\)" out)
-         (match-string 1 out))))
+         (let ((hash (match-string 1 out)))
+           (unless (string-match-p "\\`0+\\'" hash)
+             hash)))))
 
 (defun my/magit-review-notes--context ()
   "Collect the anchor for the commit or diff position at point.
@@ -163,19 +171,68 @@ Line numbers refer to the new side of the diff."
               :blamed (and blamed t)
               :file file
               :line line
+              :lang "diff"
               :context (and context
                             (replace-regexp-in-string "\n+\\'" "" context))
               :repo (abbreviate-file-name
                      (my/magit-review-notes--toplevel)))))))
 
+(defun my/magit-review-notes--file-context ()
+  "Collect the anchor for the source position at point in a file buffer.
+Return a plist shaped like `my/magit-review-notes--context'.  Inside a
+Git repository the working-tree line is blamed to attribute a commit;
+when the line is not yet committed, or the file is outside any
+repository, the note is anchored to file:line alone. Signal a
+`user-error' when the buffer is not visiting a file."
+  (let ((path (buffer-file-name)))
+    (unless path
+      (user-error "Buffer is not visiting a file"))
+    (let* ((root (my/magit-review-notes--toplevel))
+           ;; Anchor paths and the source link to the repository root when
+           ;; there is one, otherwise to `default-directory' (which is also
+           ;; what the notes buffer adopts), so the link stays resolvable.
+           (base (or root default-directory))
+           (region (and (use-region-p)
+                        (cons (region-beginning) (region-end))))
+           (file (file-relative-name path base))
+           (line (line-number-at-pos (if region (car region) (point)) t))
+           ;; Blame with the absolute path: git runs from the source
+           ;; buffer's `default-directory' (often a subdirectory), where a
+           ;; repository-root-relative path would not resolve.
+           (blamed (and root (my/magit-review-notes--blame nil path line)))
+           (hash (and blamed (magit-rev-parse blamed)))
+           (lang (replace-regexp-in-string "-mode\\'" ""
+                                           (symbol-name major-mode)))
+           (context (if region
+                        (buffer-substring-no-properties (car region) (cdr region))
+                      (buffer-substring-no-properties
+                       (line-beginning-position) (line-end-position)))))
+      (list :hash hash
+            :abbrev (and hash (or (magit-rev-abbrev hash) hash))
+            :summary (and hash (or (magit-rev-format "%s" hash) ""))
+            :range nil
+            :tip nil
+            :blamed nil
+            :source t
+            :file file
+            :line line
+            :lang lang
+            :context (replace-regexp-in-string "\n+\\'" "" context)
+            :repo (and root (abbreviate-file-name root))))))
+
 (defun my/magit-review-notes-capture (&optional arg)
-  "Capture a review note for the commit or diff position at point.
-Works on a single commit, on a commit in a log/status buffer, and in a
-range diff.  With prefix ARG, also prompt for a tag from
-`my/magit-review-notes-tags'.  Notes accumulate in the repository's
-unsaved review-notes buffer; save it with \\[save-buffer] to persist."
+  "Capture a review note for the position at point.
+In a Magit buffer this anchors to the commit or diff position: a single
+commit, a commit in a log/status buffer, or a blamed line in a range
+diff.  In a file-visiting buffer it anchors to the file:line at point,
+blaming the working-tree line to attribute a commit.  With prefix ARG,
+also prompt for a tag from `my/magit-review-notes-tags'.  Notes
+accumulate in the repository's unsaved review-notes buffer; save it with
+\\[save-buffer] to persist."
   (interactive "P")
-  (let* ((ctx (my/magit-review-notes--context))
+  (let* ((ctx (if (derived-mode-p 'magit-mode)
+                  (my/magit-review-notes--context)
+                (my/magit-review-notes--file-context)))
          (user-tag (and arg
                         (let ((choice (completing-read
                                        "Tag: " my/magit-review-notes-tags)))
@@ -186,19 +243,20 @@ unsaved review-notes buffer; save it with \\[save-buffer] to persist."
          (line (plist-get ctx :line))
          (link-hash (or hash (plist-get ctx :tip)))
          (tags (delq nil (list (and (plist-get ctx :blamed) "blame")
+                               (and (plist-get ctx :source) "source")
                                (and range (not hash) "range")
                                user-tag)))
+         (label (or (plist-get ctx :abbrev) range))
+         (fileref (and file (format "~%s%s~" file
+                                    (if line (format ":%s" line) ""))))
+         (heading (mapconcat #'identity (delq nil (list label fileref)) " "))
          (buf (my/magit-review-notes--get-buffer)))
     (pop-to-buffer buf)
     (goto-char (point-max))
     (unless (bolp) (insert "\n"))
     (insert "\n")
-    (insert (format "* %s%s%s%s\n"
-                    (or (plist-get ctx :abbrev) range)
-                    (if file
-                        (format " ~%s%s~" file
-                                (if line (format ":%s" line) ""))
-                      "")
+    (insert (format "* %s%s%s\n"
+                    heading
                     (if hash (format " — %s" (plist-get ctx :summary)) "")
                     (if tags (format " :%s:" (mapconcat #'identity tags ":")) "")))
     (insert ":PROPERTIES:\n")
@@ -210,9 +268,11 @@ unsaved review-notes buffer; save it with \\[save-buffer] to persist."
       (insert (format ":MAGIT: [[orgit-rev:%s::%s][%s in magit]]\n"
                       (plist-get ctx :repo) link-hash
                       (or (magit-rev-abbrev link-hash) link-hash))))
+    (when (plist-get ctx :source)
+      (insert (format ":SOURCE: [[file:%s::%s][%s:%s]]\n" file line file line)))
     (insert ":END:\n\n")
     (when (plist-get ctx :context)
-      (insert "#+begin_src diff\n"
+      (insert (format "#+begin_src %s\n" (or (plist-get ctx :lang) "diff"))
               (plist-get ctx :context)
               "\n#+end_src\n\n"))
     (message "Write your note, save with C-x C-s, jump back with C-x o")))
@@ -250,9 +310,13 @@ Markdown.  Unsaved buffers prompt for the output file."
         (org-export-to-file backend out)
         (message "Exported to %s" out)))))
 
-;; Capture is contextual to Magit buffers.
+;; Capture adapts to context (e.g. a commit or diff in Magit, or the file:line
+;; at point in a source buffer). Capture is bound both in `magit-mode-map' (in
+;; case a global `C-c a …' key is shadowed there) and globally, so it can also
+;; be invoked from non-Magit buffers.
 (with-eval-after-load 'magit
-  (define-key magit-mode-map (kbd "C-c r") #'my/magit-review-notes-capture))
+  (define-key magit-mode-map (kbd "C-c a n") #'my/magit-review-notes-capture))
 
+(global-set-key (kbd "C-c a n") #'my/magit-review-notes-capture)
 (global-set-key (kbd "C-c a r o") #'my/magit-review-notes-open)
 (global-set-key (kbd "C-c a r e") #'my/magit-review-notes-export)
