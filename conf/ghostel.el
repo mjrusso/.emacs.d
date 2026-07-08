@@ -38,12 +38,18 @@ opposite: it wants title-following.)"
   (defun my/named-ghostel-for-current-project (name)
     "Switch to the project-specific ghostel terminal buffer identified
 by NAME if it already exists, or create a new ghostel terminal
-buffer named after the current project and the provided NAME."
+buffer named after the current project and the provided NAME.
+
+When the current buffer is not in a project, fall back to the
+buffer's own `default-directory' (i.e. the folder of the visited
+file) and name the terminal after that directory instead.  If the
+buffer has no `default-directory' either, fall back to the home
+directory."
     (let* ((project (project-current))
-           (project-root (project-root project))
-           (project-name (file-name-nondirectory (directory-file-name project-root)))
-           (ghostel-buffer-name (format "*ghostel-%s[%s]*" name project-name))
-           (default-directory project-root))
+           (root (or (and project (project-root project)) default-directory "~/"))
+           (root-name (file-name-nondirectory (directory-file-name root)))
+           (ghostel-buffer-name (format "*ghostel-%s[%s]*" name root-name))
+           (default-directory root))
       (my/ghostel-pin-buffer-name (ghostel))))
 
   (defun my/new-ghostel-for-current-project ()
@@ -53,10 +59,10 @@ opens a brand-new terminal (i.e., it does not switch to the project
 specific term buffer if it already exists)."
     (interactive)
     (let* ((project (project-current))
-           (project-root (project-root project))
-           (project-name (file-name-nondirectory (directory-file-name project-root)))
-           (ghostel-buffer-name (format "*ghostel %s*" project-name))
-           (default-directory project-root))
+           (root (or (and project (project-root project)) default-directory "~/"))
+           (root-name (file-name-nondirectory (directory-file-name root)))
+           (ghostel-buffer-name (format "*ghostel %s*" root-name))
+           (default-directory root))
       (my/ghostel-pin-buffer-name (ghostel '(4)))))
 
   (defun my/new-named-ghostel (term-name)
