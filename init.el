@@ -79,5 +79,3 @@
   (load custom-file))
 
 (require 'server)
-(unless (server-running-p)
-  (server-start))
