@@ -79,3 +79,16 @@
   (load custom-file))
 
 (require 'server)
+
+;; Let the daemon own the state files in `user-emacs-directory': a second Emacs
+;; sharing the directory would write back the stale snapshot it loaded at
+;; startup. `savehist' saves on a timer, so dropping the hooks isn't enough.
+(unless (daemonp)
+  (setq transient-save-history nil
+        bookmark-save-flag nil)
+  (remove-hook 'kill-emacs-hook #'savehist-autosave)
+  (remove-hook 'kill-emacs-hook #'save-place-kill-emacs-hook)
+  (remove-hook 'kill-emacs-hook #'recentf-save-list)
+  (when (timerp (bound-and-true-p savehist-timer))
+    (cancel-timer savehist-timer)
+    (setq savehist-timer nil)))

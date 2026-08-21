@@ -66,11 +66,12 @@
         recentf-auto-cleanup 'never)
   (add-to-list 'recentf-exclude recentf-save-file)
   (recentf-mode +1)
-  (run-at-time nil ;; Periodically save the list of files.
-               (* 5 60)
-               (lambda ()
-                 (let ((inhibit-message t))
-                   (recentf-save-list)))))
+  (when (daemonp)
+    (run-at-time nil ;; Periodically save the list of files.
+                 (* 5 60)
+                 (lambda ()
+                   (let ((inhibit-message t))
+                     (recentf-save-list))))))
 
 ;; When you visit a file, point goes to the last place where it was when you
 ;; previously visited the same file.
