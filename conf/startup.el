@@ -51,7 +51,8 @@
 
 (defun my/construct-default-workspace-and-window-setup ()
   "Called by emacs-startup-hook to set up my initial window configuration."
-  ;; (my/workspace:dashboard)
-  )
+  (when (and (not (daemonp))
+             (eq initial-window-system 'ns))
+    (my/workspace:dashboard)))
 
 (add-hook 'emacs-startup-hook #'my/construct-default-workspace-and-window-setup)
