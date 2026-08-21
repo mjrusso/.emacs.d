@@ -80,6 +80,11 @@
 
 (require 'server)
 
+;; Something else may start a server later (`with-editor' does, for commit
+;; messages); make sure it can't take `server', where `emacsclient' looks.
+(unless (daemonp)
+  (setq server-name (format "server%s" (emacs-pid))))
+
 ;; Let the daemon own the state files in `user-emacs-directory': a second Emacs
 ;; sharing the directory would write back the stale snapshot it loaded at
 ;; startup. `savehist' saves on a timer, so dropping the hooks isn't enough.
