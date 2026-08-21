@@ -105,40 +105,71 @@
         (`darwin "open")
         ((or `gnu `gnu/linux `gnu/kfreebsd) "xdg-open")))
 
+(defun my/current-file-name ()
+  "Return the absolute path of the file at point, or nil if there is none."
+  (cond ((eq major-mode 'dired-mode)
+         (ignore-errors (dired-get-file-for-visit)))
+        ((and (derived-mode-p 'magit-mode)
+              (fboundp 'magit-file-at-point))
+         (magit-file-at-point t))
+        (t buffer-file-name)))
+
+(defun my/current-directory ()
+  "Return the absolute directory to act on for the current buffer.
+This is the directory of the file at point, or `default-directory' when
+there is none.  The latter is expanded, as it can be abbreviated with a
+leading `~'."
+  (let ((file (my/current-file-name)))
+    (expand-file-name
+     (or (and file (file-name-directory file))
+         default-directory
+         "~/"))))
+
 (defun my/open-file-with (arg)
-  "Open visited file in default external program.
-When in dired mode, open file under the cursor.
+  "Open file at point in default external program.
+In Dired this is the file under the cursor, in Magit buffers the file of
+the section at point, and otherwise the visited file.
 With a prefix ARG always prompt for command to use."
   (interactive "P")
-  (let* ((current-file-name
-          (if (eq major-mode 'dired-mode)
-              (dired-get-file-for-visit)
-            buffer-file-name))
-         (open my/open-command)
-         (program (if (or arg (not open))
-                      (read-shell-command "Open current file with: ")
-                    open)))
-    (call-process program nil 0 nil current-file-name)))
+  (let ((current-file-name (my/current-file-name)))
+    (unless current-file-name
+      (user-error "No file at point"))
+    (let* ((open my/open-command)
+           (program (if (or arg (not open))
+                        (read-shell-command "Open current file with: ")
+                      open)))
+      (call-process program nil 0 nil current-file-name)
+      (message "Opening: %s" current-file-name))))
 
-(defun my/open-directory ()
-  "Open directory of visited file in default external program."
-  (interactive)
-  (let* ((current-directory (file-name-directory buffer-file-name)))
-    (call-process my/open-command nil 0 nil current-directory)))
+(defun my/open-directory (arg)
+  "Open directory of file at point in default external program.
+Falls back to the buffer's own directory when there is no file at point.
+With a prefix ARG open the parent of that directory instead."
+  (interactive "P")
+  (let* ((current-directory (my/current-directory))
+         (target (if arg
+                     (file-name-directory
+                      (directory-file-name current-directory))
+                   current-directory)))
+    (call-process my/open-command nil 0 nil target)
+    (message "Opening: %s" target)))
 
-(defun my/open-parent-directory ()
-  "Open parent directory of visited file in default external program."
-  (interactive)
-  (let* ((parent-directory
-          (file-name-directory
-           (directory-file-name
-            (file-name-directory
-             (directory-file-name buffer-file-name))))))
-    (call-process my/open-command nil 0 nil parent-directory)))
+(defun my/copy-file-path (arg)
+  "Copy the absolute path of the file at point to the kill ring.
+Falls back to the buffer's own directory when there is no file at point.
+With a prefix ARG copy the path relative to the current project root."
+  (interactive "P")
+  (let* ((path (or (my/current-file-name) (my/current-directory)))
+         (project (and arg (project-current)))
+         (relative (if project
+                       (file-relative-name path (project-root project))
+                     path)))
+    (kill-new relative)
+    (message "Copied: %s" relative)))
 
 (global-set-key (kbd "C-c o f") 'my/open-file-with)
 (global-set-key (kbd "C-c o d") 'my/open-directory)
-(global-set-key (kbd "C-c o p") 'my/open-parent-directory)
+(global-set-key (kbd "C-c o p") 'my/copy-file-path)
 
 (defun my/print-env ()
   (interactive)
