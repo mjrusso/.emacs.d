@@ -177,10 +177,10 @@ navigate up or down a level."
       (or directory (my/ghostel-project-root-or-default))))
 
   (defvar my/ghostel-exec-program-options
-    '("llm-agents codex"
-      "llm-agents codex --yolo"
-      "llm-agents claude-code"
-      "llm-agents claude-code --dangerously-skip-permissions")
+    '("codex"
+      "codex --yolo"
+      "claude"
+      "claude --dangerously-skip-permissions")
     "Preset command lines offered by `my/ghostel-exec-select'.")
 
   (defun my/ghostel-exec-program-table (string predicate action)
