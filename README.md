@@ -34,6 +34,12 @@ built-in ERT framework. The test bootstrap uses the local Straight installation
 to load the module's dependencies; it does not load `init.el` or private
 configuration.
 
+Run `just lint` to check Lisp syntax in tracked and unignored new `.el` files.
+It checks parentheses, strings, and readable Lisp forms without loading the
+configuration or creating compiled files.
+
+Run `just ci` to lint and test.
+
 ## Thanks
 
 This configuration is heavily adapted from
