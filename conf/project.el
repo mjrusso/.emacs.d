@@ -65,7 +65,7 @@ LIMIT-DIR is non-nil, stop searching once the walk would leave it."
 ;; https://gist.github.com/pesterhazy/e8e445e6715f5d8bae3c62bc9db32469
 (defun my/eglot-monorepo-project-finder (dir)
   (when (bound-and-true-p eglot-lsp-context)
-    (when-let ((project-dir (my/project-monorepo-root dir)))
+    (when-let* ((project-dir (my/project-monorepo-root dir)))
       (condition-case nil
           (list 'vc (vc-responsible-backend project-dir) project-dir)
         (error (cons 'transient project-dir))))))
