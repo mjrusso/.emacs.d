@@ -1,3 +1,5 @@
+;; -*- lexical-binding: nil; -*-
+
 ;; https://protesilaos.com/emacs/beframe
 (use-package beframe
   :demand t

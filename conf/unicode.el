@@ -1,3 +1,5 @@
+;; -*- lexical-binding: nil; -*-
+
 ;; Also see: https://www.masteringemacs.org/article/working-coding-systems-unicode-emacs
 
 (add-hook 'term-exec-hook

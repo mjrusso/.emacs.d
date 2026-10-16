@@ -1,3 +1,5 @@
+;; -*- lexical-binding: nil; -*-
+
 ;; Bootstrap straight.el, and configure use-package accordingly.
 
 (defvar bootstrap-version)

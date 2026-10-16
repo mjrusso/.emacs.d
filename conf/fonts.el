@@ -1,3 +1,5 @@
+;; -*- lexical-binding: nil; -*-
+
 ;; Set default font to Berkeley Mono.
 ;;
 ;; - https://berkeleygraphics.com/typefaces/berkeley-mono/

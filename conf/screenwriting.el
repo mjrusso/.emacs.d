@@ -1,3 +1,5 @@
+;; -*- lexical-binding: nil; -*-
+
 ;; Configure Fountain Mode.
 (use-package fountain-mode
   :mode "\\.fountain\\'"

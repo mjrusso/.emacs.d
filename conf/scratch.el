@@ -1,3 +1,5 @@
+;; -*- lexical-binding: nil; -*-
+
 (defvar my/persistent-scratch-files-dir (file-truename "~/Dropbox/Notes/scratch/")
   "Default location of persistent scratch files")
 

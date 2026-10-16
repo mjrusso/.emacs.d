@@ -1,3 +1,5 @@
+;; -*- lexical-binding: nil; -*-
+
 (defun my/aider-copy-context (list-buffer-name)
   "Run aider on files listed in LIST-BUFFER-NAME asynchronously.
 

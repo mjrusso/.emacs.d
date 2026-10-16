@@ -1,3 +1,5 @@
+;; -*- lexical-binding: nil; -*-
+
 (defvar my/personal-snippets-dir (file-truename "~/Dropbox/snippets/")
   "Location of my personal snippets")
 

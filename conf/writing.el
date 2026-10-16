@@ -1,3 +1,5 @@
+;; -*- lexical-binding: nil; -*-
+
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
 
 (use-package markdown-mode

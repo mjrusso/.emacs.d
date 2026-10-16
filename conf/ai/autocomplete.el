@@ -1,3 +1,5 @@
+;; -*- lexical-binding: nil; -*-
+
 ;; Wingman: LLM-assisted text completion
 ;;
 ;; Requires running llama.cpp server running a model that supports FIM

@@ -1,3 +1,5 @@
+;; -*- lexical-binding: nil; -*-
+
 ;; Enable smooth scrolling.
 (if (and (display-graphic-p) (fboundp 'pixel-scroll-precision-mode))
  (pixel-scroll-precision-mode 1))

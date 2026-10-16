@@ -1,3 +1,5 @@
+;; -*- lexical-binding: nil; -*-
+
 ;; Never trigger the alarm bell.
 (setq ring-bell-function
       (lambda ()))

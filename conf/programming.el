@@ -1,3 +1,5 @@
+;; -*- lexical-binding: nil; -*-
+
 ;; https://github.com/joaotavora/eglot
 ;;
 ;; Emacs LSP client.

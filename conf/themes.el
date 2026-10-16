@@ -1,3 +1,5 @@
+;; -*- lexical-binding: nil; -*-
+
 ;; https://github.com/protesilaos/modus-themes
 (use-package modus-themes
   :config

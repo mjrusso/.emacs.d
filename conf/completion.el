@@ -1,3 +1,5 @@
+;; -*- lexical-binding: nil; -*-
+
 ;; https://github.com/oantolin/orderless
 (use-package orderless
   :init

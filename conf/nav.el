@@ -1,3 +1,5 @@
+;; -*- lexical-binding: nil; -*-
+
 ;; Avy: jump to visible text using a character-based decision tree.
 ;;
 ;; https://github.com/abo-abo/avy

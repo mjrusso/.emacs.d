@@ -1,3 +1,5 @@
+;; -*- lexical-binding: nil; -*-
+
 ;; https://github.com/elizagamedev/power-mode.el
 (use-package power-mode
   :disabled

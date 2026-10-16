@@ -1,3 +1,5 @@
+;; -*- lexical-binding: nil; -*-
+
 ;; gptel: https://github.com/karthink/gptel
 
 (use-package gptel

@@ -1,3 +1,5 @@
+;; -*- lexical-binding: nil; -*-
+
 (when (display-graphic-p)
   (tooltip-mode -1)
   (mouse-wheel-mode t)

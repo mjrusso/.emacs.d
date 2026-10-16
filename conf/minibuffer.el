@@ -1,3 +1,5 @@
+;; -*- lexical-binding: nil; -*-
+
 ;; https://github.com/minad/vertico
 (use-package vertico
 

@@ -1,3 +1,5 @@
+;; -*- lexical-binding: nil; -*-
+
 ;; Emacs-libvterm: a terminal emulator, based on libvterm.
 ;;
 ;; Details: https://github.com/akermu/emacs-libvterm

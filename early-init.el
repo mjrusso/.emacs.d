@@ -1,3 +1,5 @@
+;; -*- lexical-binding: nil; -*-
+
 ;; Prevent package.el from automatically loading packages at startup. See:
 ;; https://github.com/raxod502/straight.el#getting-started
 (setq package-enable-at-startup nil)

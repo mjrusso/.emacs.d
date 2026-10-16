@@ -1,3 +1,5 @@
+;; -*- lexical-binding: nil; -*-
+
 ;; TTY Emacs: improve how Emacs behaves when run in the terminal.
 ;;
 ;;(With thanks to @drusso for sharing his config.)

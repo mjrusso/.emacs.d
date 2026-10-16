@@ -1,3 +1,5 @@
+;; -*- lexical-binding: nil; -*-
+
 ;; A minor-mode menu for the mode line, which hides the list of enabled
 ;; minor-modes that are displayed in the mode line by default.
 ;;

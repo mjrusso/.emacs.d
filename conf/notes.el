@@ -1,3 +1,5 @@
+;; -*- lexical-binding: nil; -*-
+
 (setq my/primary-org-directory (file-truename "~/Dropbox/Notes/"))
 
 

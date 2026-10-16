@@ -1,3 +1,5 @@
+;; -*- lexical-binding: nil; -*-
+
 ;; https://github.com/rougier/svg-lib
 (use-package svg-lib)
 

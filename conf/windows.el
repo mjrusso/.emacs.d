@@ -1,3 +1,5 @@
+;; -*- lexical-binding: nil; -*-
+
 ;; Prefer to never automatically split windows.
 (setq split-width-threshold nil)
 (setq split-height-threshold nil)

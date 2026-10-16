@@ -1,3 +1,5 @@
+;; -*- lexical-binding: nil; -*-
+
 (defun my/workspace:emacs-config ()
   "Get or create a workspace for editing my Emacs configuration."
   (interactive)

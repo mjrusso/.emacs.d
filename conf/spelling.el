@@ -1,3 +1,5 @@
+;; -*- lexical-binding: nil; -*-
+
 ;; Spellchecking, for prose and code comments.
 ;;
 ;; Requires a spellchecker to be installed. Aspell is a good choice. On Mac:

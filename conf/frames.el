@@ -1,3 +1,5 @@
+;; -*- lexical-binding: nil; -*-
+
 (defun my/resize-frame-to-right-half-of-screen (frame)
   (let* ((width (floor (/ (x-display-pixel-width) 2)))
          (height (floor (/ (x-display-pixel-height) 1)))

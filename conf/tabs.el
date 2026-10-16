@@ -1,3 +1,5 @@
+;; -*- lexical-binding: nil; -*-
+
 ;; Disable the tab bar (not yet supported on macOS --with-ns builds). This does
 ;; not disable tabs, only the visual bar.
 (setq tab-bar-show nil)
