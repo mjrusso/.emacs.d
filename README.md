@@ -21,6 +21,19 @@ To update the package version lockfile, run `M-x straight-freeze-versions`.
 (Likewise, to revert all packages to the revisions specified in the lockfile,
 run `M-x straight-thaw-versions`.)
 
+## Checks
+
+Run all tests from this directory:
+
+```sh
+just test
+```
+
+This loads every `tests/*-tests.el` file and runs the tests with Emacs's
+built-in ERT framework. The test bootstrap uses the local Straight installation
+to load the module's dependencies; it does not load `init.el` or private
+configuration.
+
 ## Thanks
 
 This configuration is heavily adapted from
