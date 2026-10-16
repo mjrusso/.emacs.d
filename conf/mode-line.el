@@ -10,7 +10,7 @@
     '((t
        :weight normal
        :foreground "MediumPurple1"
-       :background nil
+       :background unspecified
        :box nil))
     "Face for the minions mode line."
     :group 'my/faces)
