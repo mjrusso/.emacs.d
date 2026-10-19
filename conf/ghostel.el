@@ -9,7 +9,6 @@
 ;; rebindings would never reach `ghostel'.
 (defvar ghostel-buffer-name)
 (defvar ghostel-shell)
-(defvar ghostel--managed-buffer-name)
 (declare-function ghostel-compile "ghostel-compile")
 
 (use-package ghostel
@@ -20,19 +19,22 @@
              :files (:defaults "etc" "src" "vendor"
                       "build.zig" "build.zig.zon" "symbols.map"))
 
+  :custom
+  (ghostel-module-directory (expand-file-name "var/ghostel/" user-emacs-directory))
+
   :preface
 
   (defun my/ghostel-pin-buffer-name (buffer)
     "Stop BUFFER from auto-renaming itself to follow terminal titles.
 Returns BUFFER. The named-terminal commands below choose deliberate
 buffer names; without this, the first title the shell reports (OSC 2)
-would clobber that name via `ghostel-set-title-function'. Set
+would clobber that name via `ghostel-buffer-name-function'. Set
 buffer-locally and synchronously, before the async output filter that
 processes the title runs. (`my/ghostel-exec' deliberately does the
 opposite: it wants title-following.)"
     (when (buffer-live-p buffer)
       (with-current-buffer buffer
-        (setq-local ghostel-set-title-function nil)))
+        (setq-local ghostel-buffer-name-function nil)))
     buffer)
 
   (defun my/named-ghostel-for-current-project (name)
@@ -152,10 +154,9 @@ plain \\[shell-command] / \\[async-shell-command]."
            (buffer (ghostel t)))
       (with-current-buffer buffer
         (setq-local ghostel-kill-buffer-on-exit nil)
-        (setq-local ghostel-set-title-function
+        (setq-local ghostel-buffer-name-function
                     (lambda (title)
-                      (setq ghostel--managed-buffer-name nil)
-                      (rename-buffer (format "*%s: %s*" command-name title) t))))
+                      (and title (format "*%s: %s*" command-name title)))))
       buffer))
 
   (defun my/ghostel-exec-project (program &optional args directory)

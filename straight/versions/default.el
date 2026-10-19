@@ -43,7 +43,7 @@
  ("flycheck" . "65b93d8e9f406ce276824675101cd20d8e1f2960")
  ("flymake" . "095f694d0796997e20bad16a9eb089c21aef46ff")
  ("fountain-mode" . "74ddc5a783e8204beeda3343ea6725a3c198f4bc")
- ("ghostel" . "09aad9fefffce6370256a9888a1ed4f77535fcfd")
+ ("ghostel" . "b77eae6f58ed1fc9b36694807e84a4bb6dfbf9fd")
  ("gnu-elpa-mirror" . "10bab9839ebbca51626874dc597e880b90c7dbf2")
  ("gptel" . "2b02618b2eba819b996eca7f71bf4dd4b91eb532")
  ("groovy-emacs-modes" . "7b8520b2e2d3ab1d62b35c426e17ac25ed0120bb")
