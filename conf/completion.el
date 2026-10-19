@@ -26,9 +26,9 @@
   (corfu-count 14)
   (corfu-scroll-margin 4)
   (corfu-cycle nil)
-  (corfu-echo-documentation nil) ; Use corfu-popupinfo instead.
   (corfu-popupinfo-delay '(0.4 . 0.2))
-  (corfu-popupinfo-width 70)
+  (corfu-popupinfo-min-width 70)
+  (corfu-popupinfo-max-width 70)
   (corfu-popupinfo-max-height 20)
 
   ;; Configuration for orderless completion. See
@@ -37,7 +37,7 @@
   (corfu-separator ?\s)
   (corfu-quit-no-match t)
   (corfu-preview-current 'insert)
-  (corfu-preselect-first t)
+  (corfu-preselect 'first)
 
   :init
 
@@ -136,7 +136,7 @@
 
          ;; Other custom bindings
          ("M-y" . consult-yank-pop)
-         ("<help> a" . consult-apropos)
+         ("<help> a" . describe-symbol)
 
          ;; M-g bindings (goto-map)
          ("M-g e" . consult-compile-error)
@@ -156,7 +156,7 @@
          ("M-s r" . consult-ripgrep)
          ("M-s l" . consult-line)
          ("M-s L" . consult-line-multi)
-         ("M-s m" . consult-multi-occur)
+         ("M-s m" . consult-line-multi)
          ("M-s k" . consult-keep-lines)
          ("M-s u" . consult-focus-lines)
 
@@ -172,10 +172,6 @@
          :map minibuffer-local-map
          ("M-s" . consult-history)
          ("M-r" . consult-history))
-
-  ;; Enable automatic preview at point in the *Completions* buffer. This is
-  ;; relevant when you use the default completion UI.
-  :hook (completion-list-mode . consult-preview-at-point-mode)
 
   ;; The :init configuration is always executed (not lazy).
   :init
@@ -220,8 +216,8 @@
   (consult-customize
    consult-ripgrep consult-git-grep consult-grep
    consult-bookmark consult-recent-file consult-xref
-   consult--source-bookmark consult--source-recent-file
-   consult--source-project-recent-file
+   consult-source-bookmark consult-source-recent-file
+   consult-source-project-recent-file
    :preview-key (kbd "<"))
 
   (consult-customize

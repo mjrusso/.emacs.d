@@ -1,5 +1,12 @@
 ;; -*- lexical-binding: nil; -*-
 
+(use-package compat
+  :demand t
+  :config
+  ;; Compat skips its Emacs 31 layer on prerelease builds that still lack set-local.
+  (unless (fboundp 'set-local)
+    (require 'compat-31)))
+
 (use-package emacs
 
   :init

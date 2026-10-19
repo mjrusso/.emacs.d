@@ -38,8 +38,7 @@
   :bind (:map vertico-map
               ("RET" . vertico-directory-enter)
               ("DEL" . vertico-directory-delete-char)
-              ("M-DEL" . vertico-directory-delete-word))
-  :hook (rfn-eshadow-update-overlay . vertico-directory-tidy))
+              ("M-DEL" . vertico-directory-delete-word)))
 
 ;; https://github.com/minad/marginalia
 (use-package marginalia
@@ -73,6 +72,4 @@
 (use-package embark-consult
   :ensure t
   :after (embark consult)
-  :demand t
-  :hook
-  (embark-collect-mode . consult-preview-at-point-mode))
+  :demand t)

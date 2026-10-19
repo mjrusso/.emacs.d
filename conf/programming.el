@@ -182,11 +182,6 @@
   :bind
   (("C-c g" . magit-status))
 
-  :init
-  ;; Compat skips its Emacs 31 layer on prerelease builds that still lack set-local.
-  (unless (fboundp 'set-local)
-    (require 'compat-31))
-
   :config
 
   ;; Display magit buffers in the current window, rather than a new window.
