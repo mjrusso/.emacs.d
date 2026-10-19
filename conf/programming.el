@@ -7,13 +7,6 @@
 ;; Some major modes are configured to start Eglot automatically. In cases where
 ;; Eglot is not auto-enabled, run `M-x eglot' to start it manually.
 ;;
-;; Also note that `C-h .' is mapped to `eglot-help-at-point', but this does not
-;; display diagnostic errors at point (only the documentation, if available).
-;; It seems like this will be addressed in eldoc (see
-;; https://github.com/joaotavora/eglot/issues/454), but for now, to see
-;; diagnostic errors, either manually invoke `M-x display-local-help' or use
-;; flymake (`M-x consult-flymake' is particularly nice).
-
 (use-package eglot
 
   :custom
@@ -24,7 +17,7 @@
 
   ;; Ignore (i.e., disable) document highlight support. (Highlighting the
   ;; symbol under the cursor is distracting.)
-  (add-to-list 'eglot-ignored-server-capabilites :documentHighlightProvider)
+  (add-to-list 'eglot-ignored-server-capabilities :documentHighlightProvider)
 
   :init
 
@@ -46,18 +39,14 @@
   :init
   (setq flycheck-indication-mode 'left-margin)
   (setq flycheck-highlighting-mode 'sexp)
+  :config
+  (global-flycheck-eglot-mode 1)
   :hook (emacs-lisp-mode . flycheck-mode)
   :bind
   (:map flycheck-mode-map
         ("M-n" . flycheck-next-error)
         ("M-p" . flycheck-previous-error))
   )
-
-;; https://github.com/flycheck/flycheck-eglot
-(use-package flycheck-eglot
-  :defer t
-  :after (eglot flycheck)
-  :hook ((eglot-managed-mode . flycheck-eglot-mode)))
 
 ;; Enable a `consulting-read' interface for eglot (specifically, the
 ;; `workspace/symbols` LSP procedure call).
