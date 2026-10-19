@@ -184,13 +184,9 @@
   (("C-c g" . magit-status))
 
   :init
-  ;; Workaround for an Emacs 31.0.50 (pre-31.1) regression: the expansion of
-  ;; `define-globalized-minor-mode' no longer binds the mode variable before
-  ;; file-level init code runs, so `magit-autorevert.el''s init-kludge trips
-  ;; with (void-variable magit-auto-revert-mode) on first load. Pre-bind to
-  ;; the intended :init-value so the kludge can read it.
-  (defvar magit-auto-revert-mode
-    (not (or (bound-and-true-p global-auto-revert-mode) noninteractive)))
+  ;; Compat skips its Emacs 31 layer on prerelease builds that still lack set-local.
+  (unless (fboundp 'set-local)
+    (require 'compat-31))
 
   :config
 

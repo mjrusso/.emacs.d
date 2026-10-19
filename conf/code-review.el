@@ -97,7 +97,7 @@ Pass REQUIRE-MATCH to `read-buffer'."
 
 (defun my/magit-review-notes--hunk-line (section)
   "Return the new-side line at point within hunk SECTION.
-On the heading, honor `magit-diff-visit-jump-to-change'."
+On the heading, use the first changed line."
   (save-excursion
     (let ((target (line-beginning-position)))
       (goto-char (oref section start))
@@ -105,7 +105,7 @@ On the heading, honor `magit-diff-visit-jump-to-change'."
         (let ((prefix-width (1- (length (match-string 1))))
               (line (string-to-number (match-string 2))))
           (forward-line 1)
-          (when (and (< target (point)) magit-diff-visit-jump-to-change)
+          (when (< target (point))
             (save-excursion
               (when (re-search-forward
                      (format "^[-+ ]\\{0,%d\\}[-+]" (1- prefix-width))
@@ -157,17 +157,24 @@ resolves them to full hashes."
           (car trees)
         (car (last trees))))))
 
+(defun my/magit-hash-range (function range)
+  "Leave bookmark commit IDs unset for Git revision-set diffs."
+  (if (and (not (string-match-p magit-range-re range))
+           (my/magit-review-notes--range-tip range))
+      nil
+    (funcall function range)))
+
 (defun my/magit-review-notes--snapshot (file)
   "Return (KIND RANGE TARGET) for the diff at point, with FILE when present.
 KIND is `commit', `range', `index', or `worktree'.  RANGE preserves the
 original revision set.  TARGET is a commit, `staged' for the index, or
 nil for the working tree."
   (let ((commit (or magit-buffer-revision (magit-commit-at-point)))
-        (range magit-buffer-range)
+        (range magit-buffer-diff-range)
         tip)
     (cond
      (commit (list 'commit nil commit))
-     ((or (equal magit-buffer-typearg "--cached")
+     ((or (equal magit-buffer-diff-typearg "--cached")
           (eq (magit-diff-type) 'staged))
       '(index nil staged))
      ((and range (setq tip (my/magit-review-notes--range-tip range)))
@@ -345,6 +352,7 @@ the Org file; unsaved notes prompt for a destination."
           (message "Exported to %s" out))))))
 
 (with-eval-after-load 'magit
+  (advice-add 'magit-hash-range :around #'my/magit-hash-range)
   (define-key magit-mode-map (kbd "C-c a n") #'my/magit-review-notes-capture))
 
 (global-set-key (kbd "C-c a n") #'my/magit-review-notes-capture)

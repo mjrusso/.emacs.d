@@ -11,5 +11,5 @@
   (straight-use-package package))
 (require 'use-package)
 
-;; Emacs 31 requires this variable to be bound before Magit's init code runs.
-(defvar magit-auto-revert-mode nil)
+(unless (fboundp 'set-local)
+  (require 'compat-31))
