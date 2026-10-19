@@ -6,7 +6,7 @@
 ;;
 ;; Some major modes are configured to start Eglot automatically. In cases where
 ;; Eglot is not auto-enabled, run `M-x eglot' to start it manually.
-;;
+
 (use-package eglot
 
   :custom

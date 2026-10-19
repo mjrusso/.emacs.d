@@ -7,7 +7,7 @@
 (load (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory)
       nil 'nomessage)
 (straight-use-package '(org :type built-in))
-(dolist (package '(use-package magit orgit ox-gfm))
+(dolist (package '(use-package magit orgit ox-gfm ghostel))
   (straight-use-package package))
 (require 'use-package)
 

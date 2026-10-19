@@ -3,6 +3,9 @@ default:
 
 dev: test
 
+sync-packages:
+    emacs -Q --batch -l scripts/sync-packages.el
+
 test:
     emacs -Q --batch -l tests/bootstrap.el \
         --eval '(mapc (function load) (directory-files (expand-file-name "tests" user-emacs-directory) t "-tests\\.el$"))' \

@@ -20,6 +20,11 @@
 (use-package straight
   :custom (straight-use-package-by-default t))
 
+(load (expand-file-name "scripts/package-versions.el" user-emacs-directory) nil t)
+(add-hook 'emacs-startup-hook
+          (lambda ()
+            (run-with-idle-timer 3 nil #'my/warn-package-version-differences)))
+
 (defun my/load-all-conf-files (directory-name)
   (interactive)
   (mapc 'load (directory-files (concat user-emacs-directory directory-name) t "^[^#].*el$")))
