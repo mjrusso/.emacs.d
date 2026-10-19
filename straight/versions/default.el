@@ -46,7 +46,7 @@
  ("fountain-mode" . "74ddc5a783e8204beeda3343ea6725a3c198f4bc")
  ("ghostel" . "09aad9fefffce6370256a9888a1ed4f77535fcfd")
  ("gnu-elpa-mirror" . "10bab9839ebbca51626874dc597e880b90c7dbf2")
- ("gptel" . "61bac0aada02cb3d1b98fbec458e490bc0063a3f")
+ ("gptel" . "2b02618b2eba819b996eca7f71bf4dd4b91eb532")
  ("groovy-emacs-modes" . "7b8520b2e2d3ab1d62b35c426e17ac25ed0120bb")
  ("hcl-mode" . "1da895ed75d28d9f87cbf9b74f075d90ba31c0ed")
  ("heex-ts-mode" . "dafed72c254c226cdd28528ac70965ef8efa04ca")
