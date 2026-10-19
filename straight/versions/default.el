@@ -35,7 +35,7 @@
  ("emacs-request" . "c22e3c23a6dd90f64be536e176ea0ed6113a5ba6")
  ("emacsmirror-mirror" . "ae4a5fc3c81da9eaa4026134f68d2e1670791bb6")
  ("embark" . "27de48004242e98586b9c9661fdb6912f26fe70f")
- ("envrc" . "60f509153828c45a0e05e11a4d83b2b1798f0706")
+ ("envrc" . "1ecb82e01745d700578754eb35d6c1758290b869")
  ("exec-path-from-shell" . "4896a797252fbfdac32fb77508500ac7d220f717")
  ("external-completion" . "97533a017162bb0029255a28f216bf14b13196b7")
  ("exunit.el" . "ee06b14b61beaf59d847802b83b027ac991f3496")
