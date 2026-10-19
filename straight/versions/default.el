@@ -17,7 +17,7 @@
  ("corfu" . "c7626a699b55c53a389916ef1816c59e1b853b9b")
  ("dash.el" . "fcb5d831fc08a43f984242c7509870f30983c27c")
  ("deadgrep" . "bb555790c6f404572d537e1e4adec8b4ff0515f5")
- ("diff-hl" . "65a5de16e21c87b7c12a78a63fc3b57e07c03c86")
+ ("diff-hl" . "8dfb5c27ea43b8c7ac1c008bb97090ad4f059285")
  ("dockerfile-mode" . "4d893bd2da15833ce056332e6c972d5d93e78f04")
  ("dumb-jump" . "cd65a743370ac7b1a12e9ef0a7371b285a2597fb")
  ("ef-themes" . "826f305c9cbd86e45741b1f93f44e4b51671b857")
